@@ -2,7 +2,7 @@ const BLOG = {
   API_BASE_URL: process.env.API_BASE_URL || 'https://www.notion.so/api/v3',
   
   // 重要：あなたのNotion Page IDだけに絞ります（多言語の残骸を削除）
-  NOTION_PAGE_ID: process.env.NOTION_PAGE_ID || '2f937055728b43869931341c21060635', 
+  NOTION_PAGE_ID: process.env.NOTION_PAGE_ID || '2f9370558b2280389aefc7da882b7c66', 
 
   THEME: process.env.NEXT_PUBLIC_THEME || 'simple', 
   LANG: 'ja-JP', // 日本語固定
