@@ -6,7 +6,7 @@ const BLOG = {
 
   THEME: process.env.NEXT_PUBLIC_THEME || 'simple', 
   LANG: 'ja-JP', // 日本語固定
-  SINCE: 2026, 
+  SINCE: 2024, 
 
   PSEUDO_STATIC: false, 
   NEXT_REVALIDATE_SECOND: false, 
