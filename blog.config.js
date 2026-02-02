@@ -9,7 +9,7 @@ const BLOG = {
   SINCE: 2024, 
 
   PSEUDO_STATIC: false, 
-  NEXT_REVALIDATE_SECOND: false, 
+  NEXT_REVALIDATE_SECOND: 60, 
   APPEARANCE: 'light', 
 
   AUTHOR: 'mirai-ai-lab', 
