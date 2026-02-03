@@ -55,7 +55,18 @@ export async function getStaticProps(req) {
       post.blockMap = await getPostBlocks(post.id, 'slug', POST_PREVIEW_LINES)
     }
   }
-
+  
+// --- 追加：日付エラーを防ぐためのガード ---
+  if (props.posts) {
+    props.posts = props.posts.filter(post => {
+      const dateValue = post?.publishDate || post?.date?.start_date || post?.lastEditedTime
+      if (!dateValue) return false // 日付がない記事は除外
+      const d = new Date(dateValue)
+      return !isNaN(d.getTime()) // 不正な日付の記事は除外
+    })
+  }
+  // ------------------------------------
+  
   // 生成robotTxt
   generateRobotsTxt(props)
   // 生成Feed订阅
