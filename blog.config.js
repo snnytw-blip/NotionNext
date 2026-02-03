@@ -1,11 +1,10 @@
 const BLOG = {
   API_BASE_URL: process.env.API_BASE_URL || 'https://www.notion.so/api/v3',
   
-  // 重要：あなたのNotion Page IDだけに絞ります（多言語の残骸を削除）
   NOTION_PAGE_ID: process.env.NOTION_PAGE_ID || '2f9370558b2280389aefc7da882b7c66', 
 
-  THEME: process.env.NEXT_PUBLIC_THEME || 'simple', 
-  LANG: 'ja-JP', // 日本語固定
+  THEME: process.env.NEXT_PUBLIC_THEME || 'hexo', // 環境変数に合わせhexoを推奨
+  LANG: 'ja-JP', 
   SINCE: 2024, 
 
   PSEUDO_STATIC: false, 
@@ -13,14 +12,14 @@ const BLOG = {
   APPEARANCE: 'light', 
 
   AUTHOR: 'mirai-ai-lab', 
-  BIO: 'つくばみらい市の特別支援教育ガイド', // 中国語を排除
+  BIO: 'つくばみらい市の特別支援教育ガイド', 
   LINK: 'https://mirai-ai-lab.pages.dev', 
   KEYWORDS: 'つくばみらい市, 特別支援学級, 教育', 
   BLOG_FAVICON: '/favicon.ico', 
 
-  ENABLE_RSS: true, 
+  // ★ここを false に変更（エラー回避の核心）
+  ENABLE_RSS: false, 
 
-  // 外部設定の読み込み
   ...require('./conf/comment.config'),
   ...require('./conf/contact.config'),
   ...require('./conf/post.config'),
