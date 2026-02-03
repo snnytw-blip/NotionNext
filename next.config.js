@@ -81,6 +81,7 @@ function scanSubdirectories(directory) {
  */
 
 const nextConfig = {
+  output: 'export', // ←これを追記（既存の項目の間でもOK）
   eslint: {
     ignoreDuringBuilds: true
   },
