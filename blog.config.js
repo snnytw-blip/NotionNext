@@ -10,7 +10,7 @@ const BLOG = {
 
   PSEUDO_STATIC: false, 
   // 【重要】ここを 0 または null に設定することで ISR エラーを回避します
-  NEXT_REVALIDATE_SECOND: null, 
+  NEXT_REVALIDATE_SECOND: 0, 
   
   APPEARANCE: 'light', 
 
