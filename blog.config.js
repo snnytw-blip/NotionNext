@@ -1,14 +1,16 @@
 const BLOG = {
   API_BASE_URL: process.env.API_BASE_URL || 'https://www.notion.so/api/v3',
-  REVALIDATE_IDLE: 0, // ISRを無効化
+  REVALIDATE_IDLE: 0, 
   NOTION_PAGE_ID: process.env.NOTION_PAGE_ID || '2f9370558b2280389aefc7da882b7c66', 
 
-  THEME: process.env.NEXT_PUBLIC_THEME || 'hexo', // 環境変数に合わせhexoを推奨
+  THEME: process.env.NEXT_PUBLIC_THEME || 'hexo', 
   LANG: 'ja-JP', 
   SINCE: 2024, 
 
   PSEUDO_STATIC: false, 
-  NEXT_REVALIDATE_SECOND: 60, 
+  // 【重要】ここを 0 または null に設定することで ISR エラーを回避します
+  NEXT_REVALIDATE_SECOND: 0, 
+  
   APPEARANCE: 'light', 
 
   AUTHOR: 'mirai-ai-lab', 
@@ -17,7 +19,7 @@ const BLOG = {
   KEYWORDS: 'つくばみらい市, 特別支援学級, 教育', 
   BLOG_FAVICON: '/favicon.ico', 
 
-  // ★ここを false に変更（エラー回避の核心）
+  // RSSは静的出力でも動作可能ですが、一旦ビルドを通すために false のままでOKです
   ENABLE_RSS: false, 
 
   ...require('./conf/comment.config'),
