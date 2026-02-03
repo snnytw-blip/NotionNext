@@ -7,7 +7,8 @@ const BLOG = {
 
   THEME: process.env.NEXT_PUBLIC_THEME || 'hexo', 
   LANG: 'ja-JP', 
-  SINCE: 2024, 
+  SINCE: 2026, 
+
 
   PSEUDO_STATIC: false, 
   // 【重要】ここを 0 または null に設定することで ISR エラーを回避します
@@ -15,11 +16,11 @@ const BLOG = {
   
   APPEARANCE: 'light', 
 
-  AUTHOR: 'mirai-ai-lab', 
-  BIO: 'つくばみらい市の特別支援教育ガイド', 
+　AUTHOR: 'Mirai AI Lab', // そのままでもOKですが、'Mirai AI Lab' と大文字にするとより公式感が出ます
+  BIO: 'つくばみらい市から、AIの今と未来を思考する。', // 特定の職業を伏せ、知的な「観測者」として定義
   LINK: 'https://mirai-ai-lab.pages.dev', 
-  KEYWORDS: 'つくばみらい市, 特別支援学級, 教育', 
-  BLOG_FAVICON: '/favicon.ico', 
+  KEYWORDS: 'AI, 生成AI, つくばみらい市, 技術, デジタル', // 教育関連を外し、現在のコンテンツに最適化
+  BLOG_FAVICON: '/favicon.ico',
 
   // blog.config.js 内を探してください
 　ENABLE_RSS: process.env.NEXT_PUBLIC_ENABLE_RSS || false, // ここを false に書き換え
@@ -41,12 +42,25 @@ const BLOG = {
   ...require('./conf/notion.config'),
   ...require('./conf/dev.config'),
 
+// --- ここから追加：Meiryo最優先・強制上書き ---
+  FONT_STYLE: 'font-sans', 
+  FONT_SANS: [
+    'Meiryo', 'メイリオ', 'Inter', 'system-ui', '-apple-system', 
+    'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Noto Sans JP', 'sans-serif'
+  ],
+  CUSTOM_EXTERNAL_CSS: [
+    'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap',
+    // bodyとnotion全体にMeiryoを強制。!importantで「きもい明朝」を完全に粉砕します。
+    'body { font-family: "Meiryo", "メイリオ", "Noto Sans JP", sans-serif !important; }',
+    '.notion { font-family: "Meiryo", "メイリオ", "Noto Sans JP", sans-serif !important; }'
+  ],
+  // ------------------------------------------
+  
   CUSTOM_EXTERNAL_JS: [''],
-  CUSTOM_EXTERNAL_CSS: [''],
   CUSTOM_MENU: true, 
   CAN_COPY: true, 
   LAYOUT_SIDEBAR_REVERSE: false,
-  GREETING_WORDS: 'つくばみらい市特別支援学級 Guideへようこそ',
+  GREETING_WORDS: 'つくばみらい市から発信する、技術と暮らしの思考ログ。日々の「微かな違和感」を論理の視点から解き明かす。',
   UUID_REDIRECT: false
 }
 
