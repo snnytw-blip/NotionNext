@@ -26,6 +26,24 @@ export async function getStaticProps(req) {
   const { locale } = req
   const from = 'index'
   const props = await getGlobalData({ from, locale })
+  const props = await getGlobalData({ from, locale })
+
+  // --- 強化版ガード：全データから不正な日付を完全に除去する ---
+  const filterInvalidDate = (post) => {
+    const dateValue = post?.publishDate || post?.date?.start_date || post?.lastEditedTime
+    if (!dateValue) return false
+    const d = new Date(dateValue)
+    return !isNaN(d.getTime())
+  }
+
+  if (props.allPages) {
+    props.allPages = props.allPages.filter(filterInvalidDate)
+  }
+  // ------------------------------------------------------
+
+  const POST_PREVIEW_LINES = siteConfig(
+    'POST_PREVIEW_LINES',
+// ...以下、既存のコード
   const POST_PREVIEW_LINES = siteConfig(
     'POST_PREVIEW_LINES',
     12,
