@@ -16,27 +16,41 @@ const Index = props => {
 export async function getStaticProps(req) {
   const { locale } = req
   const from = 'index'
-  const props = await getGlobalData({ from, locale })
+  
+  // 1. データの取得
+  const rawProps = await getGlobalData({ from, locale })
 
-  // --- 強化版ガード：全データ構造から不正な日付を完全に除去する ---
-  const isValidDate = (dateValue) => {
-    if (!dateValue) return false
-    const d = new Date(dateValue)
-    return !isNaN(d.getTime())
+  // 2. 最終兵器：全データ構造を再帰的に走査して不正な日付を抹殺する関数
+  const deepCleanProps = (obj) => {
+    if (obj === null || typeof obj !== 'object') return obj
+    
+    // 配列の場合：中身を洗浄し、記事オブジェクトであれば日付チェック
+    if (Array.isArray(obj)) {
+      return obj
+        .map(v => deepCleanProps(v))
+        .filter(v => {
+          if (v && typeof v === 'object' && (v.publishDate || v.date)) {
+            const dateValue = v.publishDate || v.date?.start_date || v.lastEditedTime
+            const d = new Date(dateValue)
+            return !isNaN(d.getTime())
+          }
+          return true
+        })
+    }
+
+    // オブジェクトの場合：プロパティを再帰的にチェック
+    const newObj = {}
+    for (const [key, value] of Object.entries(obj)) {
+      if (value instanceof Date && isNaN(value.getTime())) continue
+      newObj[key] = deepCleanProps(value)
+    }
+    return newObj
   }
 
-  // props内の全記事リスト（allPages含む）をループで一括浄化
-  const keysToClean = ['allPages', 'posts', 'latestPosts', 'featuredPosts']
-  keysToClean.forEach(key => {
-    if (props[key] && Array.isArray(props[key])) {
-      props[key] = props[key].filter(post => {
-        const dateValue = post?.publishDate || post?.date?.start_date || post?.lastEditedTime
-        return isValidDate(dateValue)
-      })
-    }
-  })
-  // ------------------------------------------------------
+  // 3. データの浄化実行
+  const props = deepCleanProps(rawProps)
 
+  // 4. 以降の処理（洗浄済みの props を使用）
   const POST_PREVIEW_LINES = siteConfig(
     'POST_PREVIEW_LINES',
     12,
@@ -48,9 +62,9 @@ export async function getStaticProps(req) {
     page => page.type === 'Post' && page.status === 'Published'
   )
 
-  // 处理分页
+  // ページング処理
   if (siteConfig('POST_LIST_STYLE') === 'scroll') {
-    // 滚动列表默认给前端返回所有数据
+    // スクロール時はそのまま
   } else if (siteConfig('POST_LIST_STYLE') === 'page') {
     props.posts = props.posts?.slice(
       0,
@@ -58,28 +72,22 @@ export async function getStaticProps(req) {
     )
   }
 
-  // 预览文章内容
+  // プレビュー表示設定
   if (siteConfig('POST_LIST_PREVIEW', false, props?.NOTION_CONFIG)) {
     for (const i in props.posts) {
       const post = props.posts[i]
-      if (post.password && post.password !== '') {
-        continue
-      }
+      if (post.password && post.password !== '') continue
       post.blockMap = await getPostBlocks(post.id, 'slug', POST_PREVIEW_LINES)
     }
   }
 
-  // 生成robotTxt
+  // 各種XML/Txt生成
   generateRobotsTxt(props)
-  // 生成Feed订阅
   generateRss(props)
-  // 生成
   generateSitemapXml(props)
   
-  // 检查数据是否需要从algolia删除
   checkDataFromAlgolia(props)
   if (siteConfig('UUID_REDIRECT', false, props?.NOTION_CONFIG)) {
-    // 生成重定向 JSON
     generateRedirectJson(props)
   }
 
