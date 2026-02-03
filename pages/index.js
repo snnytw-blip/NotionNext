@@ -20,48 +20,45 @@ export async function getStaticProps(req) {
   // 1. データの取得
   const rawData = await getGlobalData({ from, locale })
 
-  // 2. 超強力・全方位日付検閲（Mode 12: 自律アドイン）
+  // 2. 浄化ロジック (サーバーサイドに隔離)
   const sanitizeAnything = (obj) => {
-    // JSONシリアライズで一度「生きたDateオブジェクト」を殺し、文字列にする
-    // これにより .toISOString() の再発火を防ぐ
-    const stringified = JSON.stringify(obj, (key, value) => {
-      // 日付プロパティを見つけたら即座にチェック
-      if (key === 'date' || key === 'publishDate' || key === 'lastEditedTime' || key === 'start_date') {
+    return JSON.parse(JSON.stringify(obj, (key, value) => {
+      const dateKeys = ['date', 'publishDate', 'lastEditedTime', 'start_date']
+      if (dateKeys.includes(key)) {
         if (!value) return undefined
         const d = new Date(value)
-        if (isNaN(d.getTime())) return undefined // 不正なら消去
-        return d.toISOString() // 正常なら文字列として固定
+        return isNaN(d.getTime()) ? undefined : d.toISOString()
       }
       return value
-    })
-    return JSON.parse(stringified)
+    }))
   }
 
-  // 3. 浄化実行
   const props = sanitizeAnything(rawData)
 
-  // 4. 以降、クリーンな props で処理を継続
+  // 3. 投稿データの抽出
   const POST_PREVIEW_LINES = siteConfig('POST_PREVIEW_LINES', 12, props?.NOTION_CONFIG)
+  props.posts = props.allPages?.filter(p => p.type === 'Post' && p.status === 'Published') || []
 
-  props.posts = props.allPages?.filter(
-    page => page.type === 'Post' && page.status === 'Published'
-  ) || []
-
-  // ページング・プレビュー処理...（中略）
-  
-  // 5. 生成系に渡す直前で再度念押し
-  generateRobotsTxt(props)
-  // RSS生成でエラーが出るならここをコメントアウトする勇気も必要
-  try {
-    generateRss(props)
-  } catch (e) {
-    console.error('RSS生成をスキップしました', e)
+  if (siteConfig('POST_LIST_STYLE') === 'page') {
+    props.posts = props.posts.slice(0, siteConfig('POSTS_PER_PAGE', 12, props?.NOTION_CONFIG))
   }
-  generateSitemapXml(props)
+
+  if (siteConfig('POST_LIST_PREVIEW', false, props?.NOTION_CONFIG)) {
+    for (const post of props.posts) {
+      if (post.password) continue
+      post.blockMap = await getPostBlocks(post.id, 'slug', POST_PREVIEW_LINES)
+    }
+  }
+
+  // 4. 静的ファイル生成（失敗してもビルドを止めない）
+  const tryGenerate = (fn) => { try { fn(props) } catch (e) { console.error(e) } }
+  tryGenerate(generateRobotsTxt)
+  tryGenerate(generateRss)
+  tryGenerate(generateSitemapXml)
   
   checkDataFromAlgolia(props)
   if (siteConfig('UUID_REDIRECT', false, props?.NOTION_CONFIG)) {
-    generateRedirectJson(props)
+    tryGenerate(generateRedirectJson)
   }
 
   delete props.allPages
