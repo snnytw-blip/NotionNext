@@ -26,7 +26,6 @@ export async function getStaticProps(req) {
   const { locale } = req
   const from = 'index'
   const props = await getGlobalData({ from, locale })
-  const props = await getGlobalData({ from, locale })
 
   // --- 強化版ガード：全データから不正な日付を完全に除去する ---
   const filterInvalidDate = (post) => {
