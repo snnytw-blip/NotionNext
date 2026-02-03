@@ -4,6 +4,7 @@ const BLOG = {
   REVALIDATE_SECOND: 0,
   NOTION_PAGE_ID: process.env.NOTION_PAGE_ID || '2f9370558b2280389aefc7da882b7c66', 
 
+
   THEME: process.env.NEXT_PUBLIC_THEME || 'hexo', 
   LANG: 'ja-JP', 
   SINCE: 2024, 
@@ -20,8 +21,8 @@ const BLOG = {
   KEYWORDS: 'つくばみらい市, 特別支援学級, 教育', 
   BLOG_FAVICON: '/favicon.ico', 
 
-  // RSSは静的出力でも動作可能ですが、一旦ビルドを通すために false のままでOKです
-  ENABLE_RSS: false, 
+  // blog.config.js 内を探してください
+　ENABLE_RSS: process.env.NEXT_PUBLIC_ENABLE_RSS || false, // ここを false に書き換え
 
   ...require('./conf/comment.config'),
   ...require('./conf/contact.config'),
