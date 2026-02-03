@@ -8,36 +8,33 @@ import { DynamicLayout } from '@/themes/theme'
 import { generateRedirectJson } from '@/lib/redirect'
 import { checkDataFromAlgolia } from '@/lib/plugins/algolia'
 
-/**
- * 首页布局
- * @param {*} props
- * @returns
- */
 const Index = props => {
   const theme = siteConfig('THEME', BLOG.THEME, props.NOTION_CONFIG)
   return <DynamicLayout theme={theme} layoutName='LayoutIndex' {...props} />
 }
 
-/**
- * SSG 获取数据
- * @returns
- */
 export async function getStaticProps(req) {
   const { locale } = req
   const from = 'index'
   const props = await getGlobalData({ from, locale })
 
-  // --- 強化版ガード：全データから不正な日付を完全に除去する ---
-  const filterInvalidDate = (post) => {
-    const dateValue = post?.publishDate || post?.date?.start_date || post?.lastEditedTime
+  // --- 強化版ガード：全データ構造から不正な日付を完全に除去する ---
+  const isValidDate = (dateValue) => {
     if (!dateValue) return false
     const d = new Date(dateValue)
     return !isNaN(d.getTime())
   }
 
-  if (props.allPages) {
-    props.allPages = props.allPages.filter(filterInvalidDate)
-  }
+  // props内の全記事リスト（allPages含む）をループで一括浄化
+  const keysToClean = ['allPages', 'posts', 'latestPosts', 'featuredPosts']
+  keysToClean.forEach(key => {
+    if (props[key] && Array.isArray(props[key])) {
+      props[key] = props[key].filter(post => {
+        const dateValue = post?.publishDate || post?.date?.start_date || post?.lastEditedTime
+        return isValidDate(dateValue)
+      })
+    }
+  })
   // ------------------------------------------------------
 
   const POST_PREVIEW_LINES = siteConfig(
@@ -46,6 +43,7 @@ export async function getStaticProps(req) {
     props?.NOTION_CONFIG
   )
 
+  // 洗浄済みの allPages から投稿を取得
   props.posts = props.allPages?.filter(
     page => page.type === 'Post' && page.status === 'Published'
   )
