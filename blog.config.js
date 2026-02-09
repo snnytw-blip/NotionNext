@@ -16,14 +16,14 @@ const BLOG = {
   
   APPEARANCE: 'light', 
 
-　AUTHOR: 'Mirai AI Lab', // そのままでもOKですが、'Mirai AI Lab' と大文字にするとより公式感が出ます
+  AUTHOR: 'Mirai AI Lab', // そのままでもOKですが、'Mirai AI Lab' と大文字にするとより公式感が出ます
   BIO: 'つくばみらい市から、AIの今と未来を思考する。', // 特定の職業を伏せ、知的な「観測者」として定義
   LINK: 'https://mirai-ai-lab.pages.dev', 
   KEYWORDS: 'AI, 生成AI, つくばみらい市, 技術, デジタル', // 教育関連を外し、現在のコンテンツに最適化
   BLOG_FAVICON: '/favicon.ico',
 
   // blog.config.js 内を探してください
-　ENABLE_RSS: process.env.NEXT_PUBLIC_ENABLE_RSS || false, // ここを false に書き換え
+  ENABLE_RSS: process.env.NEXT_PUBLIC_ENABLE_RSS || false, // ここを false に書き換え
 
   ...require('./conf/comment.config'),
   ...require('./conf/contact.config'),
