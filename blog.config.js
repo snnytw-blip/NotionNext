@@ -6,7 +6,8 @@ const BLOG = {
   THEME: process.env.NEXT_PUBLIC_THEME || 'hexo', 
   LANG: 'ja-JP', 
   SINCE: 2026, 
-
+  // blog.config.js 内
+  NOTION_PAGE_ID: process.env.NOTION_PAGE_ID || '',
 
   PSEUDO_STATIC: false, 
   // 【重要】ここを 0 または null に設定することで ISR エラーを回避します
