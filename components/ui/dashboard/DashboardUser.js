@@ -1,4 +1,4 @@
-import { UserProfile } from '@clerk/nextjs'
+const UserProfile = () => null; // import { UserProfile } from '@clerk/nextjs'
 /**
  * 控制台用户账号面板
  * @returns

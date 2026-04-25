@@ -7,7 +7,7 @@ import SmartLink from '@/components/SmartLink'
 import TagItemMini from './TagItemMini'
 
 /**
- * 文章详情页的Hero块
+ * 記事詳細ページのHeroセクション
  */
 export default function PostHero({ post, siteInfo }) {
   const { locale, fullWidth } = useGlobal()
@@ -16,7 +16,7 @@ export default function PostHero({ post, siteInfo }) {
     return <></>
   }
 
-  // 文章全屏隐藏标头
+  // 記事全画面表示時はヘッダーを非表示にする
   if (fullWidth) {
     return <div className='my-8' />
   }
@@ -50,7 +50,7 @@ export default function PostHero({ post, siteInfo }) {
             )}
           </div>
 
-          {/* 文章Title */}
+          {/* 記事タイトル */}
           <div className='leading-snug font-bold xs:text-4xl sm:text-4xl md:text-5xl md:leading-snug text-4xl shadow-text-md flex justify-center text-center text-white'>
             {siteConfig('POST_TITLE_ICON') && (
               <NotionIcon icon={post.pageIcon} className='text-4xl mx-1' />

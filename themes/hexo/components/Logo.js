@@ -1,8 +1,8 @@
 import { siteConfig } from '@/lib/config'
 import SmartLink from '@/components/SmartLink'
 /**
- * Logo
- * 实际值支持文字
+ * ロゴ
+ * テキスト表示をサポート
  * @param {*} props
  * @returns
  */

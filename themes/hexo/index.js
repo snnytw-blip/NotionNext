@@ -39,12 +39,12 @@ const AlgoliaSearchModal = dynamic(
   { ssr: false }
 )
 
-// 主题全局状态
+// テーマのグローバル状態
 const ThemeGlobalHexo = createContext()
 export const useHexoGlobal = () => useContext(ThemeGlobalHexo)
 
 /**
- * 基础布局 采用左右两侧布局，移动端使用顶部导航栏
+ * 基本レイアウト：左右の2カラムレイアウトを採用、モバイルでは上部ナビゲーションバーを使用
  * @param props
  * @returns {JSX.Element}
  * @constructor
@@ -65,7 +65,7 @@ const LayoutBase = props => {
   const drawerRight = useRef(null)
   const tocRef = isBrowser ? document.getElementById('article-wrapper') : null
 
-  // 悬浮按钮内容
+  // フローティングボタンの内容
   const floatSlot = (
     <>
       {post?.toc?.length > 1 && (
@@ -82,7 +82,7 @@ const LayoutBase = props => {
     </>
   )
 
-  // Algolia搜索框
+  // Algolia検索ボックス
   const searchModal = useRef(null)
 
   return (
@@ -92,10 +92,10 @@ const LayoutBase = props => {
         className={`${siteConfig('FONT_STYLE')} dark:bg-black scroll-smooth`}>
         <Style />
 
-        {/* 顶部导航 */}
+        {/* 上部ナビゲーション */}
         <Header {...props} />
 
-        {/* 顶部嵌入 */}
+        {/* 上部埋め込みエリア */}
         <Transition
           show={!onLoading}
           appear={true}
@@ -109,7 +109,7 @@ const LayoutBase = props => {
           {headerSlot}
         </Transition>
 
-        {/* 主区块 */}
+        {/* メインセクション */}
         <main
           id='wrapper'
           className={`${siteConfig('HEXO_HOME_BANNER_ENABLE', null, CONFIG) ? '' : 'pt-16'} bg-hexo-background-gray dark:bg-black w-full py-8 md:px-8 lg:px-24 min-h-screen relative`}>
@@ -133,14 +133,14 @@ const LayoutBase = props => {
                 leaveFrom='opacity-100 translate-y-0'
                 leaveTo='opacity-0 -translate-y-16'
                 unmount={false}>
-                {/* 主区上部嵌入 */}
+                {/* メインエリア上部埋め込み */}
                 {slotTop}
 
                 {children}
               </Transition>
             </div>
 
-            {/* 右侧栏 */}
+            {/* 右側サイドバー */}
             <SideRight {...props} />
           </div>
         </main>
@@ -149,13 +149,13 @@ const LayoutBase = props => {
           <TocDrawer post={post} cRef={drawerRight} targetRef={tocRef} />
         </div>
 
-        {/* 悬浮菜单 */}
+        {/* フローティングメニュー */}
         <RightFloatArea floatSlot={floatSlot} />
 
-        {/* 全文搜索 */}
+        {/* 全文検索 */}
         <AlgoliaSearchModal cRef={searchModal} {...props} />
 
-        {/* 页脚 */}
+        {/* フッター */}
         <Footer title={siteConfig('TITLE')} />
       </div>
     </ThemeGlobalHexo.Provider>
@@ -163,8 +163,8 @@ const LayoutBase = props => {
 }
 
 /**
- * 首页
- * 是一个博客列表，嵌入一个Hero大图
+ * ホームページ
+ * ブログリストとヒーロー画像を埋め込み
  * @param {*} props
  * @returns
  */
@@ -173,7 +173,7 @@ const LayoutIndex = props => {
 }
 
 /**
- * 博客列表
+ * ブログリスト
  * @param {*} props
  * @returns
  */
@@ -191,7 +191,7 @@ const LayoutPostList = props => {
 }
 
 /**
- * 搜索
+ * 検索
  * @param {*} props
  * @returns
  */
@@ -232,7 +232,7 @@ const LayoutSearch = props => {
 }
 
 /**
- * 归档
+ * アーカイブ
  * @param {*} props
  * @returns
  */
@@ -256,7 +256,7 @@ const LayoutArchive = props => {
 }
 
 /**
- * 文章详情
+ * 記事詳細
  * @param {*} props
  * @returns
  */
@@ -273,7 +273,7 @@ const LayoutSlug = props => {
             const article = document.querySelector('#article-wrapper #notion-article')
             if (!article) {
               router.push('/404').then(() => {
-                console.warn('找不到页面', router.asPath)
+                console.warn('ページが見つかりません', router.asPath)
               })
             }
           }
@@ -294,12 +294,12 @@ const LayoutSlug = props => {
               itemScope
               itemType='https://schema.org/Movie'
               className='subpixel-antialiased overflow-y-hidden'>
-              {/* Notion文章主体 */}
+              {/* Notion記事本文 */}
               <section className='px-5 justify-center mx-auto max-w-2xl lg:max-w-full'>
                 {post && <NotionPage post={post} />}
               </section>
 
-              {/* 分享 */}
+              {/* シェアボタン */}
               <ShareBar post={post} />
               {post?.type === 'Post' && (
                 <>
@@ -312,7 +312,7 @@ const LayoutSlug = props => {
 
             <div className='pt-4 border-dashed'></div>
 
-            {/* 评论互动 */}
+            {/* コメント欄 */}
             <div className='duration-200 overflow-x-auto bg-white dark:bg-hexo-black-gray px-3'>
               <Comment frontMatter={post} />
             </div>
@@ -324,7 +324,7 @@ const LayoutSlug = props => {
 }
 
 /**
- * 404
+ * 404 ページ
  * @param {*} props
  * @returns
  */
@@ -332,13 +332,13 @@ const Layout404 = props => {
   const router = useRouter()
   const { locale } = useGlobal()
   useEffect(() => {
-    // 延时3秒如果加载失败就返回首页
+    // 3秒後に読み込み失敗した場合はホームに戻る
     setTimeout(() => {
       if (isBrowser) {
         const article = document.querySelector('#article-wrapper #notion-article')
         if (!article) {
           router.push('/').then(() => {
-            // console.log('找不到页面', router.asPath)
+            // console.log('ページが見つかりません', router.asPath)
           })
         }
       }
@@ -361,7 +361,7 @@ const Layout404 = props => {
 }
 
 /**
- * 分类列表
+ * カテゴリリスト
  * @param {*} props
  * @returns
  */
@@ -399,7 +399,7 @@ const LayoutCategoryIndex = props => {
 }
 
 /**
- * 标签列表
+ * タグリスト
  * @param {*} props
  * @returns
  */

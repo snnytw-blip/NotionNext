@@ -27,7 +27,7 @@ const FaceBookPage = dynamic(
 )
 
 /**
- * Hexo主题右侧栏
+ * Hexoテーマ右サイドバー
  * @param {*} props
  * @returns
  */
@@ -48,7 +48,7 @@ export default function SideRight(props) {
 
   const { locale } = useGlobal()
 
-  // 文章全屏处理
+  // 記事全画面表示時の処理
   if (post && post?.fullWidth) {
     return null
   }

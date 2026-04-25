@@ -18,7 +18,7 @@ import TagGroups from './TagGroups'
 let windowTop = 0
 
 /**
- * 顶部导航
+ * 上部ナビゲーション
  * @param {*} param0
  * @returns
  */
@@ -39,7 +39,7 @@ const Header = props => {
     changeShow(false)
   }
 
-  // 监听滚动
+  // スクロールを監視
   useEffect(() => {
     window.addEventListener('scroll', topNavStyleHandler)
     router.events.on('routeChangeComplete', topNavStyleHandler)
@@ -56,11 +56,11 @@ const Header = props => {
     throttle(() => {
       const scrollS = window.scrollY
       const nav = document.querySelector('#sticky-nav')
-      // 首页和文章页会有头图
+      // ホームと記事ページにはヘッダー画像がある
       const header = document.querySelector('#header')
-      // 导航栏和头图是否重叠
+      // ナビゲーションバーとヘッダー画像が重なっているか
       const scrollInHeader =
-        header && (scrollS < 10 || scrollS < header?.clientHeight - 50) // 透明导航条的条件
+        header && (scrollS < 10 || scrollS < header?.clientHeight - 50) // 透明ナビゲーションバーの条件
 
       // const textWhite = header && scrollInHeader
 
@@ -82,7 +82,7 @@ const Header = props => {
         nav && nav.classList.replace('text-white', 'text-black')
       }
 
-      // 导航栏不在头图里，且页面向下滚动一定程度 隐藏导航栏
+      // ナビゲーションバーがヘッダー画像内にない、かつページが一定以上下にスクロールされた場合はナビゲーションバーを隠す
       const showNav =
         scrollS <= windowTop ||
         scrollS < 5 ||
@@ -146,7 +146,7 @@ const Header = props => {
     <div id='top-nav' className='z-40'>
       <SearchDrawer cRef={searchDrawer} slot={searchDrawerSlot} />
 
-      {/* 导航栏 */}
+      {/* ナビゲーションバー */}
       <div
         id='sticky-nav'
         style={{ backdropFilter: 'blur(3px)' }}
@@ -158,7 +158,7 @@ const Header = props => {
             <Logo {...props} />
           </div>
 
-          {/* 右侧功能 */}
+          {/* 右側の機能 */}
           <div className='mr-1 flex justify-end items-center '>
             <div className='hidden lg:flex'>
               {' '}
@@ -179,7 +179,7 @@ const Header = props => {
         </div>
       </div>
 
-      {/* 折叠侧边栏 */}
+      {/* 折りたたみサイドバー */}
       <SideBarDrawer isOpen={isOpen} onClose={toggleSideBarClose}>
         <SideBar {...props} />
       </SideBarDrawer>
