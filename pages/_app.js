@@ -3,6 +3,11 @@ import '@/styles/globals.css'
 import '@/styles/utility-patterns.css'
 
 // core styles shared by all of react-notion-x (required)
+// import '@/styles/animate.css' // @see https://animate.style/
+import '@/styles/globals.css'
+import '@/styles/utility-patterns.css'
+
+// core styles shared by all of react-notion-x (required)
 import '@/styles/notion.css' //  重写部分notion样式
 import 'react-notion-x/src/styles.css' // 原版的react-notion-x
 
@@ -12,7 +17,6 @@ import { getBaseLayoutByTheme } from '@/themes/theme'
 import { useRouter } from 'next/router'
 import { useCallback, useMemo } from 'react'
 import { getQueryParam } from '../lib/utils'
-import { ErrorBoundary } from '@/components/ErrorBoundary'
 
 // 各种扩展插件 这个要阻塞引入
 import BLOG from '@/blog.config'
@@ -56,9 +60,9 @@ const MyApp = ({ Component, pageProps }) => {
     </GlobalContextProvider>
   )
   return (
-    <ErrorBoundary>
+    <>
       {content}
-    </ErrorBoundary>
+    </>
   )
 }
 
