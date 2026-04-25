@@ -480,7 +480,7 @@ const LayoutTagIndex = props => {
  * @returns
  */
 const LayoutSignIn = props => {
-  const enableClerk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  const enableClerk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY?.startsWith('pk_')
   const title = siteConfig('STARTER_SIGNIN', '登录')
   const description = siteConfig(
     'STARTER_SIGNIN_DESCRITION',
@@ -510,7 +510,7 @@ const LayoutSignIn = props => {
  * @returns
  */
 const LayoutSignUp = props => {
-  const enableClerk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  const enableClerk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY?.startsWith('pk_')
 
   const title = siteConfig('STARTER_SIGNIN', '注册')
   const description = siteConfig(
