@@ -60,7 +60,7 @@ export default function Header(props) {
     links = customMenu
   }
 
-  const enableClerk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  const enableClerk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY?.startsWith('pk_')
 
   return (
     <div id='top-nav' className={'fixed top-0 w-full z-20 ' + className}>

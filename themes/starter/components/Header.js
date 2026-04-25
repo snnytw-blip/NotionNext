@@ -21,7 +21,7 @@ export const Header = props => {
     router.route === '/' ? 'text-white' : ''
   )
 
-  const enableClerk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  const enableClerk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY?.startsWith('pk_')
 
   useEffect(() => {
     if (isDarkMode || router.route === '/') {
