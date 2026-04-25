@@ -298,3 +298,8 @@ img {
   @keyframes l1 {
   0% {background-position: right}
 }
+
+/* Meiryo Font Override */
+body, .notion {
+  font-family: "Meiryo", "メイリオ", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}

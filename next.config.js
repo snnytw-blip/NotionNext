@@ -110,11 +110,7 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
   },
 
-  // 静的書き出し時は redirects / rewrites / headers は機能しないため、
-  // プロセス環境変数が EXPORT の場合は除外する設定を維持
-  redirects: undefined,
-  rewrites: undefined,
-  headers: undefined,
+  // 静的書き出し時は redirects / rewrites / headers は機能しないため削除
 
   webpack: (config, { dev, isServer }) => {
     config.resolve.alias['@'] = path.resolve(__dirname)
@@ -166,19 +162,9 @@ const nextConfig = {
     optimizePackageImports: ['@heroicons/react', 'lodash']
   },
 
-  exportPathMap: async function (
-    defaultPathMap,
-    { dev, dir, outDir, distDir, buildId }
-  ) {
-    const pages = { ...defaultPathMap }
-    delete pages['/sitemap.xml']
-    delete pages['/auth']
-    return pages
-  },
+  // exportPathMap は output: 'export' では不要
 
-  publicRuntimeConfig: {
-    THEMES: themes
-  },
+  // publicRuntimeConfig は output: 'export' と非互換のため削除
 
   trailingSlash: true
 }
