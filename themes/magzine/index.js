@@ -75,7 +75,7 @@ const LayoutBase = props => {
             <div
               id='main'
               role='main'
-              className='flex-grow' // 这个类保证 main 区域填满剩余的空白
+              className='flex-grow' // このクラスは、main 領域が残りの余白を埋めることを保証します
             >
               {children}
             </div>
@@ -133,7 +133,7 @@ const LayoutIndex = props => {
  * @returns
  */
 const LayoutPostList = props => {
-  // 当前筛选的分类或标签
+  // 現在フィルタリングされているカテゴリまたはタグ
   const { category, tag, NOTION_CONFIG } = props
 
   return (

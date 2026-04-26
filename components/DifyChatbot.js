@@ -3,7 +3,7 @@ import { siteConfig } from '@/lib/config';
 
 export default function DifyChatbot() {
   useEffect(() => {
-    // 这里使用 siteConfig() 函数调用来获取配置值
+    // ここで siteConfig() 関数を呼び出して設定値を取得します
     if (!siteConfig('DIFY_CHATBOT_ENABLED')) {
       return;
     }

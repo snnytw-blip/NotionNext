@@ -4,14 +4,14 @@ const path = require('path')
 const BLOG = require('./blog.config')
 const { extractLangPrefix } = require('./lib/utils/pageId')
 
-// 打包时是否分析代码
+// ビルド時にコードを分析するかどうか
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: BLOG.BUNDLE_ANALYZER
 })
 
-// 扫描项目 /themes下的目录名
+// プロジェクトの themes フォルダ内のディレクトリ名をスキャン
 const themes = scanSubdirectories(path.resolve(__dirname, 'themes'))
-// 检测用户开启的多语言
+// ユーザーが有効にしている多言語設定を検出
 const locales = (function () {
   const langs = [BLOG.LANG]
   if (BLOG.NOTION_PAGE_ID.indexOf(',') > 0) {
@@ -29,7 +29,7 @@ const locales = (function () {
   return langs
 })()
 
-// 编译前执行
+// ビルド前に実行される処理
 const preBuild = (function () {
   if (
     !process.env.npm_lifecycle_event === 'export' &&
@@ -115,7 +115,7 @@ const nextConfig = {
   webpack: (config, { dev, isServer }) => {
     config.resolve.alias['@'] = path.resolve(__dirname)
     if (!isServer) {
-      console.log('[默认主题]', path.resolve(__dirname, 'themes', THEME))
+      console.log('[デフォルトテーマ]', path.resolve(__dirname, 'themes', THEME))
     }
     config.resolve.alias['@theme-components'] = path.resolve(
       __dirname,

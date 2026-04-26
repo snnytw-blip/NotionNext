@@ -159,7 +159,7 @@ const LayoutIndex = props => {
 const LayoutSlug = props => {
     const { post, lock, validPassword } = props
 
-    // 如果 是 /article/[slug] 的文章路径则視情況进行重定向到另一个域名
+    // もし /article/[slug] という記事パスであれば、状況に応じて別のドメインにリダイレクトします
     const router = useRouter()
     if (
         !post &&
@@ -486,7 +486,7 @@ const LayoutSignIn = props => {
     const title = siteConfig('PROXIO_SIGNIN', '登录')
     const description = siteConfig(
         'PROXIO_SIGNIN_DESCRITION',
-        '这里是演示页面，NotionNext目前不提供会员登录功能'
+        'ここはデモページです。NotionNext は現在、会員ログイン機能を提供していません'
     )
     return (
         <>
@@ -517,7 +517,7 @@ const LayoutSignUp = props => {
     const title = siteConfig('PROXIO_SIGNIN', '注册')
     const description = siteConfig(
         'PROXIO_SIGNIN_DESCRITION',
-        '这里是演示页面，NotionNext目前不提供会员注册功能'
+        'ここはデモページです。NotionNext は現在、会員登録機能を提供していません'
     )
     return (
         <>

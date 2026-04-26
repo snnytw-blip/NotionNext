@@ -15,7 +15,7 @@ const Style = () => {
         background-color: black;
       }
 
-      /* 设置了从上到下的渐变黑色 */
+      /* 上から下へのグラデーションブラックを設定 */
       #theme-matery .header-cover::before {
         content: '';
         position: absolute;

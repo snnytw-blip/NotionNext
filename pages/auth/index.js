@@ -41,7 +41,7 @@ export const getServerSideProps = async ctx => {
     console.log('请求成功', params)
     props.redirect_query = {
       ...params.data,
-      msg: '成功了' + JSON.stringify(params.data)
+      msg: '成功しました' + JSON.stringify(params.data)
     }
     console.log('用户信息', JSON.stringify(params.data))
   } else if (!params) {

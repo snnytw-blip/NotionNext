@@ -13,7 +13,7 @@ export default function RightFloatButtons(props) {
         <FloatDarkModeButton />
         <JumpToTopButton />
         <SocialButton />
-        {/* 可扩展的右下角悬浮 */}
+        {/* 拡張可能な右下のフローティングボタン */}
         {floatRightBottom}
     </div>
 }

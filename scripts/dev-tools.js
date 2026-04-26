@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
 /**
- * 开发工具脚本
- * 提供各种开发辅助功能
+ * 開発ツールスクリプト
+ * 各種開発支援機能を提供します
  */
 
 const fs = require('fs')
 const path = require('path')
 const { execSync } = require('child_process')
 
-// 颜色输出
+// カラー出力
 const colors = {
   reset: '\x1b[0m',
   red: '\x1b[31m',
@@ -28,10 +28,10 @@ function runCommand(command, description) {
   log(`\n🔧 ${description}...`, 'blue')
   try {
     const output = execSync(command, { encoding: 'utf8', stdio: 'pipe' })
-    log(`✅ ${description} 完成`, 'green')
+    log(`✅ ${description} 完了`, 'green')
     return { success: true, output }
   } catch (error) {
-    log(`❌ ${description} 失败`, 'red')
+    log(`❌ ${description} 失敗`, 'red')
     if (error.stdout) console.log(error.stdout)
     if (error.stderr) console.error(error.stderr)
     return { success: false, error: error.message }
@@ -39,64 +39,64 @@ function runCommand(command, description) {
 }
 
 /**
- * 初始化开发环境
+ * 開発環境の初期化
  */
 function initDev() {
-  log('🚀 初始化开发环境', 'magenta')
+  log('🚀 開発環境を初期化しています', 'magenta')
   
-  // 检查Node.js版本
+  // Node.js バージョンの確認
   const nodeVersion = process.version
-  log(`Node.js 版本: ${nodeVersion}`, 'cyan')
+  log(`Node.js バージョン: ${nodeVersion}`, 'cyan')
   
-  // 检查npm版本
+  // npm バージョンの確認
   try {
     const npmVersion = execSync('npm --version', { encoding: 'utf8' }).trim()
-    log(`npm 版本: ${npmVersion}`, 'cyan')
+    log(`npm バージョン: ${npmVersion}`, 'cyan')
   } catch (error) {
-    log('npm 未安装', 'red')
+    log('npm がインストールされていません', 'red')
     return
   }
   
-  // 安装依赖
-  runCommand('npm install', '安装依赖')
+  // 依存関係のインストール
+  runCommand('npm install', '依存関係のインストール')
   
-  // 检查环境变量
+  // 環境変数の確認
   checkEnvFile()
   
-  // 运行质量检查
-  runCommand('npm run quality', '代码质量检查')
+  // 品質チェックの実行
+  runCommand('npm run quality', 'コード品質チェック')
   
-  log('\n🎉 开发环境初始化完成！', 'green')
-  log('💡 运行 npm run dev 开始开发', 'cyan')
+  log('\n🎉 開発環境の初期化が完了しました！', 'green')
+  log('💡 npm run dev を実行して開発を開始してください', 'cyan')
 }
 
 /**
- * 检查环境变量文件
+ * 環境変数ファイルの確認
  */
 function checkEnvFile() {
-  log('\n📋 检查环境变量配置...', 'blue')
+  log('\n📋 環境変数設定を確認しています...', 'blue')
   
   const envExample = path.join(process.cwd(), '.env.example')
   const envLocal = path.join(process.cwd(), '.env.local')
   
   if (!fs.existsSync(envExample)) {
-    log('⚠️  .env.example 文件不存在', 'yellow')
+    log('⚠️  .env.example ファイルが存在しません', 'yellow')
     return
   }
   
   if (!fs.existsSync(envLocal)) {
-    log('⚠️  .env.local 文件不存在，正在创建...', 'yellow')
+    log('⚠️  .env.local ファイルが存在しません。作成しています...', 'yellow')
     try {
       fs.copyFileSync(envExample, envLocal)
-      log('✅ 已创建 .env.local 文件，请配置必要的环境变量', 'green')
+      log('✅ .env.local ファイルを作成しました。必要な環境変数を設定してください', 'green')
     } catch (error) {
-      log('❌ 创建 .env.local 文件失败', 'red')
+      log('❌ .env.local ファイルの作成に失敗しました', 'red')
     }
   } else {
-    log('✅ .env.local 文件存在', 'green')
+    log('✅ .env.local ファイルが存在します', 'green')
   }
   
-  // 检查必要的环境变量
+  // 必須の環境変数の確認
   const requiredVars = ['NOTION_PAGE_ID']
   const envContent = fs.readFileSync(envLocal, 'utf8')
   
@@ -106,60 +106,60 @@ function checkEnvFile() {
   })
   
   if (missingVars.length > 0) {
-    log(`⚠️  缺少必要的环境变量: ${missingVars.join(', ')}`, 'yellow')
-    log('请在 .env.local 文件中配置这些变量', 'yellow')
+    log(`⚠️  不足している必須環境変数: ${missingVars.join(', ')}`, 'yellow')
+    log('.env.local ファイルでこれらの変数を設定してください', 'yellow')
   } else {
-    log('✅ 所有必要的环境变量都已配置', 'green')
+    log('✅ すべての必須環境変数が設定されています', 'green')
   }
 }
 
 /**
- * 清理项目
+ * プロジェクトのクリーンアップ
  */
 function clean() {
-  log('🧹 清理项目文件...', 'magenta')
+  log('🧹 プロジェクトファイルをクリーンアップしています...', 'magenta')
   
   const dirsToClean = ['.next', 'out', 'node_modules/.cache', 'coverage', '.nyc_output']
   
   dirsToClean.forEach(dir => {
     const fullPath = path.join(process.cwd(), dir)
     if (fs.existsSync(fullPath)) {
-      runCommand(`rm -rf ${fullPath}`, `清理 ${dir}`)
+      runCommand(`rm -rf ${fullPath}`, `${dir} のクリーンアップ`)
     } else {
-      log(`📁 ${dir} 不存在，跳过`, 'cyan')
+      log(`📁 ${dir} は存在しません。スキップします`, 'cyan')
     }
   })
   
-  log('✅ 项目清理完成', 'green')
+  log('✅ プロジェクトのクリーンアップが完了しました', 'green')
 }
 
 /**
- * 生成组件模板
+ * コンポーネントテンプレートの生成
  */
 function generateComponent(componentName) {
   if (!componentName) {
-    log('❌ 请提供组件名称', 'red')
-    log('用法: npm run dev-tools generate:component MyComponent', 'cyan')
+    log('❌ コンポーネント名を指定してください', 'red')
+    log('使用法: npm run dev-tools generate:component MyComponent', 'cyan')
     return
   }
   
-  log(`🎨 生成组件: ${componentName}`, 'magenta')
+  log(`🎨 コンポーネントを生成しています: ${componentName}`, 'magenta')
   
   const componentDir = path.join(process.cwd(), 'components', componentName)
   const componentFile = path.join(componentDir, 'index.js')
   const styleFile = path.join(componentDir, 'style.module.css')
   
-  // 创建组件目录
+  // コンポーネントディレクトリの作成
   if (!fs.existsSync(componentDir)) {
     fs.mkdirSync(componentDir, { recursive: true })
   }
   
-  // 生成组件文件
+  // コンポーネントファイルの生成
   const componentTemplate = `import styles from './style.module.css'
 
 /**
- * ${componentName} 组件
- * @param {object} props 组件属性
+ * ${componentName} コンポーネント
+ * @param {object} props コンポーネントプロパティ
  * @returns {JSX.Element}
  */
 const ${componentName} = ({ children, className = '', ...props }) => {
@@ -173,77 +173,77 @@ const ${componentName} = ({ children, className = '', ...props }) => {
 export default ${componentName}
 `
   
-  // 生成样式文件
+  // スタイルファイルの生成
   const styleTemplate = `.container {
-  /* ${componentName} 样式 */
+  /* ${componentName} スタイル */
 }
 `
   
   fs.writeFileSync(componentFile, componentTemplate)
   fs.writeFileSync(styleFile, styleTemplate)
   
-  log(`✅ 组件 ${componentName} 生成完成`, 'green')
-  log(`📁 位置: ${componentDir}`, 'cyan')
+  log(`✅ コンポーネント ${componentName} の生成が完了しました`, 'green')
+  log(`📁 場所: ${componentDir}`, 'cyan')
 }
 
 /**
- * 分析包大小
+ * パッケージサイズの分析
  */
 function analyzeBundle() {
-  log('📊 分析包大小...', 'magenta')
+  log('📊 パッケージサイズを分析しています...', 'magenta')
   
-  runCommand('npm run bundle-report', '生成包分析报告')
+  runCommand('npm run bundle-report', 'パッケージ分析レポートの生成')
   
-  log('📈 包分析完成，请查看生成的报告', 'green')
+  log('📈 パッケージ分析が完了しました。生成されたレポートを確認してください', 'green')
 }
 
 /**
- * 检查依赖更新
+ * 依存関係の更新確認
  */
 function checkUpdates() {
-  log('🔍 检查依赖更新...', 'magenta')
+  log('🔍 依存関係の更新を確認しています...', 'magenta')
   
-  runCommand('npm outdated', '检查过时的依赖')
+  runCommand('npm outdated', '古い依存関係の確認')
   
-  log('💡 运行 npm update 更新依赖', 'cyan')
+  log('💡 npm update を実行して依存関係を更新してください', 'cyan')
 }
 
 /**
- * 生成文档
+ * ドキュメントの生成
  */
 function generateDocs() {
-  log('📚 生成项目文档...', 'magenta')
+  log('📚 プロジェクトドキュメントを生成しています...', 'magenta')
   
-  // 生成API文档
+  // API ドキュメントの生成
   const apiDocs = generateApiDocs()
   fs.writeFileSync(path.join(process.cwd(), 'docs', 'API.md'), apiDocs)
   
-  // 生成组件文档
+  // コンポーネントドキュメントの生成
   const componentDocs = generateComponentDocs()
   fs.writeFileSync(path.join(process.cwd(), 'docs', 'COMPONENTS.md'), componentDocs)
   
-  log('✅ 文档生成完成', 'green')
+  log('✅ ドキュメントの生成が完了しました', 'green')
 }
 
 /**
- * 生成API文档
+ * API ドキュメントの生成
  */
 function generateApiDocs() {
-  return `# API 文档
+  return `# API ドキュメント
 
-## 概述
-本文档描述了项目中的API接口。
+## 概要
+このドキュメントは、プロジェクト内の API インターフェースについて説明します。
 
-## 接口列表
+## インターフェース一覧
 
 ### GET /api/posts
-获取文章列表
+記事一覧を取得します
 
-**参数:**
-- page: 页码 (可选)
-- limit: 每页数量 (可选)
+**パラメータ:**
+- page: ページ番号 (オプション)
+- limit: 1ページあたりの件数 (オプション)
 
-**响应:**
+**レスポンス:**
 \`\`\`json
 {
   "success": true,
@@ -253,12 +253,12 @@ function generateApiDocs() {
 \`\`\`
 
 ### GET /api/posts/[slug]
-获取单篇文章
+単一の記事を取得します
 
-**参数:**
-- slug: 文章标识符
+**パラメータ:**
+- slug: 記事識別子
 
-**响应:**
+**レスポンス:**
 \`\`\`json
 {
   "success": true,
@@ -269,57 +269,57 @@ function generateApiDocs() {
 }
 
 /**
- * 生成组件文档
+ * コンポーネントドキュメントの生成
  */
 function generateComponentDocs() {
-  return `# 组件文档
+  return `# コンポーネントドキュメント
 
-## 概述
-本文档描述了项目中的React组件。
+## 概要
+このドキュメントは、プロジェクト内の React コンポーネントについて説明します。
 
-## 组件列表
+## コンポーネント一覧
 
 ### LazyImage
-懒加载图片组件
+画像の遅延読み込みコンポーネント
 
 **Props:**
-- src: 图片地址 (必需)
-- alt: 图片描述 (必需)
-- width: 图片宽度 (可选)
-- height: 图片高度 (可选)
-- priority: 是否优先加载 (可选)
+- src: 画像 URL (必須)
+- alt: 画像の説明 (必須)
+- width: 画像の幅 (オプション)
+- height: 画像の高さ (オプション)
+- priority: 優先的に読み込むかどうか (オプション)
 
-**用法:**
+**使用例:**
 \`\`\`jsx
 <LazyImage 
   src="/image.jpg" 
-  alt="描述" 
+  alt="説明" 
   width={300} 
   height={200} 
 />
 \`\`\`
 
 ### SEO
-SEO优化组件
+SEO 最適化コンポーネント
 
 **Props:**
-- title: 页面标题 (可选)
-- description: 页面描述 (可选)
-- keywords: 关键词 (可选)
+- title: ページタイトル (オプション)
+- description: ページの説明 (オプション)
+- keywords: キーワード (オプション)
 
-**用法:**
+**使用例:**
 \`\`\`jsx
 <SEO 
-  title="页面标题" 
-  description="页面描述" 
-  keywords="关键词1,关键词2" 
+  title="ページタイトル" 
+  description="ページの説明" 
+  keywords="キーワード1,キーワード2" 
 />
 \`\`\`
 `
 }
 
 /**
- * 主函数
+ * メイン関数
  */
 function main() {
   const command = process.argv[2]
@@ -345,19 +345,19 @@ function main() {
       generateDocs()
       break
     default:
-      log('🛠️  NotionNext 开发工具', 'magenta')
-      log('\n可用命令:', 'cyan')
-      log('  init              - 初始化开发环境', 'cyan')
-      log('  clean             - 清理项目文件', 'cyan')
-      log('  generate:component <name> - 生成组件模板', 'cyan')
-      log('  analyze           - 分析包大小', 'cyan')
-      log('  check-updates     - 检查依赖更新', 'cyan')
-      log('  docs              - 生成项目文档', 'cyan')
-      log('\n用法: npm run dev-tools <command> [args]', 'yellow')
+      log('🛠️  NotionNext 開発ツール', 'magenta')
+      log('\n利用可能なコマンド:', 'cyan')
+      log('  init              - 開発環境の初期化', 'cyan')
+      log('  clean             - プロジェクトファイルのクリーンアップ', 'cyan')
+      log('  generate:component <name> - コンポーネントテンプレートの生成', 'cyan')
+      log('  analyze           - パッケージサイズの分析', 'cyan')
+      log('  check-updates     - 依存関係の更新確認', 'cyan')
+      log('  docs              - プロジェクトドキュメントの生成', 'cyan')
+      log('\n使用法: npm run dev-tools <command> [args]', 'yellow')
   }
 }
 
-// 运行主函数
+// メイン関数の実行
 if (require.main === module) {
   main()
 }

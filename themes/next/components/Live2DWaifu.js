@@ -31,7 +31,7 @@ function initLive2DWife() {
       })
     })
   }
-  // initWidget 第一个参数为 waifu-tips.json 的路径，第二个参数为 API 地址
+  // initWidget の第1引数は waifu-tips.json のパス、第2引数は API アドレスです
   // API 后端可自行搭建，参考 https://github.com/fghrsh/live2d_api
-  // 初始化看板娘会自动加载指定目录下的 waifu-tips.json
+  // 看板娘を初期化すると、指定されたディレクトリの waifu-tips.json が自動的に読み込まれます
 }

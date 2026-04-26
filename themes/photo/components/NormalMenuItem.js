@@ -1,7 +1,7 @@
 import SmartLink from '@/components/SmartLink'
 
 /**
- * 旧的普通菜单
+ * 旧形式の一般的なメニュー項目
  * @param {*} props
  * @returns
  */

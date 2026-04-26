@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 /**
- * 这里的css样式只对当前主题生效
+ * ここに記述された CSS スタイルはこのテーマにのみ適用されます
  * 主题客制化css
  * @returns
  */
@@ -34,7 +34,7 @@ const Style = () => {
         color: #D2232A;
     }
 
-    /* 设置了从上到下的渐变黑色 */
+    /* 上から下へのグラデーションブラックを設定 */
     #theme-commerce .header-cover::before {
         content: "";
         position: absolute;

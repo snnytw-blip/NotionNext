@@ -1,13 +1,13 @@
 /**
- * 网站字体相关配置
- *
+ * サイトのフォント関連設定
  */
 module.exports = {
-  // START ************网站字体*****************
-  // ['font-serif','font-sans'] 两种可选，分别是衬线和无衬线: 参考 https://www.jianshu.com/p/55e410bd2115
-  // 后面空格隔开的font-light的字体粗细，留空是默认粗细；参考 https://www.tailwindcss.cn/docs/font-weight
+  // START ************サイトのフォント*****************
+  // ['font-serif','font-sans'] の2種類から選択可能。それぞれセリフ（明朝体）とサンセリフ（ゴシック体）です。
+  // 空白で区切られた後の font-light などはフォントの太さ（ウェイト）です。空欄の場合はデフォルトの太さになります。
+  // 参考: https://www.tailwindcss.cn/docs/font-weight
   FONT_STYLE: process.env.NEXT_PUBLIC_FONT_STYLE || 'font-sans font-light',
-  // 字体CSS 例如 https://npm.elemecdn.com/lxgw-wenkai-webfont@1.6.0/style.css
+  // フォントCSSのURL（例：https://npm.elemecdn.com/lxgw-wenkai-webfont@1.6.0/style.css）
   FONT_URL: [
     // 'https://npm.elemecdn.com/lxgw-wenkai-webfont@1.6.0/style.css',
     'https://fonts.googleapis.com/css?family=Bitter:300,400,700&display=swap',
@@ -15,11 +15,11 @@ module.exports = {
     'https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;700&display=swap'
   ],
 
-  // 字体优化配置
+  // フォント最適化設定
   FONT_DISPLAY: process.env.NEXT_PUBLIC_FONT_DISPLAY || 'swap',
   FONT_PRELOAD: process.env.NEXT_PUBLIC_FONT_PRELOAD !== 'false',
   FONT_SUBSET: process.env.NEXT_PUBLIC_FONT_SUBSET || 'chinese-simplified',
-  // 无衬线字体 例如'"LXGW WenKai"'
+  // サンセリフフォント（ゴシック体など）の指定（例：'"LXGW WenKai"'）
   FONT_SANS: [
     // '"LXGW WenKai"',
     '"PingFang SC"',
@@ -39,7 +39,7 @@ module.exports = {
     'sans-serif',
     '"Apple Color Emoji"'
   ],
-  // 衬线字体 例如'"LXGW WenKai"'
+  // セリフフォント（明朝体など）の指定（例：'"LXGW WenKai"'）
   FONT_SERIF: [
     // '"LXGW WenKai"',
     'Bitter',
@@ -54,7 +54,7 @@ module.exports = {
   ],
   FONT_AWESOME:
     process.env.NEXT_PUBLIC_FONT_AWESOME_PATH ||
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css' // font-awesome 字体图标地址; 可选 /css/all.min.css ， https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css' // Font AwesomeのアイコンフォントのURL。ローカルの /css/all.min.css も指定可能です。
 
-  // END ************网站字体*****************
+  // END ************サイトのフォント*****************
 }

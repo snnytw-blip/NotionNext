@@ -76,7 +76,7 @@ export default function Header(props) {
     }
   }, throttleMs)
 
-  // 如果 开启自定义菜单，则覆盖Page生成的菜单
+  // カスタムメニューが有効な場合、Page が生成したメニューを上書きします
   if (siteConfig('CUSTOM_MENU')) {
     links = customMenu
   }

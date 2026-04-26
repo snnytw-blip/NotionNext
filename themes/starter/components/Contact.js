@@ -75,7 +75,7 @@ export const Contact = () => {
                   <div
                     className='wow fadeInUp rounded-lg bg-white px-8 py-10 shadow-testimonial dark:bg-dark-2 dark:shadow-none sm:px-10 sm:py-12 md:p-[60px] lg:p-10 lg:px-10 lg:py-12 2xl:p-[60px]'
                     data-wow-delay='.2s'>
-                    {/* 自定义的留言表单 、 需要对接接口 */}
+                    {/* カスタムメッセージフォーム、インターフェースとの連携が必要 */}
                     {/* <MessageForm/> */}
                     {/* 嵌入外部表单 */}
                     <iframe

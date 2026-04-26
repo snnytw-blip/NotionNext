@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Git Hooks 设置脚本
- * 自动设置pre-commit和pre-push钩子
+ * Git Hooks 設定スクリプト
+ * pre-commit および pre-push フックを自動設定します
  */
 
 const fs = require('fs')
@@ -23,7 +23,7 @@ function log(message, color = 'reset') {
 }
 
 /**
- * 创建pre-commit钩子
+ * pre-commit フックを作成
  */
 function createPreCommitHook() {
   const hookContent = `#!/bin/sh
@@ -31,10 +31,10 @@ function createPreCommitHook() {
 
 echo "🔍 Running pre-commit checks..."
 
-# 运行代码质量检查
+# コード品質チェックの実行
 npm run pre-commit
 
-# 检查提交结果
+# 実行結果の確認
 if [ $? -ne 0 ]; then
   echo "❌ Pre-commit checks failed. Please fix the issues before committing."
   exit 1
@@ -48,7 +48,7 @@ exit 0
 }
 
 /**
- * 创建pre-push钩子
+ * pre-push フックを作成
  */
 function createPrePushHook() {
   const hookContent = `#!/bin/sh
@@ -56,14 +56,14 @@ function createPrePushHook() {
 
 echo "🚀 Running pre-push checks..."
 
-# 运行完整的质量检查
+# 完全な品質チェックの実行
 npm run quality
 
-# 检查构建是否成功
+# ビルドが成功するか確認
 echo "🏗️  Testing build..."
 npm run build
 
-# 检查结果
+# 実行結果の確認
 if [ $? -ne 0 ]; then
   echo "❌ Pre-push checks failed. Please fix the issues before pushing."
   exit 1
@@ -77,7 +77,7 @@ exit 0
 }
 
 /**
- * 创建commit-msg钩子
+ * commit-msg フックを作成
  */
 function createCommitMsgHook() {
   const hookContent = `#!/bin/sh
@@ -126,26 +126,26 @@ exit 0
 }
 
 /**
- * 设置Git钩子
+ * Git フックを設定
  */
 function setupGitHooks() {
-  log('🔧 设置Git钩子...', 'magenta')
+  log('🔧 Git フックを設定しています...', 'magenta')
 
   const gitDir = path.join(process.cwd(), '.git')
   const hooksDir = path.join(gitDir, 'hooks')
 
-  // 检查是否是Git仓库
+  // Git リポジトリであるか確認
   if (!fs.existsSync(gitDir)) {
-    log('❌ 当前目录不是Git仓库', 'red')
+    log('❌ 現在のディレクトリは Git リポジトリではありません', 'red')
     return false
   }
 
-  // 确保hooks目录存在
+  // hooks ディレクトリが存在することを確認
   if (!fs.existsSync(hooksDir)) {
     fs.mkdirSync(hooksDir, { recursive: true })
   }
 
-  // 创建钩子文件
+  // フックファイルの作成
   const hooks = [
     { name: 'pre-commit', content: createPreCommitHook() },
     { name: 'pre-push', content: createPrePushHook() },
@@ -157,30 +157,30 @@ function setupGitHooks() {
     
     try {
       fs.writeFileSync(hookPath, content)
-      fs.chmodSync(hookPath, '755') // 设置执行权限
-      log(`✅ 创建 ${name} 钩子`, 'green')
+      fs.chmodSync(hookPath, '755') // 実行権限の設定
+      log(`✅ ${name} フックを作成しました`, 'green')
     } catch (error) {
-      log(`❌ 创建 ${name} 钩子失败: ${error.message}`, 'red')
+      log(`❌ ${name} フックの作成に失敗しました: ${error.message}`, 'red')
     }
   })
 
-  log('🎉 Git钩子设置完成！', 'green')
-  log('💡 现在提交代码时会自动运行代码质量检查', 'cyan')
+  log('🎉 Git フックの設定が完了しました！', 'green')
+  log('💡 コードをコミットする際、自動的に品質チェックが実行されます', 'cyan')
   
   return true
 }
 
 /**
- * 移除Git钩子
+ * Git フックを削除
  */
 function removeGitHooks() {
-  log('🗑️  移除Git钩子...', 'yellow')
+  log('🗑️  Git フックを削除しています...', 'yellow')
 
   const gitDir = path.join(process.cwd(), '.git')
   const hooksDir = path.join(gitDir, 'hooks')
 
   if (!fs.existsSync(hooksDir)) {
-    log('📁 hooks目录不存在', 'cyan')
+    log('📁 hooks ディレクトリが存在しません', 'cyan')
     return
   }
 
@@ -192,29 +192,29 @@ function removeGitHooks() {
     if (fs.existsSync(hookPath)) {
       try {
         fs.unlinkSync(hookPath)
-        log(`✅ 移除 ${hookName} 钩子`, 'green')
+        log(`✅ ${hookName} フックを削除しました`, 'green')
       } catch (error) {
-        log(`❌ 移除 ${hookName} 钩子失败: ${error.message}`, 'red')
+        log(`❌ ${hookName} フックの削除に失敗しました: ${error.message}`, 'red')
       }
     } else {
-      log(`📄 ${hookName} 钩子不存在`, 'cyan')
+      log(`📄 ${hookName} フックは存在しません`, 'cyan')
     }
   })
 
-  log('✅ Git钩子移除完成', 'green')
+  log('✅ Git フックの削除が完了しました', 'green')
 }
 
 /**
- * 检查Git钩子状态
+ * Git フックの状態を確認
  */
 function checkGitHooks() {
-  log('🔍 检查Git钩子状态...', 'blue')
+  log('🔍 Git フックの状態を確認しています...', 'blue')
 
   const gitDir = path.join(process.cwd(), '.git')
   const hooksDir = path.join(gitDir, 'hooks')
 
   if (!fs.existsSync(hooksDir)) {
-    log('📁 hooks目录不存在', 'yellow')
+    log('📁 hooks ディレクトリが存在しません', 'yellow')
     return
   }
 
@@ -229,26 +229,26 @@ function checkGitHooks() {
       const isExecutable = (stats.mode & parseInt('111', 8)) !== 0
       
       if (isExecutable) {
-        log(`✅ ${hookName} 钩子已安装且可执行`, 'green')
+        log(`✅ ${hookName} フックがインストールされており、実行可能です`, 'green')
         installedCount++
       } else {
-        log(`⚠️  ${hookName} 钩子已安装但不可执行`, 'yellow')
+        log(`⚠️  ${hookName} フックがインストールされていますが、実行不可能です`, 'yellow')
       }
     } else {
-      log(`❌ ${hookName} 钩子未安装`, 'red')
+      log(`❌ ${hookName} フックがインストールされていません`, 'red')
     }
   })
 
   if (installedCount === hooks.length) {
-    log('🎉 所有Git钩子都已正确安装！', 'green')
+    log('🎉 すべての Git フックが正しくインストールされています！', 'green')
   } else {
-    log(`⚠️  ${installedCount}/${hooks.length} 个钩子已安装`, 'yellow')
-    log('💡 运行 npm run setup-hooks 安装所有钩子', 'cyan')
+    log(`⚠️  ${installedCount}/${hooks.length} 個のフックがインストールされています`, 'yellow')
+    log('💡 npm run setup-hooks を実行してすべてのフックをインストールしてください', 'cyan')
   }
 }
 
 /**
- * 主函数
+ * メイン関数
  */
 function main() {
   const command = process.argv[2]
@@ -267,16 +267,16 @@ function main() {
       checkGitHooks()
       break
     default:
-      log('🪝 Git Hooks 管理工具', 'magenta')
-      log('\n可用命令:', 'cyan')
-      log('  install/setup     - 安装Git钩子', 'cyan')
-      log('  remove/uninstall  - 移除Git钩子', 'cyan')
-      log('  check/status      - 检查钩子状态', 'cyan')
-      log('\n用法: node scripts/setup-git-hooks.js <command>', 'yellow')
+      log('🪝 Git Hooks 管理ツール', 'magenta')
+      log('\n利用可能なコマンド:', 'cyan')
+      log('  install/setup     - Git フックのインストール', 'cyan')
+      log('  remove/uninstall  - Git フックの削除', 'cyan')
+      log('  check/status      - フック状態の確認', 'cyan')
+      log('\n使用法: node scripts/setup-git-hooks.js <command>', 'yellow')
   }
 }
 
-// 运行主函数
+// メイン関数の実行
 if (require.main === module) {
   main()
 }

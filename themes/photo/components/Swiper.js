@@ -11,7 +11,7 @@ const InertiaCarousel = ({ posts }) => {
   const [isDragging, setIsDragging] = useState(false)
   const [startX, setStartX] = useState(0)
   const [scrollLeft, setScrollLeft] = useState(0)
-  const [lastX, setLastX] = useState(0) // 上一次的位置
+  const [lastX, setLastX] = useState(0) // 直前の位置
   const [velocity, setVelocity] = useState(0)
   const animationRef = useRef(null)
 
@@ -22,8 +22,8 @@ const InertiaCarousel = ({ posts }) => {
     const startPosition = e.pageX || e.touches?.[0].pageX
     setStartX(startPosition - carouselRef.current.offsetLeft)
     setScrollLeft(carouselRef.current.scrollLeft)
-    setLastX(startPosition) // 初始化上一次的位置
-    cancelInertiaScroll() // 停止任何正在进行的惯性动画
+    setLastX(startPosition) // 直前の位置を初期化します
+    cancelInertiaScroll() // 実行中の慣性アニメーションを停止します
   }
 
   // 拖拽中事件

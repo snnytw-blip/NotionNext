@@ -94,7 +94,7 @@ const BlogPostListScroll = ({ posts = [], currentSearch }) => {
 }
 
 /**
- * 获取从第1页到指定页码的文章
+ * 1ページ目から指定されたページ番号までの記事を取得します
  * @param page 第几页
  * @param totalPosts 所有文章
  * @param POSTS_PER_PAGE 每页文章数量

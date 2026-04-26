@@ -48,7 +48,7 @@ export function PWA(post, siteInfo) {
       type: 'application/json'
     })
   )
-  // 这里会报错，因为前端收到的事一个转义了双引号的字符串，无法解析成json，不知道怎么解决
+  // ここでエラーが発生します。フロントエンドが受信したものが二重引用符をエスケープした文字列であり、JSON として解析できないためです。解決策は未定です。
   manifest.href = blobUrl
 
   // 将 manifest 添加到 head 中

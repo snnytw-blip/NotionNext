@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
 /**
- * 代码质量检查脚本
- * 运行各种代码质量检查工具
+ * コード品質チェックスクリプト
+ * 各種コード品質チェックツールを実行します
  */
 
 const { execSync } = require('child_process')
 const fs = require('fs')
 const path = require('path')
 
-// 颜色输出
+// カラー出力
 const colors = {
   reset: '\x1b[0m',
   red: '\x1b[31m',
@@ -28,10 +28,10 @@ function runCommand(command, description) {
   log(`\n🔍 ${description}...`, 'blue')
   try {
     const output = execSync(command, { encoding: 'utf8', stdio: 'pipe' })
-    log(`✅ ${description} 通过`, 'green')
+    log(`✅ ${description} 合格`, 'green')
     return { success: true, output }
   } catch (error) {
-    log(`❌ ${description} 失败`, 'red')
+    log(`❌ ${description} 不合格`, 'red')
     if (error.stdout) {
       console.log(error.stdout)
     }
@@ -43,66 +43,64 @@ function runCommand(command, description) {
 }
 
 function checkFileExists(filePath, description) {
-  log(`\n📁 检查 ${description}...`, 'blue')
+  log(`\n📁 ${description} を確認しています...`, 'blue')
   if (fs.existsSync(filePath)) {
-    log(`✅ ${description} 存在`, 'green')
+    log(`✅ ${description} が存在します`, 'green')
     return true
   } else {
-    log(`❌ ${description} 不存在: ${filePath}`, 'red')
+    log(`❌ ${description} が存在しません: ${filePath}`, 'red')
     return false
   }
 }
 
 function analyzePackageJson() {
-  log('\n📦 分析 package.json...', 'blue')
+  log('\n📦 package.json を分析しています...', 'blue')
   const packagePath = path.join(process.cwd(), 'package.json')
   
   if (!fs.existsSync(packagePath)) {
-    log('❌ package.json 不存在', 'red')
+    log('❌ package.json が存在しません', 'red')
     return false
   }
 
   const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf8'))
   
-  // 检查必要的脚本
+  // 必須スクリプトの確認
   const requiredScripts = ['build', 'dev', 'start']
   const missingScripts = requiredScripts.filter(script => !packageJson.scripts?.[script])
   
   if (missingScripts.length > 0) {
-    log(`⚠️  缺少脚本: ${missingScripts.join(', ')}`, 'yellow')
+    log(`⚠️  不足しているスクリプト: ${missingScripts.join(', ')}`, 'yellow')
   } else {
-    log('✅ 所有必要脚本都存在', 'green')
+    log('✅ すべての必須スクリプトが存在します', 'green')
   }
 
-  // 检查依赖版本
+  // 依存関係バージョンの確認
   const dependencies = { ...packageJson.dependencies, ...packageJson.devDependencies }
-  const outdatedDeps = []
   
-  // 这里可以添加更复杂的版本检查逻辑
-  log(`📊 总依赖数量: ${Object.keys(dependencies).length}`, 'cyan')
+  log(`📊 総依存関係数: ${Object.keys(dependencies).length}`, 'cyan')
   
   return true
 }
 
 function checkCodeCoverage() {
-  log('\n📈 检查代码覆盖率...', 'blue')
-  // 这里可以添加代码覆盖率检查逻辑
-  log('ℹ️  代码覆盖率检查跳过（需要配置测试）', 'yellow')
+  log('\n📈 コードカバレッジを確認しています...', 'blue')
+  // ここにコードカバレッジ確認ロジックを追加できます
+  log('ℹ️  コードカバレッジ確認はスキップされました（テストの構成が必要です）', 'yellow')
 }
 
 function checkSecurity() {
-  log('\n🔒 安全检查...', 'blue')
-  return runCommand('npm audit --audit-level=moderate', '依赖安全检查')
+  log('\n🔒 セキュリティチェック...', 'blue')
+  return runCommand('npm audit --audit-level=moderate', '依存関係のセキュリティチェック')
 }
 
 function checkBundleSize() {
-  log('\n📦 检查包大小...', 'blue')
-  // 这里可以添加包大小分析逻辑
-  log('ℹ️  包大小检查跳过（需要构建）', 'yellow')
+  log('\n📦 パッケージサイズを確認しています...', 'blue')
+  // ここにパッケージサイズ分析ロジックを追加できます
+  log('ℹ️  パッケージサイズ確認はスキップされました（ビルドが必要です）', 'yellow')
 }
 
 function generateReport(results) {
-  log('\n📋 生成质量报告...', 'blue')
+  log('\n📋 品質レポートを生成しています...', 'blue')
   
   const report = {
     timestamp: new Date().toISOString(),
@@ -117,21 +115,21 @@ function generateReport(results) {
   const reportPath = path.join(process.cwd(), 'quality-report.json')
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2))
   
-  log(`📄 质量报告已生成: ${reportPath}`, 'cyan')
+  log(`📄 品質レポートを生成しました: ${reportPath}`, 'cyan')
   return report
 }
 
 async function main() {
-  log('🚀 开始代码质量检查', 'magenta')
+  log('🚀 コード品質チェックを開始します', 'magenta')
   
   const results = []
   
-  // 检查配置文件
+  // 設定ファイルの確認
   const configFiles = [
-    { path: '.eslintrc.js', name: 'ESLint 配置' },
-    { path: '.prettierrc.js', name: 'Prettier 配置' },
-    { path: 'tsconfig.json', name: 'TypeScript 配置' },
-    { path: 'next.config.js', name: 'Next.js 配置' }
+    { path: '.eslintrc.js', name: 'ESLint 設定' },
+    { path: '.prettierrc.js', name: 'Prettier 設定' },
+    { path: 'tsconfig.json', name: 'TypeScript 設定' },
+    { path: 'next.config.js', name: 'Next.js 設定' }
   ]
   
   configFiles.forEach(({ path: filePath, name }) => {
@@ -139,53 +137,53 @@ async function main() {
     results.push({ name, success: exists, type: 'config' })
   })
   
-  // 分析 package.json
+  // package.json の分析
   const packageAnalysis = analyzePackageJson()
-  results.push({ name: 'Package.json 分析', success: packageAnalysis, type: 'analysis' })
+  results.push({ name: 'package.json の分析', success: packageAnalysis, type: 'analysis' })
   
-  // 运行 ESLint
-  const eslintResult = runCommand('npx eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 0', 'ESLint 检查')
+  // ESLint の実行
+  const eslintResult = runCommand('npx eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 0', 'ESLint チェック')
   results.push({ name: 'ESLint', success: eslintResult.success, type: 'lint', ...eslintResult })
   
-  // 运行 TypeScript 检查
-  const tscResult = runCommand('npx tsc --noEmit', 'TypeScript 类型检查')
+  // TypeScript の実行
+  const tscResult = runCommand('npx tsc --noEmit', 'TypeScript 型チェック')
   results.push({ name: 'TypeScript', success: tscResult.success, type: 'type-check', ...tscResult })
   
-  // 运行 Prettier 检查
-  const prettierResult = runCommand('npx prettier --check .', 'Prettier 格式检查')
+  // Prettier の実行
+  const prettierResult = runCommand('npx prettier --check .', 'Prettier フォーマットチェック')
   results.push({ name: 'Prettier', success: prettierResult.success, type: 'format', ...prettierResult })
   
-  // 安全检查
+  // セキュリティチェック
   const securityResult = checkSecurity()
-  results.push({ name: '安全检查', success: securityResult.success, type: 'security', ...securityResult })
+  results.push({ name: 'セキュリティチェック', success: securityResult.success, type: 'security', ...securityResult })
   
-  // 其他检查
+  // その他のチェック
   checkCodeCoverage()
   checkBundleSize()
   
-  // 生成报告
+  // レポートの生成
   const report = generateReport(results)
   
-  // 输出总结
-  log('\n📊 质量检查总结:', 'magenta')
-  log(`✅ 通过: ${report.summary.passed}`, 'green')
-  log(`❌ 失败: ${report.summary.failed}`, 'red')
-  log(`📊 总计: ${report.summary.total}`, 'cyan')
+  // まとめを出力
+  log('\n📊 品質チェックのまとめ:', 'magenta')
+  log(`✅ 合格: ${report.summary.passed}`, 'green')
+  log(`❌ 不合格: ${report.summary.failed}`, 'red')
+  log(`📊 合計: ${report.summary.total}`, 'cyan')
   
-  // 如果有失败的检查，退出码为 1
+  // 不合格のチェックがある場合、終了コードを 1 に設定
   if (report.summary.failed > 0) {
-    log('\n⚠️  存在质量问题，请修复后重试', 'yellow')
+    log('\n⚠️  品質上の問題が見つかりました。修正してから再試行してください', 'yellow')
     process.exit(1)
   } else {
-    log('\n🎉 所有质量检查都通过了！', 'green')
+    log('\n🎉 すべての品質チェックに合格しました！', 'green')
     process.exit(0)
   }
 }
 
-// 运行主函数
+// メイン関数の実行
 if (require.main === module) {
   main().catch(error => {
-    log(`💥 质量检查过程中发生错误: ${error.message}`, 'red')
+    log(`💥 品質チェック中にエラーが発生しました: ${error.message}`, 'red')
     process.exit(1)
   })
 }

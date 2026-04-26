@@ -33,7 +33,7 @@ const VConsole = () => {
         return
       }
 
-      // 如果在1秒内连续点击了8次
+      // 1秒以内に8回連続でクリックされた場合
       if (now - lastClickTimeRef.current < 1000 && clickCountRef.current + 1 === 8) {
         loadVConsole()
         clickCountRef.current = 0 // 重置计数器

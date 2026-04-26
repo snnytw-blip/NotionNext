@@ -5,7 +5,7 @@ import { siteConfig } from '@/lib/config'
 /**
  * 跳转到网页顶部
  * 当屏幕下滑500像素后会出现该控件
- * @param targetRef 关联高度的目标html标签
+ * @param targetRef 高さを関連付ける対象の HTML タグ
  * @param showPercent 是否显示百分比
  * @returns {JSX.Element}
  * @constructor

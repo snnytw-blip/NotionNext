@@ -25,7 +25,7 @@ export const Logo = props => {
     const throttleMs = 200
     const navBarScrollListener = throttle(() => {
       const scrollY = window.scrollY
-      // 何时显示浅色或白底的logo
+      // 明るい色または白背景のロゴを表示するタイミング
       const homePageNavBar = router.route === '/' && scrollY < 10 // 在首页并且视窗在页面顶部
 
       if (white || isDarkMode || homePageNavBar) {

@@ -64,7 +64,7 @@ const LayoutBase = props => {
   }
 
   useEffect(() => {
-    // facebook messenger 插件需要调整右下角悬浮按钮的高度
+    // Facebook Messenger プラグインは、右下のフローティングボタンの高さを調整する必要があります
     const fb = document.getElementsByClassName('fb-customerchat')
     if (fb.length === 0) {
       floatButtonGroup?.current?.classList.replace('bottom-24', 'bottom-12')

@@ -2,7 +2,7 @@ import { siteConfig } from '@/lib/config'
 import PostListHorizontal from './PostListHorizontal'
 
 /**
- * 按文章类别分组的文章列表区块
+ * 記事カテゴリ別にグループ化された記事リストブロック
  * @returns {JSX.Element}
  * @constructor
  */
@@ -17,7 +17,7 @@ const PostBannerGroupByCategory = props => {
 
   return (
     <>
-      {/* 不同的分类文章列表 */}
+      {/* 各カテゴリの記事リスト */}
       {categoryFolders?.map((categoryGroup, index) => {
         if (
           !categoryGroup ||
@@ -52,10 +52,10 @@ function groupArticles(categoryOptions, allPosts) {
     const item = allPosts[i]
     const categoryName = item?.category ? item?.category : '' // 将 category 转换为字符串
 
-    const existingGroup = groups.find(group => group.category === categoryName) // 搜索同名的最后一个分组
+    const existingGroup = groups.find(group => group.category === categoryName) // 同名の最後のグループを検索します
 
     if (existingGroup && existingGroup.category === categoryName) {
-      // 如果分组已存在，并且该分组中的文章数量小于4，添加文章
+      // グループが既に存在し、そのグループ内の記事数が 4 未満の場合は、記事を追加します
       if (existingGroup.items.length < 4) {
         existingGroup.items.push(item)
       }

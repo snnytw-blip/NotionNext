@@ -26,7 +26,7 @@ export default function ArticleDetail(props) {
   const url = siteConfig('LINK') + useRouter().asPath
   const { locale } = useGlobal()
   const showArticleInfo = siteConfig('NEXT_ARTICLE_INFO', null, CONFIG)
-  // 动画样式  首屏卡片不用，后面翻出来的加动画
+  // アニメーションスタイル：最初の画面のカードには適用せず、後から表示されるものにアニメーションを追加します
   const aosProps = {
     'data-aos': 'fade-down',
     'data-aos-duration': '400',

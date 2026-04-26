@@ -27,8 +27,8 @@ const BlogPostListAll = (props) => {
     if (link?.subMenus) {
       link.subMenus?.map((group, index) => {
         const subMenuTitle = group?.title + ''
-        // 自定义分类图标与post的category共用
-        // 判断自定义分类与Post中category同名的项，将icon的值传递给post
+        // カスタムカテゴリのアイコンを post のカテゴリと共有します
+        // カスタムカテゴリと Post 内のカテゴリが同名であるか判断し、icon の値を post に渡します
         // filterLinks[subMenuTitle] = group
         filterLinks[subMenuTitle] = { title: group.title, icon: group.icon, pageIcon: group.pageIcon }
       })
@@ -42,7 +42,7 @@ const BlogPostListAll = (props) => {
     let existingGroup = null
     // 开启自动分组排序
     if (JSON.parse(siteConfig('NAV_AUTO_SORT', null, CONFIG))) {
-      existingGroup = groups.find(group => group.category === categoryName) // 搜索同名的最后一个分组
+      existingGroup = groups.find(group => group.category === categoryName) // 同名の最後のグループを検索します
     } else {
       existingGroup = groups[groups.length - 1] // 获取最后一个分组
     }
@@ -58,8 +58,8 @@ const BlogPostListAll = (props) => {
 
   // 处理是否选中
   groupedArray?.map((group) => {
-    // 自定义分类图标与post的category共用
-    // 判断自定义分类与Post中category同名的项，将icon的值传递给post
+    // カスタムカテゴリのアイコンを post のカテゴリと共有します
+    // カスタムカテゴリと Post 内のカテゴリが同名であるか判断し、icon の値を post に渡します
 
     const groupSelected = false
 

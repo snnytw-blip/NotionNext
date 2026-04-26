@@ -95,7 +95,7 @@ export const Testimonials = () => {
                           {ratings.map((rating, index) => (
                             <img
                               key={index}
-                              alt='star icon' // 为每个图片设置唯一的 key 属性
+                              alt='star icon' // 各画像に一意の key 属性を設定します
                               src={siteConfig('STARTER_TESTIMONIALS_STAR_ICON')}
                             />
                           ))}

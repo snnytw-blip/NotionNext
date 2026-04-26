@@ -126,7 +126,7 @@ export default function DashboardItemBalance() {
 
         <ul className='text-gray-600 list-disc pl-6'>
           <li>充值说明：</li>
-          <li className='font-bold'>这只是一个演示页面，不存在真实功能！</li>
+          <li className='font-bold'>これはデモページであり、実際の機能は存在しません！</li>
           <li>充值最低额度为1积分</li>
           <li>充值汇率为1元=1积分，人民币和积分不能互相转换</li>
           <li>余额永久有效，无时间限制</li>

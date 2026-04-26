@@ -9,7 +9,7 @@ import argparse
 ssl._create_default_https_context = ssl._create_unverified_context
 
 
-# 每日推送限额，可根据实际情况修改
+# 1日のプッシュ制限数。必要に応じて変更してください。
 QUOTA = 100
 
 
@@ -20,10 +20,10 @@ def parse_sitemap(site):
         big = re.findall('<loc>(.*?)</loc>', result.content.decode('utf-8'), re.S)
         return list(big)
     except:
-        print('请检查你的url是否有误。')
-        print('正确的应是完整的域名，包含https://，且不包含‘sitemap.xml’, 如下所示：')
-        print('正确的示例: https://ghlcode.cn')
-        print('详情参见: https://ghlcode.cn/fe032806-5362-4d82-b746-a0b26ce8b9d9')
+        print('URLに誤りがないか確認してください。')
+        print('正しい形式は、https:// を含み、末尾に "sitemap.xml" を含まない完全なドメインです。例：')
+        print('正しい例: https://ghlcode.cn')
+        print('詳細はこちらを参照: https://ghlcode.cn/fe032806-5362-4d82-b746-a0b26ce8b9d9')
 
 
 
@@ -39,11 +39,11 @@ def push_to_bing(site, urls, api_key):
         response = requests.post(endpoint, json=payload)
         result = response.json()
         if response.status_code == 200:
-            print("成功推送到Bing.")
+            print("Bing へのプッシュに成功しました。")
         elif "ErrorCode" in result:
-            print("推送到Bing出现错误，错误信息为：", result["Message"])
+            print("Bing へのプッシュ中にエラーが発生しました。エラーメッセージ：", result["Message"])
     except Exception as e:
-        print("An error occurred:", e)
+        print("エラーが発生しました:", e)
 
 
 def push_to_baidu(site, urls, token):
@@ -56,41 +56,41 @@ def push_to_baidu(site, urls, token):
         response = requests.post(api_url, data=payload, headers=headers)
         result = response.json()
         if "success" in result and result["success"]:
-            print("成功推送到百度.")
+            print("百度 へのプッシュに成功しました。")
         elif "error" in result:
-            print("推送到百度出现错误，错误信息为：", result["message"])
+            print("百度 へのプッシュ中にエラーが発生しました。エラーメッセージ：", result["message"])
         else:
-            print("Unknown response from Baidu:", result)
+            print("百度からの不明なレスポンス:", result)
     except Exception as e:
-        print("An error occurred:", e)
+        print("エラーが発生しました:", e)
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='parse sitemap')
-    parser.add_argument('--url', type=str, default=None, help='The url of your website')
-    parser.add_argument('--bing_api_key', type=str, default=None, help='your bing api key')
-    parser.add_argument('--baidu_token', type=str, default=None, help='Your baidu push token')
+    parser = argparse.ArgumentParser(description='sitemap を解析してプッシュ')
+    parser.add_argument('--url', type=str, default=None, help='ウェブサイトの URL')
+    parser.add_argument('--bing_api_key', type=str, default=None, help='Bing API キー')
+    parser.add_argument('--baidu_token', type=str, default=None, help='百度プッシュトークン')
     args = parser.parse_args()
 
-    # 获取当前的时间戳作为随机种子
+    # 現在のタイムスタンプをランダムシードとして使用
     current_timestamp = int(time.time())
     random.seed(current_timestamp)
 
     if args.url:
-        # 解析urls
+        # URL を解析
         urls = parse_sitemap(args.url)
         if urls is not None:
-            # 判断当前urls数量是否超过额度，若超过则取当日最大值，默认为100，可根据实际情况修改
+            # URL 数が制限を超えているか確認し、超えている場合は制限数（デフォルト 100）までランダムに抽出
             if len(urls) > QUOTA:
                 urls = random.sample(urls, QUOTA)
-            # 推送bing
+            # Bing へプッシュ
             if args.bing_api_key:
-                print('正在推送至必应，请稍后……')
+                print('Bing へプッシュしています。お待ちください……')
                 push_to_bing(args.url, urls, args.bing_api_key)
-            # 推送百度
+            # 百度へプッシュ
             if args.baidu_token:
-                print('正在推送至百度，请稍后……')
+                print('百度へプッシュしています。お待ちください……')
                 push_to_baidu(args.url, urls, args.baidu_token)
     else:
-        print('请前往 Github Action Secrets 配置 URL')
-        print('详情参见: https://ghlcode.cn/fe032806-5362-4d82-b746-a0b26ce8b9d9')
+        print('Github Action Secrets で URL を設定してください。')
+        print('詳細はこちらを参照: https://ghlcode.cn/fe032806-5362-4d82-b746-a0b26ce8b9d9')

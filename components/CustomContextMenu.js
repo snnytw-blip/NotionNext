@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 /**
- * 自定义右键菜单
+ * カスタム右クリックメニュー
  * @param {*} props
  * @returns
  */
@@ -23,7 +23,7 @@ export default function CustomContextMenu(props) {
   const { allNavPages } = props
   const router = useRouter()
   /**
-   * 随机跳转文章
+   * ランダムな記事へ移動
    */
   function handleJumpToRandomPost() {
     const randomIndex = Math.floor(Math.random() * allNavPages.length)
@@ -43,7 +43,7 @@ export default function CustomContextMenu(props) {
   useEffect(() => {
     const handleContextMenu = event => {
       event.preventDefault()
-      // 计算点击位置加菜单宽高是否超出屏幕，如果超出则贴边弹出
+      // クリック位置にメニューの幅と高さを足して画面を超える場合は、画面内に収まるように位置を調整する
       const x =
         event.clientX < windowSize.width - width
           ? event.clientX
@@ -57,7 +57,7 @@ export default function CustomContextMenu(props) {
     }
 
     /**
-     * 鼠标点击即关闭菜单
+     * マウスクリックでメニューを閉じる
      */
     const handleClick = event => {
       setShow(false)
@@ -97,22 +97,22 @@ export default function CustomContextMenu(props) {
         alert(`${locale.COMMON.PAGE_URL_COPIED} : ${url}`)
       })
       .catch(error => {
-        console.error('复制页面地址失败:', error)
+        console.error('ページURLのコピーに失敗しました:', error)
       })
   }
 
   /**
-   * 切换主题
+   * テーマ切り替え
    */
   function handleChangeTheme() {
-    const randomTheme = THEMES[Math.floor(Math.random() * THEMES.length)] // 从THEMES数组中 随机取一个主题
+    const randomTheme = THEMES[Math.floor(Math.random() * THEMES.length)] // THEMES配列からランダムにテーマを取得
     const query = router.query
     query.theme = randomTheme
     router.push({ pathname: router.pathname, query })
   }
 
   /**
-   * 复制内容
+   * コンテンツをコピー
    */
   function handleCopy() {
     const selectedText = document.getSelection().toString()
@@ -140,7 +140,7 @@ export default function CustomContextMenu(props) {
     htmlElement.classList?.add(newStatus ? 'dark' : 'light')
   }
 
-  // 一些配置变量
+  // 各種設定変数
   const CUSTOM_RIGHT_CLICK_CONTEXT_MENU_RANDOM_POST = siteConfig(
     'CUSTOM_RIGHT_CLICK_CONTEXT_MENU_RANDOM_POST'
   )
@@ -165,9 +165,9 @@ export default function CustomContextMenu(props) {
       ref={menuRef}
       style={{ top: position.y, left: position.x }}
       className={`${show ? '' : 'invisible opacity-0'} select-none transition-opacity duration-200 fixed z-50`}>
-      {/* 菜单内容 */}
+      {/* メニュー内容 */}
       <div className='rounded-xl w-52 dark:hover:border-yellow-600 bg-white dark:bg-[#040404] dark:text-gray-200 dark:border-gray-600 p-3 border drop-shadow-lg flex-col duration-300 transition-colors'>
-        {/* 顶部导航按钮 */}
+        {/* 上部ナビゲーションボタン */}
         <div className='flex justify-between'>
           <i
             onClick={handleBack}
@@ -185,7 +185,7 @@ export default function CustomContextMenu(props) {
 
         <hr className='my-2 border-dashed' />
 
-        {/* 跳转导航按钮 */}
+        {/* ナビゲーションジャンプボタン */}
         <div className='w-full px-2'>
           {CUSTOM_RIGHT_CLICK_CONTEXT_MENU_RANDOM_POST && (
             <div
@@ -220,7 +220,7 @@ export default function CustomContextMenu(props) {
 
         <hr className='my-2 border-dashed' />
 
-        {/* 功能按钮 */}
+        {/* 機能ボタン */}
         <div className='w-full px-2'>
           {CAN_COPY && (
             <div

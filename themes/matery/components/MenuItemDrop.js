@@ -2,7 +2,7 @@ import SmartLink from '@/components/SmartLink'
 import { useState } from 'react'
 /**
  * 菜单
- * 支持二级展开的菜单
+ * 2段階の展開をサポートするメニュー
  */
 export const MenuItemDrop = ({ link }) => {
   const [show, changeShow] = useState(false)
@@ -32,7 +32,7 @@ export const MenuItemDrop = ({ link }) => {
             {link?.icon && <i className={link?.icon} />} {link?.name}
             <i
               className={`px-2 fa fa-angle-down duration-300  ${show ? 'rotate-180' : 'rotate-0'}`}></i>
-            {/* 主菜单下方的安全区域 */}
+            {/* メインメニュー下部のセーフエリア */}
             {show && (
               <div className='absolute w-full h-3 -bottom-1 left-0 bg-transparent z-30'></div>
             )}

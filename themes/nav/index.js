@@ -72,7 +72,7 @@ const LayoutBase = props => {
 
   let links = customMenu
 
-  // 默认使用自定义菜单，否则将遍历所有的category生成菜单
+  // デフォルトでカスタムメニューを使用します。そうでなければ、すべてのカテゴリをスキャンしてメニューを生成します。
   if (!siteConfig('NAV_USE_CUSTOM_MENU', null, CONFIG)) {
     links =
       categoryOptions &&

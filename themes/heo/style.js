@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 /**
  * 此处样式只对当前主题生效
- * 此处不支持tailwindCSS的 @apply 语法
+ * ここでは tailwindCSS の @apply 構文はサポートされていません
  * @returns
  */
 const Style = () => {
@@ -11,7 +11,7 @@ const Style = () => {
         background-color: #f7f9fe;
       }
 
-      // 公告栏中的字体固定白色
+      // お知らせ欄のフォントを白に固定します
       #theme-heo #announcement-content .notion {
         color: white;
       }

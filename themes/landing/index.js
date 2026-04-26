@@ -1,10 +1,10 @@
 'use client'
 
 /**
- * 这是一个空白主题，方便您用作创建新主题时的模板，从而开发出您自己喜欢的主题
- * 1. 禁用了代码质量检查功能，提高了代码的宽容度；您可以使用标准的html写法
- * 2. 内容大部分是在此文件中写死，notion数据从props参数中传进来
- * 3. 您可在此网站找到更多喜欢的组件 https://www.tailwind-kit.com/
+ * これは空白のテーマであり、新しいテーマを作成する際のテンプレートとして使用し、自分好みのテーマを開発するのに便利です。
+ * 1. コード品質チェック機能を無効にし、コードの許容度を高めました。標準的な HTML の書き方を使用できます。
+ * 2. 内容の大部分はこのファイル内に記述されており、Notion データは props パラメータから渡されます。
+ * 3. こちらのサイトでさらにお好みのコンポーネントを見つけることができます：https://www.tailwind-kit.com/
  */
 import Loading from '@/components/Loading'
 import NotionPage from '@/components/NotionPage'
@@ -74,7 +74,7 @@ const LayoutIndex = props => {
 const LayoutSlug = props => {
   const { post } = props
 
-  // 如果 是 /article/[slug] 的文章路径则进行重定向到另一个域名
+  // もし /article/[slug] という記事パスであれば、別のドメインにリダイレクトします
   const router = useRouter()
   const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000
   useEffect(() => {

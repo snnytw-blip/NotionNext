@@ -13,7 +13,7 @@ const Collapse = props => {
   useImperativeHandle(collapseRef, () => {
     return {
       /**
-       * 当子元素高度变化时，可调用此方法更新折叠组件的高度
+       * 子要素の高さが変化した際、このメソッドを呼び出して折りたたみコンポーネントの高さを更新できます
        * @param {*} param0
        */
       updateCollapseHeight: ({ height, increase }) => {

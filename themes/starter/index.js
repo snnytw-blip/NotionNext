@@ -60,7 +60,7 @@ const LayoutBase = props => {
         loadWowJS()
     }, [])
 
-    // 特殊简化布局，如果识别到路由中有 ?lite=true，则给网页添加一些自定义的css样式，例如背景改成黑色
+    // 特殊な軽量レイアウト。もしルートに ?lite=true が含まれている場合は、背景を黒にするなどのカスタム CSS スタイルをウェブページに追加します。
     useEffect(() => {
         const isLiteMode = router.query.lite === 'true'
         console.log(router.query.lite, isLiteMode)
@@ -153,7 +153,7 @@ const LayoutIndex = props => {
 const LayoutSlug = props => {
   const { post, lock, validPassword } = props
 
-  // 如果 是 /article/[slug] 的文章路径则視情況进行重定向到另一个域名
+  // もし /article/[slug] という記事パスであれば、状況に応じて別のドメインにリダイレクトします
   const router = useRouter()
   if (
     !post &&
@@ -484,7 +484,7 @@ const LayoutSignIn = props => {
   const title = siteConfig('STARTER_SIGNIN', '登录')
   const description = siteConfig(
     'STARTER_SIGNIN_DESCRITION',
-    '这里是演示页面，NotionNext目前不提供会员登录功能'
+    'ここはデモページです。NotionNext は現在、会員ログイン機能を提供していません'
   )
   return (
     <>
@@ -515,7 +515,7 @@ const LayoutSignUp = props => {
   const title = siteConfig('STARTER_SIGNIN', '注册')
   const description = siteConfig(
     'STARTER_SIGNIN_DESCRITION',
-    '这里是演示页面，NotionNext目前不提供会员注册功能'
+    'ここはデモページです。NotionNext は現在、会員登録機能を提供していません'
   )
   return (
     <>

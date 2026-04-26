@@ -1,7 +1,7 @@
 import LazyImage from '@/components/LazyImage'
 
 /**
- * notion的图标icon
+ * Notion のアイコン (icon)
  * 可能是emoji 可能是 svg 也可能是 图片
  * @returns
  */

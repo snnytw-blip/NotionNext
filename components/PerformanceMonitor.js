@@ -39,7 +39,7 @@ const PerformanceMonitor = () => {
         console.log(`[Performance] ${name}: ${value}${isOverBudget ? ' ⚠️ Over Budget' : ' ✅'}`)
       }
 
-      // 可以在这里添加性能数据上报逻辑
+      // ここにパフォーマンスデータレポートのロジックを追加できます
       // 例如发送到Google Analytics、Vercel Analytics等
       if (window.gtag) {
         window.gtag('event', name, {

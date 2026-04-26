@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 /**
  * 最新文章列表
  * @param posts 所有文章数据
- * @param sliceCount 截取展示的数量 默认6
+ * @param sliceCount 表示する記事数（デフォルト 6）
  * @constructor
  */
 const LatestPostsGroup = ({ latestPosts }) => {

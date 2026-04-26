@@ -23,7 +23,7 @@ export default function LoadingCover() {
   }
 
   if (typeof window === 'undefined') {
-    return null // 避免在服务端渲染时渲染出这个组件
+    return null // サーバーサイドレンダリング中にこのコンポーネントがレンダリングされるのを避けます
   }
 
   return isVisible ? (

@@ -3,42 +3,42 @@ import { useEffect, useState } from 'react';
 
 const LoadingCover = ({ onFinishLoading }) => {
     const [isVisible, setIsVisible] = useState(true);
-    const welcomeText = siteConfig('PROXIO_WELCOME_TEXT', '欢迎来到我们的网站！');
+    const welcomeText = siteConfig('PROXIO_WELCOME_TEXT', '私たちのサイトへようこそ！');
 
-    // 定义颜色变量
+    // カラー変数の定義
     const colors = {
-        backgroundStart: '#1a1a1a', // 深灰色
-        backgroundMiddle: '#4d4d4d', // 中灰色
-        backgroundEnd: '#e6e6e6', // 浅灰色
-        textColor: '#ffffff', // 白色
-        rippleColor: 'rgba(255, 255, 255, 0.6)', // 半透明白色
+        backgroundStart: '#1a1a1a', // ダークグレー
+        backgroundMiddle: '#4d4d4d', // ミディアムグレー
+        backgroundEnd: '#e6e6e6', // ライトグレー
+        textColor: '#ffffff', // ホワイト
+        rippleColor: 'rgba(255, 255, 255, 0.6)', // 半透明ホワイト
     };
 
     useEffect(() => {
         const pageContainer = document.getElementById('pageContainer');
 
         const handleClick = (e) => {
-            // 创建扩散光圈
+            // 拡散光圈（波紋）の作成
             const ripple = document.createElement('div');
             ripple.classList.add('ripple');
             ripple.style.left = `${e.clientX - 10}px`;
             ripple.style.top = `${e.clientY - 10}px`;
             document.body.appendChild(ripple);
 
-            // 添加页面缩放 + 模糊动画
+            // ページのズーム + ぼかしアニメーションの追加
             pageContainer?.classList?.add('page-clicked');
 
-            // 模拟加载完成，调用回调函数
+            // 読み込み完了をシミュレートし、コールバック関数を呼び出す
             setTimeout(() => {
-                setIsVisible(false); // 淡出动画
+                setIsVisible(false); // フェードアウトアニメーション
                 setTimeout(() => {
                     if (onFinishLoading) {
                         onFinishLoading();
                     }
-                }, 600); // 等待淡出动画完成
+                }, 600); // フェードアウトアニメーションの完了を待機
             }, 1200);
 
-            // 清理 ripple 元素
+            // ripple 要素のクリーンアップ
             setTimeout(() => {
                 ripple.remove();
             }, 1000);
@@ -82,7 +82,7 @@ const LoadingCover = ({ onFinishLoading }) => {
                         background: linear-gradient(120deg, ${colors.backgroundStart}, ${colors.backgroundMiddle}, ${colors.backgroundEnd});
                         background-size: 300% 300%;
                         animation: gradientShift 6s ease infinite;
-                        transition: opacity 0.6s ease; /* 淡出动画 */
+                        transition: opacity 0.6s ease; /* フェードアウトアニメーション */
                     }
 
                     .welcome.page-clicked {
@@ -98,7 +98,7 @@ const LoadingCover = ({ onFinishLoading }) => {
                         user-select: none;
                         animation: textPulse 3s ease-in-out infinite, fadeInUp 1.5s ease-out forwards;
                         text-align: center;
-                        z-index: 10000; /* 确保文字层级高于背景 */
+                        z-index: 10000; /* テキストのレイヤーを背景より前面に配置 */
                         position: relative;
                     }
 
@@ -115,7 +115,7 @@ const LoadingCover = ({ onFinishLoading }) => {
                         animation: rippleExpand 1s ease-out forwards;
                     }
 
-                    /* 动态背景动画 */
+                    /* 動的背景アニメーション */
                     @keyframes gradientShift {
                         0% {
                             background-position: 0% 50%;
@@ -128,7 +128,7 @@ const LoadingCover = ({ onFinishLoading }) => {
                         }
                     }
 
-                    /* 文字呼吸动画 */
+                    /* テキスト呼吸アニメーション */
                     @keyframes textPulse {
                         0%, 100% {
                             transform: scale(1);
@@ -140,7 +140,7 @@ const LoadingCover = ({ onFinishLoading }) => {
                         }
                     }
 
-                    /* 文字淡入动画 */
+                    /* テキストフェードインアニメーション */
                     @keyframes fadeInUp {
                         0% {
                             opacity: 0;
@@ -152,7 +152,7 @@ const LoadingCover = ({ onFinishLoading }) => {
                         }
                     }
 
-                    /* 扩散光圈动画 */
+                    /* 拡散光圈（波紋）アニメーション */
                     @keyframes rippleExpand {
                         to {
                             transform: scale(40);

@@ -1,85 +1,85 @@
-# 部署指南
+# デプロイガイド
 
-## 概述
+## 概要
 
-NotionNext 支持多种部署方式，本指南将详细介绍各种部署选项和最佳实践。
+NotionNext は多様なデプロイ方法をサポートしています。本ガイドでは、各デプロイオプションとベストプラクティスについて詳しく説明します。
 
-## 部署前准备
+## デプロイ前の準備
 
-### 1. 环境变量配置
+### 1. 環境変数の設定
 
-创建 `.env.local` 文件并配置必要的环境变量：
+`.env.local` ファイルを作成し、必要な環境変数を設定します：
 
 ```bash
-# 必需配置
+# 必須設定
 NOTION_PAGE_ID=your-notion-page-id
 
-# 推荐配置
-NEXT_PUBLIC_TITLE=你的博客标题
-NEXT_PUBLIC_DESCRIPTION=你的博客描述
-NEXT_PUBLIC_AUTHOR=作者名称
+# 推奨設定
+NEXT_PUBLIC_TITLE=あなたのブログタイトル
+NEXT_PUBLIC_DESCRIPTION=あなたのブログの説明
+NEXT_PUBLIC_AUTHOR=著者名
 NEXT_PUBLIC_LINK=https://yourdomain.com
 
-# 可选配置
+# オプション設定
 REDIS_URL=redis://localhost:6379
 NEXT_PUBLIC_ANALYTICS_GOOGLE_ID=G-XXXXXXXXXX
 ```
 
-### 2. 构建测试
+### 2. ビルドテスト
 
-在部署前确保项目能够正常构建：
+デプロイ前に、プロジェクトが正常にビルドできることを確認します：
 
 ```bash
 npm run build
 npm run start
 ```
 
-### 3. 质量检查
+### 3. 品質チェック
 
-运行完整的质量检查：
+総合的な品質チェックを実行します：
 
 ```bash
 npm run quality
 ```
 
-## Vercel 部署（推荐）
+## Vercel デプロイ（推奨）
 
-Vercel 是 Next.js 的官方部署平台，提供最佳的性能和开发体验。
+Vercel は Next.js の公式デプロイプラットフォームであり、最高のパフォーマンスと開発体験を提供します。
 
-### 自动部署
+### 自動デプロイ
 
-1. **连接 GitHub**
-   - 访问 [Vercel](https://vercel.com)
-   - 使用 GitHub 账号登录
-   - 导入你的 NotionNext 仓库
+1. **GitHub と連携**
+   - [Vercel](https://vercel.com) にアクセスします。
+   - GitHub アカウントでログインします。
+   - NotionNext リポジトリをインポートします。
 
-2. **配置环境变量**
-   - 在 Vercel 项目设置中添加环境变量
-   - 至少需要配置 `NOTION_PAGE_ID`
+2. **環境変数の設定**
+   - Vercel のプロジェクト設定で環境変数を追加します。
+   - 少なくとも `NOTION_PAGE_ID` の設定が必要です。
 
-3. **部署**
-   - Vercel 会自动检测 Next.js 项目
-   - 每次推送到主分支都会自动部署
+3. **デプロイ**
+   - Vercel が自動的に Next.js プロジェクトを検出します。
+   - メインブランチにプッシュするたびに自動的にデプロイされます。
 
-### 手动部署
+### 手動デプロイ
 
 ```bash
-# 安装 Vercel CLI
+# Vercel CLI のインストール
 npm i -g vercel
 
-# 登录
+# ログイン
 vercel login
 
-# 部署
+# デプロイ
 vercel
 
-# 生产部署
+# 本番デプロイ
 vercel --prod
 ```
 
-### Vercel 配置文件
+### Vercel 設定ファイル
 
-创建 `vercel.json` 文件进行高级配置：
+詳細な設定を行うために `vercel.json` ファイルを作成できます：
 
 ```json
 {
@@ -117,44 +117,44 @@ vercel --prod
 }
 ```
 
-## Netlify 部署
+## Netlify デプロイ
 
-### 自动部署
+### 自動デプロイ
 
-1. **连接仓库**
-   - 访问 [Netlify](https://netlify.com)
-   - 连接你的 GitHub 仓库
+1. **リポジトリと連携**
+   - [Netlify](https://netlify.com) にアクセスします。
+   - GitHub リポジトリと連携します。
 
-2. **构建设置**
+2. **ビルド設定**
    - Build command: `npm run build`
    - Publish directory: `out`
-   - 环境变量: `EXPORT=true`
+   - 環境変数: `EXPORT=true`
 
-3. **环境变量配置**
-   - 在 Netlify 设置中添加环境变量
+3. **環境変数の設定**
+   - Netlify の設定画面で環境変数を追加します。
 
-### 手动部署
+### 手動デプロイ
 
 ```bash
-# 构建静态文件
+# 静的ファイルのビルド
 npm run export
 
-# 安装 Netlify CLI
+# Netlify CLI のインストール
 npm install -g netlify-cli
 
-# 登录
+# ログイン
 netlify login
 
-# 部署
+# デプロイ
 netlify deploy --dir=out
 
-# 生产部署
+# 本番デプロイ
 netlify deploy --prod --dir=out
 ```
 
-### Netlify 配置文件
+### Netlify 設定ファイル
 
-创建 `netlify.toml` 文件：
+`netlify.toml` ファイルを作成します：
 
 ```toml
 [build]
@@ -178,7 +178,7 @@ netlify deploy --prod --dir=out
   status = 301
 ```
 
-## Docker 部署
+## Docker デプロイ
 
 ### Dockerfile
 
@@ -258,34 +258,34 @@ volumes:
   redis_data:
 ```
 
-### 部署命令
+### デプロイコマンド
 
 ```bash
-# 构建镜像
+# イメージのビルド
 docker build -t notionnext .
 
-# 运行容器
+# コンテナの実行
 docker run -p 3000:3000 -e NOTION_PAGE_ID=your-id notionnext
 
-# 使用 Docker Compose
+# Docker Compose を使用
 docker-compose up -d
 ```
 
-## 静态导出部署
+## 静的エクスポート (Static Export) デプロイ
 
-适用于 GitHub Pages、Cloudflare Pages 等静态托管服务。
+GitHub Pages、Cloudflare Pages などの静的ホスティングサービスに適しています。
 
-### 构建静态文件
+### 静的ファイルのビルド
 
 ```bash
 npm run export
 ```
 
-### GitHub Pages 部署
+### GitHub Pages デプロイ
 
-1. **GitHub Actions 配置**
+1. **GitHub Actions の設定**
 
-创建 `.github/workflows/deploy.yml`：
+`.github/workflows/deploy.yml` を作成します：
 
 ```yaml
 name: Deploy to GitHub Pages
@@ -323,44 +323,44 @@ jobs:
         publish_dir: ./out
 ```
 
-2. **配置 Secrets**
-   - 在 GitHub 仓库设置中添加 `NOTION_PAGE_ID`
+2. **Secrets の設定**
+   - GitHub リポジトリの Settings で `NOTION_PAGE_ID` を追加します。
 
-## 性能优化
+## パフォーマンス最適化
 
-### 1. 缓存配置
+### 1. キャッシュ設定
 
 ```bash
-# Redis 缓存
+# Redis キャッシュ
 REDIS_URL=redis://localhost:6379
 
-# 内存缓存
+# メモリキャッシュ
 ENABLE_CACHE=true
 ```
 
-### 2. CDN 配置
+### 2. CDN 設定
 
 ```bash
-# 图片 CDN
+# 画像 CDN
 NEXT_PUBLIC_IMAGE_CDN=https://cdn.example.com
 
-# 静态资源 CDN
+# 静的リソース CDN
 NEXT_PUBLIC_STATIC_CDN=https://static.example.com
 ```
 
-### 3. 压缩优化
+### 3. 圧縮と最適化
 
 ```bash
-# 启用压缩
+# 圧縮の有効化
 NEXT_PUBLIC_COMPRESS=true
 
-# 图片优化
+# 画像の最適化
 NEXT_PUBLIC_IMAGE_OPTIMIZE=true
 ```
 
-## 监控和日志
+## 監視とログ
 
-### 1. 错误监控
+### 1. エラー監視
 
 ```bash
 # Sentry
@@ -370,7 +370,7 @@ NEXT_PUBLIC_SENTRY_DSN=your-sentry-dsn
 NEXT_PUBLIC_LOGROCKET_ID=your-logrocket-id
 ```
 
-### 2. 性能监控
+### 2. パフォーマンス監視
 
 ```bash
 # Vercel Analytics
@@ -380,92 +380,92 @@ NEXT_PUBLIC_VERCEL_ANALYTICS=true
 NEXT_PUBLIC_ANALYTICS_GOOGLE_ID=G-XXXXXXXXXX
 ```
 
-## 故障排除
+## トラブルシューティング
 
-### 常见问题
+### よくある問題
 
-1. **构建失败**
+1. **ビルドの失敗**
    ```bash
-   # 清理缓存
+   # キャッシュのクリア
    npm run clean
    rm -rf node_modules package-lock.json
    npm install
    npm run build
    ```
 
-2. **环境变量问题**
+2. **環境変数の問題**
    ```bash
-   # 检查环境变量
+   # 環境変数のチェック
    npm run quality
    ```
 
-3. **内存不足**
+3. **メモリ不足**
    ```bash
-   # 增加 Node.js 内存限制
+   # Node.js のメモリ制限を増やす
    NODE_OPTIONS="--max-old-space-size=4096" npm run build
    ```
 
-### 调试模式
+### デバッグモード
 
 ```bash
-# 启用调试
+# デバッグを有効にしてビルド
 DEBUG=* npm run build
 
-# Next.js 调试
+# Next.js デバッグ
 NEXT_DEBUG=true npm run dev
 ```
 
-## 安全检查清单
+## セキュリティチェックリスト
 
-- [ ] 环境变量已正确配置
-- [ ] 敏感信息未暴露在客户端
-- [ ] HTTPS 已启用
-- [ ] 安全头部已配置
-- [ ] 依赖包无安全漏洞
-- [ ] 访问日志已启用
-- [ ] 错误监控已配置
+- [ ] 環境変数が正しく設定されている
+- [ ] 機密情報がクライアント側に露出していない
+- [ ] HTTPS が有効になっている
+- [ ] セキュリティヘッダーが設定されている
+- [ ] 依存パッケージに脆弱性がない
+- [ ] アクセスログが有効になっている
+- [ ] エラー監視が設定されている
 
-## 备份和恢复
+## バックアップと復元
 
-### 数据备份
+### データのバックアップ
 
 ```bash
-# 备份 Notion 数据
+# Notion データのバックアップ
 npm run backup-notion
 
-# 备份配置文件
+# 設定ファイルのバックアップ
 tar -czf config-backup.tar.gz .env.local blog.config.js
 ```
 
-### 恢复流程
+### 復元フロー
 
-1. 恢复代码仓库
-2. 恢复环境变量配置
-3. 重新部署应用
-4. 验证功能正常
+1. コードリポジトリを復元する
+2. 環境変数の設定を復元する
+3. アプリケーションを再デプロイする
+4. 機能が正常であることを確認する
 
-## 更新和维护
+## 更新とメンテナンス
 
-### 定期维护
+### 定期メンテナンス
 
 ```bash
-# 检查依赖更新
+# 依存関係の更新チェック
 npm run check-updates
 
-# 更新依赖
+# 依存関係の更新
 npm update
 
-# 安全审计
+# セキュリティ監査
 npm audit
 
-# 性能分析
+# パフォーマンス分析
 npm run analyze
 ```
 
-### 版本升级
+### バージョンアップ
 
-1. 备份当前版本
-2. 更新代码
-3. 测试新功能
-4. 部署到生产环境
-5. 监控运行状态
+1. 現在のバージョンをバックアップする
+2. コードを更新する
+3. 新機能をテストする
+4. 本番環境にデプロイする
+5. 稼働状態を監視する

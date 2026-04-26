@@ -14,7 +14,7 @@ export const Blog = ({ posts }) => {
     return null
   }
 
-  // 博客列表默认显示summary文字，当鼠标指向时显示文章封面。这里可选把summary文字替换成图片占位符。
+  // ブログリストはデフォルトで summary テキストを表示し、マウスを合わせると記事のカバー画像が表示されます。ここでは summary テキストを画像プレースホルダーに置き換えることができます。
   const PROXIO_BLOG_PLACEHOLDER_IMG_URL_1 = siteConfig(
     'PROXIO_BLOG_PLACEHOLDER_IMG_URL_1'
   )
@@ -52,7 +52,7 @@ export const Blog = ({ posts }) => {
           {/* 博客列表 此处优先展示3片文章 */}
           <div className='-mx-4 grid md:grid-cols-2 grid-cols-1'>
             {posts?.map((item, index) => {
-              // 文章封面图片，默认使用占位符 根据index 判断获取的时哪一张图片
+              // 記事のカバー画像。デフォルトではプレースホルダーを使用し、インデックスに基づいて取得する画像を決定します。
               let coverImg = PROXIO_BLOG_PLACEHOLDER_IMG_URL_1
               if (index === 0) {
                 coverImg = PROXIO_BLOG_PLACEHOLDER_IMG_URL_1
@@ -80,7 +80,7 @@ export const Blog = ({ posts }) => {
                         )}
                         {/* 遮罩层，仅覆盖图片部分 */}
                         <div className='absolute inset-0 bg-gray-100 dark:bg-hexo-black-gray transition-all duration-500 group-hover:opacity-50 group-hover:bg-black' />
-                        {/* 鼠标悬停时显示的文字内容 */}
+                        {/* マウスホバー時に表示されるテキスト内容 */}
                         <div className='absolute inset-0 flex items-center justify-center group-hover:scale-110 duration-200 group-hover:text-white'>
                           {!coverImg && (
                             <p className='max-w-[370px] text-base text-body-color dark:text-dark-6 flex items-center justify-center duration-200 group-hover:text-white '>

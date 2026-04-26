@@ -38,7 +38,7 @@ export default function Modal(props) {
     setLoading(true)
   }
 
-  // 修改当前显示的遮罩内容
+  // 現在表示されているマスク（オーバーレイ）の内容を変更します
   function prev() {
     setLoading(true)
     const index = posts?.findIndex(post => post.slug === modalContent.slug)
@@ -143,7 +143,7 @@ export default function Modal(props) {
                     )}
                   </div>
 
-                  {/* 卡片的阴影遮罩，为了凸显图片上的文字 */}
+                  {/* カードの影マスク。画像上のテキストを強調するために使用されます */}
                   <div className='h-1/2 w-full absolute left-0 bottom-0'>
                     <div className='h-full w-full absolute opacity-80 group-hover:opacity-100 transition-all duration-1000 bg-gradient-to-b from-transparent to-black'></div>
                   </div>

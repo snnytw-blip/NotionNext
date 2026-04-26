@@ -2,7 +2,7 @@
 import BLOG from '@/blog.config'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 
-// 预先设置深色模式的脚本内容
+// ダークモードを事前に設定するためのスクリプト内容
 const darkModeScript = `
 (function() {
   const darkMode = localStorage.getItem('darkMode')
@@ -18,7 +18,7 @@ const darkModeScript = `
     if (defaultAppearance === 'dark') {
       shouldBeDark = true
     } else if (defaultAppearance === 'auto') {
-      // 检查是否在深色模式时间范围内
+      // ダークモードの時間範囲内かどうかを確認
       const date = new Date()
       const hours = date.getHours()
       const darkTimeStart = ${BLOG.APPEARANCE_DARK_TIME ? BLOG.APPEARANCE_DARK_TIME[0] : 18}
@@ -28,7 +28,7 @@ const darkModeScript = `
     }
   }
   
-  // 立即设置 html 元素的类
+  // 直ちに html 要素のクラスを設定
   document.documentElement.classList.add(shouldBeDark ? 'dark' : 'light')
 })()
 `
@@ -43,7 +43,7 @@ class MyDocument extends Document {
     return (
       <Html lang={BLOG.LANG}>
         <Head>
-          {/* 预加载字体 */}
+          {/* フォントのプリロード */}
           {BLOG.FONT_AWESOME && (
             <>
               <link
@@ -61,7 +61,7 @@ class MyDocument extends Document {
             </>
           )}
 
-          {/* 预先设置深色模式，避免闪烁 */}
+          {/* ダークモードを事前に設定し、ちらつきを回避 */}
           <script dangerouslySetInnerHTML={{ __html: darkModeScript }} />
         </Head>
 

@@ -3,7 +3,7 @@ import { useRef, useState } from 'react'
 import { handleEmailClick } from '@/lib/plugins/mailEncrypt'
 
 /**
- * 社交联系方式按钮组 可折叠的组件
+ * SNS 連絡先ボタン。折りたたみ可能なコンポーネントです。
  * @returns {JSX.Element}
  * @constructor
  */

@@ -7,7 +7,7 @@ import { useEffect, useRef } from 'react'
 import { useGlobal } from '@/lib/global'
 
 /**
- * 搜索页面的导航条
+ * 検索ページのナビゲーションバー
  * @param {*} props
  * @returns
  */

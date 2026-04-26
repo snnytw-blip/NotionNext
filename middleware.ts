@@ -8,7 +8,7 @@ import BLOG from './blog.config'
  * Clerk 身份验证中间件
  */
 export const config = {
-  // 这里设置白名单，防止静态资源被拦截
+  // ここでホワイトリストを設定し、静的リソースがインターセプトされるのを防ぎます
   matcher: ['/((?!.*\\..*|_next|/sign-in|/auth).*)', '/', '/(api|trpc)(.*)']
 }
 

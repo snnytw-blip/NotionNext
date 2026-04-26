@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 /**
  * 文章锁；通过此组件校验密码访问文章
  * @param {password, validPassword} props
- * @param password 正确的密码
+ * @param password 正しいパスワード
  * @param validPassword(bool) 回调函数，校验正确回调入参为true
  * @returns
  */

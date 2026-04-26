@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import { siteConfig } from '@/lib/config'
 
 /**
- * 可访问性增强组件
- * 提供键盘导航、屏幕阅读器支持、高对比度模式等功能
+ * アクセシビリティ強化コンポーネント
+ * キーボードナビゲーション、スクリーンリーダー対応、高コントラストモードなどの機能を提供
  */
 const Accessibility = () => {
   const [isHighContrast, setIsHighContrast] = useState(false)
@@ -11,7 +11,7 @@ const Accessibility = () => {
   const [isReducedMotion, setIsReducedMotion] = useState(false)
 
   useEffect(() => {
-    // 检查用户偏好设置
+    // ユーザー設定の確認
     const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const prefersHighContrast = window.matchMedia('(prefers-contrast: high)').matches
@@ -19,23 +19,23 @@ const Accessibility = () => {
     setIsReducedMotion(prefersReducedMotion)
     setIsHighContrast(prefersHighContrast)
 
-    // 从localStorage恢复设置
+    // localStorageから設定を復元
     const savedFontSize = localStorage.getItem('accessibility-font-size')
     const savedHighContrast = localStorage.getItem('accessibility-high-contrast')
     
     if (savedFontSize) setFontSize(savedFontSize)
     if (savedHighContrast === 'true') setIsHighContrast(true)
 
-    // 应用设置
+    // 設定の適用
     applyAccessibilitySettings()
 
-    // 添加键盘导航支持
+    // キーボードナビゲーションのサポートを追加
     setupKeyboardNavigation()
 
-    // 添加跳转链接
+    // スキップリンクを追加
     addSkipLinks()
 
-    // 监听媒体查询变化
+    // メディアクエリの変更を監視
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     const contrastQuery = window.matchMedia('(prefers-contrast: high)')
     
@@ -55,31 +55,31 @@ const Accessibility = () => {
   const applyAccessibilitySettings = () => {
     const root = document.documentElement
 
-    // 应用字体大小
+    // フォントサイズの適用
     root.classList.remove('font-small', 'font-normal', 'font-large', 'font-extra-large')
     root.classList.add(`font-${fontSize}`)
 
-    // 应用高对比度模式
+    // 高コントラストモードの適用
     if (isHighContrast) {
       root.classList.add('high-contrast')
     } else {
       root.classList.remove('high-contrast')
     }
 
-    // 应用减少动画
+    // アニメーションの削減を適用
     if (isReducedMotion) {
       root.classList.add('reduce-motion')
     } else {
       root.classList.remove('reduce-motion')
     }
 
-    // 保存到localStorage
+    // localStorageに保存
     localStorage.setItem('accessibility-font-size', fontSize)
     localStorage.setItem('accessibility-high-contrast', isHighContrast.toString())
   }
 
   const setupKeyboardNavigation = () => {
-    // 为所有可交互元素添加焦点指示器
+    // すべてのインタラクティブ要素にフォーカスインジケーターを追加
     const style = document.createElement('style')
     style.textContent = `
       .focus-visible:focus {
@@ -103,7 +103,7 @@ const Accessibility = () => {
         top: 6px;
       }
       
-      /* 高对比度模式样式 */
+      /* 高コントラストモードのスタイル */
       .high-contrast {
         filter: contrast(150%);
       }
@@ -112,20 +112,20 @@ const Accessibility = () => {
         filter: contrast(120%);
       }
       
-      /* 字体大小样式 */
+      /* フォントサイズのスタイル */
       .font-small { font-size: 14px; }
       .font-normal { font-size: 16px; }
       .font-large { font-size: 18px; }
       .font-extra-large { font-size: 20px; }
       
-      /* 减少动画 */
+      /* アニメーションの削減 */
       .reduce-motion * {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
       
-      /* 屏幕阅读器专用文本 */
+      /* スクリーンリーダー専用テキスト */
       .sr-only {
         position: absolute;
         width: 1px;
@@ -140,21 +140,21 @@ const Accessibility = () => {
     `
     document.head.appendChild(style)
 
-    // 添加键盘事件监听
+    // キーボードイベントのリスナーを追加
     document.addEventListener('keydown', (e) => {
-      // Alt + H: 切换高对比度
+      // Alt + H: 高コントラストの切り替え
       if (e.altKey && e.key === 'h') {
         e.preventDefault()
         toggleHighContrast()
       }
       
-      // Alt + +: 增大字体
+      // Alt + +: フォントサイズを大きくする
       if (e.altKey && e.key === '=') {
         e.preventDefault()
         increaseFontSize()
       }
       
-      // Alt + -: 减小字体
+      // Alt + -: フォントサイズを小さくする
       if (e.altKey && e.key === '-') {
         e.preventDefault()
         decreaseFontSize()
@@ -163,16 +163,16 @@ const Accessibility = () => {
   }
 
   const addSkipLinks = () => {
-    // 添加跳转到主内容的链接
+    // メインコンテンツへのスキップリンクを追加
     const skipLink = document.createElement('a')
     skipLink.href = '#main-content'
     skipLink.className = 'skip-link'
-    skipLink.textContent = '跳转到主内容'
-    skipLink.setAttribute('aria-label', '跳转到主内容')
+    skipLink.textContent = 'メインコンテンツへスキップ'
+    skipLink.setAttribute('aria-label', 'メインコンテンツへスキップ')
     
     document.body.insertBefore(skipLink, document.body.firstChild)
 
-    // 确保主内容区域有正确的ID
+    // メインコンテンツエリアに正しいIDがあることを確認
     const mainContent = document.querySelector('main') || document.querySelector('#__next')
     if (mainContent && !mainContent.id) {
       mainContent.id = 'main-content'
@@ -181,7 +181,7 @@ const Accessibility = () => {
 
   const toggleHighContrast = () => {
     setIsHighContrast(!isHighContrast)
-    announceToScreenReader(isHighContrast ? '已关闭高对比度模式' : '已开启高对比度模式')
+    announceToScreenReader(isHighContrast ? '高コントラストモードをオフにしました' : '高コントラストモードをオンにしました')
   }
 
   const increaseFontSize = () => {
@@ -190,7 +190,7 @@ const Accessibility = () => {
     if (currentIndex < sizes.length - 1) {
       const newSize = sizes[currentIndex + 1]
       setFontSize(newSize)
-      announceToScreenReader(`字体大小已调整为${newSize}`)
+      announceToScreenReader(`フォントサイズを${newSize}に調整しました`)
     }
   }
 
@@ -200,7 +200,7 @@ const Accessibility = () => {
     if (currentIndex > 0) {
       const newSize = sizes[currentIndex - 1]
       setFontSize(newSize)
-      announceToScreenReader(`字体大小已调整为${newSize}`)
+      announceToScreenReader(`フォントサイズを${newSize}に調整しました`)
     }
   }
 
@@ -218,20 +218,20 @@ const Accessibility = () => {
     }, 1000)
   }
 
-  // 如果禁用了可访问性功能，不渲染组件
+  // アクセシビリティ機能が無効な場合はコンポーネントをレンダリングしない
   if (!siteConfig('ACCESSIBILITY_ENABLED', true)) {
     return null
   }
 
   return (
     <>
-      {/* 可访问性控制面板 */}
+      {/* アクセシビリティコントロールパネル */}
       <div 
         className="accessibility-controls fixed bottom-4 right-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg z-50 border"
         role="region"
-        aria-label="可访问性控制"
+        aria-label="アクセシビリティ設定"
       >
-        <h3 className="text-sm font-semibold mb-2">可访问性选项</h3>
+        <h3 className="text-sm font-semibold mb-2">アクセシビリティ設定</h3>
         
         <div className="space-y-2">
           <button
@@ -239,23 +239,23 @@ const Accessibility = () => {
             className="block w-full text-left px-2 py-1 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
             aria-pressed={isHighContrast}
           >
-            {isHighContrast ? '关闭' : '开启'}高对比度
+            {isHighContrast ? 'オフ' : 'オン'}高コントラスト
           </button>
           
           <div className="flex items-center space-x-2">
             <button
               onClick={decreaseFontSize}
               className="px-2 py-1 text-sm bg-gray-200 dark:bg-gray-600 rounded hover:bg-gray-300 dark:hover:bg-gray-500"
-              aria-label="减小字体"
+              aria-label="フォントサイズを小さくする"
               disabled={fontSize === 'small'}
             >
               A-
             </button>
-            <span className="text-xs">字体</span>
+            <span className="text-xs">フォント</span>
             <button
               onClick={increaseFontSize}
               className="px-2 py-1 text-sm bg-gray-200 dark:bg-gray-600 rounded hover:bg-gray-300 dark:hover:bg-gray-500"
-              aria-label="增大字体"
+              aria-label="フォントサイズを大きくする"
               disabled={fontSize === 'extra-large'}
             >
               A+
@@ -264,11 +264,11 @@ const Accessibility = () => {
         </div>
         
         <div className="mt-2 text-xs text-gray-600 dark:text-gray-400">
-          快捷键: Alt+H (对比度), Alt+/- (字体)
+          ショートカット: Alt+H (コントラスト), Alt+/- (フォント)
         </div>
       </div>
 
-      {/* 屏幕阅读器公告区域 */}
+      {/* スクリーンリーダー告知エリア */}
       <div aria-live="polite" aria-atomic="true" className="sr-only" />
     </>
   )

@@ -32,7 +32,7 @@ const Catalog = ({ post }) => {
       let prevBBox = null
       let currentSectionId = null
       
-      // 先检查当前视口中的所有标题
+      // 現在のビューポート内のすべてのタイトルを確認します
       for (let i = 0; i < sections.length; ++i) {
         const section = sections[i]
         if (!section || !(section instanceof Element)) continue
@@ -45,7 +45,7 @@ const Catalog = ({ post }) => {
           currentSectionId = section.getAttribute('data-id')
           prevBBox = bbox
         } else {
-          // 找到第一个在视口下方的标题就停止
+          // ビューポートの下にある最初のタイトルを見つけたら停止します
           break
         }
       }
@@ -55,11 +55,11 @@ const Catalog = ({ post }) => {
         currentSectionId = sections[0].getAttribute('data-id')
       }
       
-      // 只有当 ID 变化时才更新状态，减少不必要的渲染
+      // ID が変化した時のみ状態を更新し、不要なレンダリングを減らします
       if (currentSectionId !== activeSection) {
         setActiveSection(currentSectionId)
         
-        // 查找目录中对应的索引并滚动
+        // 目次内の対応するインデックスを見つけてスクロールします
         const index = post?.toc?.findIndex(
           obj => uuidToId(obj.id) === currentSectionId
         )
@@ -73,7 +73,7 @@ const Catalog = ({ post }) => {
     const content = document.querySelector('#container-inner')
     if (!content) return // 防止 content 不存在
     
-    // 添加滚动和内容变化的监听
+    // スクロールと内容変更のリスナーを追加します
     content.addEventListener('scroll', actionSectionScrollSpy)
     
     // 初始执行一次

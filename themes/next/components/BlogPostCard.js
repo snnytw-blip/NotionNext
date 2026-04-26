@@ -14,7 +14,7 @@ const BlogPostCard = ({ post, index, showSummary }) => {
   const { locale } = useGlobal()
   const showPreview =
     siteConfig('NEXT_POST_LIST_PREVIEW', null, CONFIG) && post.blockMap
-  // 动画样式  首屏卡片不用，后面翻出来的加动画
+  // アニメーションスタイル：最初の画面のカードには適用せず、後から表示されるものにアニメーションを追加します
   const aosProps =
     index > 2
       ? {

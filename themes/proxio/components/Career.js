@@ -4,7 +4,7 @@ import { siteConfig } from '@/lib/config'
 import SmartLink from '@/components/SmartLink'
 
 /**
- * 首页的生涯模块
+ * ホームページのキャリアモジュール
  */
 export const Career = () => {
   const Careers = siteConfig('PROXIO_CAREERS')
@@ -16,7 +16,7 @@ export const Career = () => {
         className='bg-gray-1 pb-8 pt-20 dark:bg-black lg:pb-[70px] lg:pt-[120px]'>
         <div className='container'>
           <div className='wow fadeInUp' data-wow-delay='.2s'>
-            {/* 左侧的文字说明板块 */}
+            {/* 左側のテキスト説明ブロック */}
             <div className='w-full px-4 lg:w-1/2'>
               <div className='mb-12 max-w-[540px] lg:mb-0'>
                 <span className='px-3 py-0.5 rounded-2xl dark:bg-dark-1 border border-gray-200 dark:border-[#333333] dark:text-white'>

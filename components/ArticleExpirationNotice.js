@@ -33,7 +33,7 @@ export default function ArticleExpirationNotice({
   // 使用 %%DAYS%% 作为占位符
   const articleExpirationMessage = siteConfig(
     'ARTICLE_EXPIRATION_MESSAGE',
-    '这篇文章发布于 %%DAYS%% 天前，内容可能已过时，请谨慎参考。'
+    'この記事は %%DAYS%% 日前に公開されました。内容は古くなっている可能性があるため、ご注意ください。'
   )
   const articleExpirationMessageParts =
     articleExpirationMessage.split('%%DAYS%%')

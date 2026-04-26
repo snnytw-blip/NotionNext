@@ -5,43 +5,43 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { getQueryParam, getQueryVariable, isBrowser } from '../lib/utils'
 
-// 在next.config.js中扫描所有主题
+// next.config.js で全テーマをスキャン
 export const { THEMES = [] } = getConfig()?.publicRuntimeConfig || {}
 
 /**
- * 获取主题配置
- * @param {string} themeQuery - 主题查询参数（支持多个主题用逗号分隔）
- * @returns {Promise<object>} 主题配置对象
+ * テーマ設定を取得
+ * @param {string} themeQuery - テーマクエリパラメータ（カンマ区切りで複数指定可能）
+ * @returns {Promise<object>} テーマ設定オブジェクト
  */
 export const getThemeConfig = async themeQuery => {
-  // 如果 themeQuery 存在且不等于默认主题，处理多主题情况
+  // themeQuery が存在し、デフォルトテーマと異なる場合のマルチテーマ処理
   if (typeof themeQuery === 'string' && themeQuery.trim()) {
-    // 取 themeQuery 中第一个主题（以逗号为分隔符）
+    // themeQuery から最初のテーマ名を取得（カンマ区切り）
     const themeName = themeQuery.split(',')[0].trim()
 
-    // 如果 themeQuery 不等于当前默认主题，则加载指定主题的配置
+    // themeQuery が現在のデフォルトテーマと異なる場合、指定されたテーマの設定をロード
     if (themeName !== BLOG.THEME) {
       try {
-        // 动态导入主题配置
+        // テーマ設定を動的にインポート
         const THEME_CONFIG = await import(`@/themes/${themeName}`)
           .then(m => m.THEME_CONFIG)
           .catch(err => {
             console.error(`Failed to load theme ${themeName}:`, err)
-            return null // 主题加载失败时返回 null 或者其他默认值
+            return null // テーマのロードに失敗した場合は null またはデフォルト値を返す
           })
 
         // 如果主题配置加载成功，返回配置
         if (THEME_CONFIG) {
           return THEME_CONFIG
         } else {
-          // 如果加载失败，返回默认主题配置
+          // ロードに失敗した場合はデフォルトテーマの設定を返す
           console.warn(
             `Loading ${themeName} failed. Falling back to default theme.`
           )
           return ThemeComponents?.THEME_CONFIG
         }
       } catch (error) {
-        // 如果 import 过程中出现异常，返回默认主题配置
+        // インポート中に例外が発生した場合はデフォルトテーマの設定を返す
         console.error(
           `Error loading theme configuration for ${themeName}:`,
           error
@@ -51,12 +51,12 @@ export const getThemeConfig = async themeQuery => {
     }
   }
 
-  // 如果没有 themeQuery 或 themeQuery 与默认主题相同，返回默认主题配置
+  // themeQuery がないか、デフォルトテーマと同じ場合はデフォルト設定を返す
   return ThemeComponents?.THEME_CONFIG
 }
 
 /**
- * 加载全局布局
+ * グローバルレイアウトをロード
  * @param {*} theme
  * @returns
  */
@@ -74,7 +74,7 @@ export const getBaseLayoutByTheme = theme => {
 }
 
 /**
- * 动态获取布局
+ * レイアウトを動的に取得
  * @param {*} props
  */
 export const DynamicLayout = props => {
@@ -84,7 +84,7 @@ export const DynamicLayout = props => {
 }
 
 /**
- * 加载主题文件
+ * テーマファイルをロード
  * @param {*} layoutName
  * @param {*} theme
  * @returns
@@ -98,7 +98,7 @@ export const useLayoutByTheme = ({ layoutName, theme }) => {
   const themeQuery = getQueryParam(router?.asPath, 'theme') || theme
   const isDefaultTheme = !themeQuery || themeQuery === BLOG.THEME
 
-  // 加载非当前默认主题
+  // 現在のデフォルト以外のテーマをロード
   if (!isDefaultTheme) {
     const loadThemeComponents = componentsSource => {
       const components =
@@ -117,7 +117,7 @@ export const useLayoutByTheme = ({ layoutName, theme }) => {
 }
 
 /**
- * 根据路径 获取对应的layout名称
+ * パスに基づいて対応するレイアウト名を取得
  * @param {*} path
  * @returns
  */
@@ -128,8 +128,8 @@ const getLayoutNameByPath = path => {
 }
 
 /**
- * 切换主题时的特殊处理
- * 删除多余的元素
+ * テーマ切り替え時の特殊処理
+ * 不要な要素を削除
  */
 const fixThemeDOM = () => {
   if (isBrowser) {
@@ -150,28 +150,28 @@ const fixThemeDOM = () => {
 }
 
 /**
- * 初始化主题 , 优先级 query > cookies > systemPrefer
+ * テーマの初期化。優先順位: query > cookies > systemPrefer
  * @param isDarkMode
- * @param updateDarkMode 更改主题ChangeState函数
- * @description 读取cookie中存的用户主题
+ * @param updateDarkMode テーマ変更の状態更新関数
+ * @description Cookieに保存されたユーザーテーマを読み込む
  */
 export const initDarkMode = (updateDarkMode, defaultDarkMode) => {
-  // 查看用户设备浏览器是否深色模型
+  // ユーザーデバイスのブラウザがダークモードを好むか確認
   let newDarkMode = isPreferDark()
 
-  // 查看localStorage中用户记录的是否深色模式
+  // localStorage に保存されたユーザーのダークモード設定を確認
   const userDarkMode = loadDarkModeFromLocalStorage()
   if (userDarkMode) {
     newDarkMode = userDarkMode === 'dark' || userDarkMode === 'true'
-    saveDarkModeToLocalStorage(newDarkMode) // 用户手动的才保存
+    saveDarkModeToLocalStorage(newDarkMode) // ユーザーが手動で設定した場合のみ保存
   }
 
-  // 如果站点强制设置默认深色，则优先级改过用
+  // サイトが強制的にデフォルトダークモードを設定している場合の優先処理
   if (defaultDarkMode === 'true') {
     newDarkMode = true
   }
 
-  // url查询条件中是否深色模式
+  // URL クエリパラメータによるダークモード指定を確認
   const queryMode = getQueryVariable('mode')
   if (queryMode) {
     newDarkMode = queryMode === 'dark'
@@ -184,7 +184,7 @@ export const initDarkMode = (updateDarkMode, defaultDarkMode) => {
 }
 
 /**
- * 是否优先深色模式， 根据系统深色模式以及当前时间判断
+ * ダークモードを優先するかどうか。システムのダークモード設定および現在の時間に基づいて判断
  * @returns {*}
  */
 export function isPreferDark() {
@@ -192,7 +192,7 @@ export function isPreferDark() {
     return true
   }
   if (BLOG.APPEARANCE === 'auto') {
-    // 系统深色模式或时间是夜间时，强行置为夜间模式
+    // システムのダークモード設定または夜間時間帯の場合、強制的にダークモードにする
     const date = new Date()
     const prefersDarkMode = window.matchMedia(
       '(prefers-color-scheme: dark)'
@@ -208,7 +208,7 @@ export function isPreferDark() {
 }
 
 /**
- * 读取深色模式
+ * ダークモード設定を読み込む
  * @returns {*}
  */
 export const loadDarkModeFromLocalStorage = () => {
@@ -216,7 +216,7 @@ export const loadDarkModeFromLocalStorage = () => {
 }
 
 /**
- * 保存深色模式
+ * ダークモード設定を保存
  * @param newTheme
  */
 export const saveDarkModeToLocalStorage = newTheme => {

@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 /**
  * OpenWrite公众号导流插件
  * 使用介绍：https://openwrite.cn/guide/readmore/readmore.html#%E4%BA%8C%E3%80%81%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8
- * 登录后台配置你的博客：https://readmore.openwrite.cn/
+ * バックエンドにログインしてブログを設定してください: https://readmore.openwrite.cn/
  * @returns
  */
 const OpenWrite = () => {
@@ -24,7 +24,7 @@ const OpenWrite = () => {
   const cookieAge = siteConfig('OPEN_WRITE_VALIDITY_DURATION', 1)
   // 白名单，想要放行的页面
   const whiteList = siteConfig('OPEN_WRITE_WHITE_LIST', '')
-  // 黄名单，优先级最高，设置后只有这里的路径会被上锁，其他页面自动全部放行
+  // ホワイトリスト。優先度が最も高く、設定するとここに記述されたパスのみがロックされ、他のページはすべて自動的に通過します。
   const yellowList = siteConfig('OPEN_WRITE_YELLOW_LIST', '')
 
   // 登录信息

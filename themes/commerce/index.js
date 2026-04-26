@@ -38,7 +38,7 @@ const LayoutBase = props => {
   const { children, post, floatSlot, slotTop, className } = props
   const { onLoading } = useGlobal()
   const router = useRouter()
-  // 查找页面上的 链接，并便成为可点击
+  // ページ上のリンクを探し、クリック可能にします
   useEffect(() => {
     scanAndConvertToLinks(document.getElementById('theme-commerce'))
   }, [router])

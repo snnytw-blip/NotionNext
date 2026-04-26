@@ -54,7 +54,7 @@ import ArticleExpirationNotice from '@/components/ArticleExpirationNotice'
 const LayoutBase = props => {
   const { children, slotTop, className } = props
 
-  // 全屏模式下的最大宽度
+  // 全画面モード時の最大幅
   const { fullWidth, isDarkMode } = useGlobal()
   const router = useRouter()
 

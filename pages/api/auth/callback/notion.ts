@@ -58,10 +58,10 @@ export default async function handler(
 
     if (params?.status === 200) {
       const redirectQuery = {
-        msg: '成功了' + JSON.stringify(params.data)
+        msg: '成功しました' + JSON.stringify(params.data)
       }
 
-      // 这里将用户数据写入到Notion数据库
+      // ここでユーザーデータを Notion データベースに書き込みます
       res.redirect(
         302,
         `/auth/result?${new URLSearchParams(redirectQuery).toString()}`

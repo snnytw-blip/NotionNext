@@ -23,7 +23,7 @@ export const Brand = () => {
         scrollAmount += scrollSpeed
         scrollContainer.scrollLeft = scrollAmount
 
-        // 如果滚动到内容的一半，立即重置滚动位置
+        // コンテンツの半分までスクロールしたら、すぐにスクロール位置をリセットします
         if (scrollAmount >= scrollContainer.scrollWidth / 2) {
           scrollAmount = 0
         }

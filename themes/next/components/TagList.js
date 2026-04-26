@@ -1,7 +1,7 @@
 import TagItem from './TagItem'
 
 /**
- * 横向的标签列表
+ * 横方向のタグリスト
  * @param tags
  * @param currentTag
  * @returns {JSX.Element}

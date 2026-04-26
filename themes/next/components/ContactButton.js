@@ -1,7 +1,7 @@
 import SmartLink from '@/components/SmartLink'
 
 /**
- * 悬浮在屏幕右下角,联系我的按钮
+ * 画面右下にフローティングする「お問い合わせ」ボタン
  * @returns {JSX.Element}
  * @constructor
  */

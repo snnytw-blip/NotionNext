@@ -4,7 +4,7 @@ import { siteConfig } from '@/lib/config'
 import SmartLink from '@/components/SmartLink'
 
 /**
- * 首页的关于模块
+ * ホームページの「私たちについて」モジュール
  */
 export const About = () => {
   return (
@@ -16,7 +16,7 @@ export const About = () => {
         <div className='container'>
           <div className='wow fadeInUp' data-wow-delay='.2s'>
             <div className='-mx-4 flex flex-wrap items-center'>
-              {/* 左侧的文字说明板块 */}
+              {/* 左側のテキスト説明ブロック */}
               <div className='w-full px-4 lg:w-1/2'>
                 <div className='mb-12 max-w-[540px] lg:mb-0'>
                   <h2 className='mb-5 text-3xl font-bold leading-tight text-dark dark:text-white sm:text-[40px] sm:leading-[1.2]'>
@@ -36,7 +36,7 @@ export const About = () => {
                 </div>
               </div>
 
-              {/* 右侧的图片海报 */}
+              {/* 右側の画像ポスター */}
               <div className='w-full px-4 lg:w-1/2'>
                 <div className='-mx-2 flex flex-wrap sm:-mx-4 lg:-mx-2 xl:-mx-4'>
                   <div className='w-full px-2 sm:w-1/2 sm:px-4 lg:px-2 xl:px-4'>

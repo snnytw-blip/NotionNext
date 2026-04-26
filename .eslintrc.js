@@ -10,23 +10,23 @@ module.exports = {
     'plugin:@next/next/recommended',
     'next',
     'prettier',
-    'plugin:@typescript-eslint/recommended', // 添加 TypeScript 推荐规则
-    'plugin:@typescript-eslint/recommended-requiring-type-checking' // 添加需要类型检查的规则
+    'plugin:@typescript-eslint/recommended', // TypeScript推奨ルールの追加
+    'plugin:@typescript-eslint/recommended-requiring-type-checking' // 型チェックが必要なルールの追加
   ],
-  parser: '@typescript-eslint/parser', // 使用 TypeScript 解析器
+  parser: '@typescript-eslint/parser', // TypeScriptパーサーを使用
   parserOptions: {
     ecmaFeatures: {
       jsx: true
     },
     ecmaVersion: 12,
     sourceType: 'module',
-    project: './tsconfig.eslint.json' // 指向新的 ESLint 配置文件
+    project: './tsconfig.eslint.json' // 新しいESLint設定ファイルを指定
   },
   plugins: [
     'react',
     'react-hooks',
     'prettier',
-    '@typescript-eslint' // 添加 TypeScript 插件
+    '@typescript-eslint' // TypeScriptプラグインを追加
   ],
   settings: {
     react: {
@@ -39,16 +39,16 @@ module.exports = {
     'react/prop-types': 'off',
     'space-before-function-paren': 0,
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
-    '@typescript-eslint/no-unused-vars': 'off', // 关闭未使用的变量报错
-    '@typescript-eslint/explicit-function-return-type': 'off' // 关闭强制函数返回类型声明
+    '@typescript-eslint/no-unused-vars': 'off', // 未使用変数のエラーを無効化
+    '@typescript-eslint/explicit-function-return-type': 'off' // 関数の戻り値型の強制を無効化
   },
   overrides: [
     {
       files: ['.eslintrc.js'],
-      parser: null // 避免对 `.eslintrc.js` 文件使用 TypeScript 解析器
+      parser: null // .eslintrc.jsファイルにTypeScriptパーサーを使用しないようにする
     },
     {
-      files: ['**/*.js'], // Match all .js files 对js的代码规范检查不那么严格
+      files: ['**/*.js'], // すべての.jsファイルにマッチ。JSのコード規約チェックは緩やかに設定
       rules: {
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-argument': 'off',

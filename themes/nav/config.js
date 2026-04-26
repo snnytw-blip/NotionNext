@@ -1,10 +1,10 @@
 const CONFIG = {
-  NAV_INDEX_PAGE: 'about', // 文档首页显示的文章，请确此路径包含在您的notion数据库中
+  NAV_INDEX_PAGE: 'about', // ドキュメントのホームページに表示する記事。このパスが Notion データベースに含まれていることを確認してください。
 
-  NAV_AUTO_SORT: process.env.NEXT_PUBLIC_NAV_AUTO_SORT || true, // 是否自动按分类名 归组排序文章；自动归组可能会打乱您Notion中的文章顺序
+  NAV_AUTO_SORT: process.env.NEXT_PUBLIC_NAV_AUTO_SORT || true, // カテゴリ名で記事を自動的にグループ化して並べ替えるかどうか。自動グループ化により、Notion 内の記事の順序が崩れる可能性があります。
 
   NAV_SHOW_TITLE_TEXT: false, // 标题栏显示文本
-  NAV_USE_CUSTOM_MENU: true, // 使用自定义菜单（可支持子菜单，支持自定义分类图标），若为true则显示所有的category分类
+  NAV_USE_CUSTOM_MENU: true, // カスタムメニューを使用する（サブメニューやカスタムカテゴリボタンをサポート）。true の場合、すべてのカテゴリが表示されます。
 
   // 菜单
   NAV_MENU_CATEGORY: true, // 显示分类

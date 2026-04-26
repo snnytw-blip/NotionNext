@@ -113,7 +113,7 @@ export default function DashboardItemMembership() {
 
         <ul className='text-gray-600 list-disc pl-6'>
           <li>开通会员说明：</li>
-          <li className='font-bold'>这只是一个演示页面，不存在真实功能！</li>
+          <li className='font-bold'>これはデモページであり、実際の機能は存在しません！</li>
           <li>本站会员账号权限为虚拟数字资源，开通后不可退款</li>
           <li>开通会员后可享有对应会员特权的商品折扣，免费权限</li>
           <li>会员特权到期后不享受特权</li>

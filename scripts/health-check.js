@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
 /**
- * 项目健康检查脚本
- * 验证所有优化是否正常工作
+ * プロジェクトヘルスチェックスクリプト
+ * すべての最適化が正常に機能しているか検証します
  */
 
 const fs = require('fs')
 const path = require('path')
 const { execSync } = require('child_process')
 
-// 颜色输出
+// カラー出力
 const colors = {
   reset: '\x1b[0m',
   red: '\x1b[31m',
@@ -38,33 +38,33 @@ function runCommand(command, description, silent = false) {
 }
 
 /**
- * 检查文件是否存在
+ * ファイルの存在確認
  */
 function checkFileExists(filePath, description) {
   const exists = fs.existsSync(filePath)
   if (exists) {
     log(`✅ ${description}`, 'green')
   } else {
-    log(`❌ ${description} - 文件不存在: ${filePath}`, 'red')
+    log(`❌ ${description} - ファイルが存在しません: ${filePath}`, 'red')
   }
   return exists
 }
 
 /**
- * 检查配置文件
+ * 設定ファイルの確認
  */
 function checkConfigFiles() {
-  log('\n📋 检查配置文件...', 'blue')
+  log('\n📋 設定ファイルを確認しています...', 'blue')
   
   const configFiles = [
     { path: 'package.json', name: 'Package.json' },
-    { path: 'next.config.js', name: 'Next.js 配置' },
-    { path: 'tailwind.config.js', name: 'Tailwind 配置' },
-    { path: 'tsconfig.json', name: 'TypeScript 配置' },
-    { path: '.eslintrc.js', name: 'ESLint 配置' },
-    { path: '.prettierrc.js', name: 'Prettier 配置' },
-    { path: 'jest.config.js', name: 'Jest 配置' },
-    { path: '.npmrc', name: 'NPM 配置' }
+    { path: 'next.config.js', name: 'Next.js 設定' },
+    { path: 'tailwind.config.js', name: 'Tailwind 設定' },
+    { path: 'tsconfig.json', name: 'TypeScript 設定' },
+    { path: '.eslintrc.js', name: 'ESLint 設定' },
+    { path: '.prettierrc.js', name: 'Prettier 設定' },
+    { path: 'jest.config.js', name: 'Jest 設定' },
+    { path: '.npmrc', name: 'NPM 設定' }
   ]
   
   let passed = 0
@@ -78,16 +78,16 @@ function checkConfigFiles() {
 }
 
 /**
- * 检查VSCode配置
+ * VSCode 設定の確認
  */
 function checkVSCodeConfig() {
-  log('\n🔧 检查VSCode配置...', 'blue')
+  log('\n🔧 VSCode 設定を確認しています...', 'blue')
   
   const vscodeFiles = [
-    { path: '.vscode/settings.json', name: 'VSCode 设置' },
-    { path: '.vscode/extensions.json', name: 'VSCode 扩展推荐' },
-    { path: '.vscode/launch.json', name: 'VSCode 调试配置' },
-    { path: '.vscode/tasks.json', name: 'VSCode 任务配置' }
+    { path: '.vscode/settings.json', name: 'VSCode 設定' },
+    { path: '.vscode/extensions.json', name: 'VSCode 推奨拡張機能' },
+    { path: '.vscode/launch.json', name: 'VSCode デバッグ設定' },
+    { path: '.vscode/tasks.json', name: 'VSCode タスク設定' }
   ]
   
   let passed = 0
@@ -101,16 +101,16 @@ function checkVSCodeConfig() {
 }
 
 /**
- * 检查脚本文件
+ * スクリプトファイルの確認
  */
 function checkScripts() {
-  log('\n📜 检查脚本文件...', 'blue')
+  log('\n📜 スクリプトファイルを確認しています...', 'blue')
   
   const scriptFiles = [
-    { path: 'scripts/quality-check.js', name: '代码质量检查脚本' },
-    { path: 'scripts/dev-tools.js', name: '开发工具脚本' },
-    { path: 'scripts/setup-git-hooks.js', name: 'Git Hooks 设置脚本' },
-    { path: 'scripts/health-check.js', name: '健康检查脚本' }
+    { path: 'scripts/quality-check.js', name: 'コード品質チェックスクリプト' },
+    { path: 'scripts/dev-tools.js', name: '開発ツールスクリプト' },
+    { path: 'scripts/setup-git-hooks.js', name: 'Git Hooks 設定スクリプト' },
+    { path: 'scripts/health-check.js', name: 'ヘルスチェックスクリプト' }
   ]
   
   let passed = 0
@@ -124,16 +124,16 @@ function checkScripts() {
 }
 
 /**
- * 检查文档文件
+ * ドキュメントファイルの確認
  */
 function checkDocumentation() {
-  log('\n📚 检查文档文件...', 'blue')
+  log('\n📚 ドキュメントファイルを確認しています...', 'blue')
   
   const docFiles = [
-    { path: 'README.md', name: '项目说明文档' },
-    { path: 'DEVELOPMENT.md', name: '开发者指南' },
-    { path: 'DEPLOYMENT.md', name: '部署指南' },
-    { path: 'OPTIMIZATION_SUMMARY.md', name: '优化总结' }
+    { path: 'README.md', name: 'プロジェクト説明ドキュメント' },
+    { path: 'DEVELOPMENT.md', name: '開発者ガイド' },
+    { path: 'DEPLOYMENT.md', name: 'デプロイガイド' },
+    { path: 'OPTIMIZATION_SUMMARY.md', name: '最適化まとめ' }
   ]
   
   let passed = 0
@@ -147,16 +147,16 @@ function checkDocumentation() {
 }
 
 /**
- * 检查测试文件
+ * テストファイルの確認
  */
 function checkTests() {
-  log('\n🧪 检查测试文件...', 'blue')
+  log('\n🧪 テストファイルを確認しています...', 'blue')
   
   const testFiles = [
-    { path: '__tests__/components/LazyImage.test.js', name: 'LazyImage 组件测试' },
-    { path: '__tests__/lib/utils/validation.test.js', name: '验证工具测试' },
-    { path: 'jest.setup.js', name: 'Jest 设置文件' },
-    { path: 'jest.env.js', name: 'Jest 环境配置' }
+    { path: '__tests__/components/LazyImage.test.js', name: 'LazyImage コンポーネントテスト' },
+    { path: '__tests__/lib/utils/validation.test.js', name: 'バリデーションツールテスト' },
+    { path: 'jest.setup.js', name: 'Jest セットアップファイル' },
+    { path: 'jest.env.js', name: 'Jest 環境設定' }
   ]
   
   let passed = 0
@@ -170,29 +170,29 @@ function checkTests() {
 }
 
 /**
- * 检查依赖安装
+ * 依存関係のインストール確認
  */
 function checkDependencies() {
-  log('\n📦 检查依赖安装...', 'blue')
+  log('\n📦 依存関係のインストールを確認しています...', 'blue')
   
   if (!fs.existsSync('node_modules')) {
-    log('❌ node_modules 目录不存在，请运行 npm install', 'red')
+    log('❌ node_modules ディレクトリが存在しません。npm install を実行してください', 'red')
     return { passed: 0, total: 1 }
   }
   
-  log('✅ node_modules 目录存在', 'green')
+  log('✅ node_modules ディレクトリが存在します', 'green')
   
-  // 检查关键依赖
+  // 主要な依存関係の確認
   const keyDeps = ['next', 'react', 'tailwindcss', '@testing-library/react', 'jest']
   let passed = 1 // node_modules 存在
   
   keyDeps.forEach(dep => {
     const depPath = path.join('node_modules', dep)
     if (fs.existsSync(depPath)) {
-      log(`✅ ${dep} 已安装`, 'green')
+      log(`✅ ${dep} がインストールされています`, 'green')
       passed++
     } else {
-      log(`❌ ${dep} 未安装`, 'red')
+      log(`❌ ${dep} がインストールされていません`, 'red')
     }
   })
   
@@ -200,27 +200,27 @@ function checkDependencies() {
 }
 
 /**
- * 运行代码质量检查
+ * コード品質チェックの実行
  */
 function runQualityChecks() {
-  log('\n🔍 运行代码质量检查...', 'blue')
+  log('\n🔍 コード品質チェックを実行しています...', 'blue')
   
   const checks = [
-    { command: 'npm run lint', name: 'ESLint 检查' },
-    { command: 'npm run type-check', name: 'TypeScript 类型检查' },
-    { command: 'npm run format:check', name: 'Prettier 格式检查' }
+    { command: 'npm run lint', name: 'ESLint チェック' },
+    { command: 'npm run type-check', name: 'TypeScript 型チェック' },
+    { command: 'npm run format:check', name: 'Prettier フォーマットチェック' }
   ]
   
   let passed = 0
   checks.forEach(({ command, name }) => {
-    log(`\n🔧 运行 ${name}...`, 'cyan')
+    log(`\n🔧 ${name} を実行中...`, 'cyan')
     const result = runCommand(command, name, true)
     
     if (result.success) {
-      log(`✅ ${name} 通过`, 'green')
+      log(`✅ ${name} 合格`, 'green')
       passed++
     } else {
-      log(`❌ ${name} 失败`, 'red')
+      log(`❌ ${name} 不合格`, 'red')
       if (result.error) {
         console.log(result.error)
       }
@@ -231,27 +231,27 @@ function runQualityChecks() {
 }
 
 /**
- * 测试构建
+ * ビルドのテスト
  */
 function testBuild() {
-  log('\n🏗️ 测试项目构建...', 'blue')
+  log('\n🏗️ プロジェクトのビルドをテストしています...', 'blue')
   
-  log('🔧 运行构建命令...', 'cyan')
-  const result = runCommand('npm run build', '项目构建', true)
+  log('🔧 ビルドコマンドを実行中...', 'cyan')
+  const result = runCommand('npm run build', 'プロジェクトビルド', true)
   
   if (result.success) {
-    log('✅ 项目构建成功', 'green')
+    log('✅ プロジェクトのビルドに成功しました', 'green')
     
-    // 检查构建输出
+    // ビルド出力の確認
     if (fs.existsSync('.next')) {
-      log('✅ .next 目录已生成', 'green')
+      log('✅ .next ディレクトリが生成されました', 'green')
       return { passed: 2, total: 2 }
     } else {
-      log('❌ .next 目录未生成', 'red')
+      log('❌ .next ディレクトリが生成されませんでした', 'red')
       return { passed: 1, total: 2 }
     }
   } else {
-    log('❌ 项目构建失败', 'red')
+    log('❌ プロジェクトのビルドに失敗しました', 'red')
     if (result.error) {
       console.log(result.error)
     }
@@ -260,19 +260,19 @@ function testBuild() {
 }
 
 /**
- * 运行测试
+ * テストの実行
  */
 function runTests() {
-  log('\n🧪 运行测试...', 'blue')
+  log('\n🧪 テストを実行しています...', 'blue')
   
-  log('🔧 运行测试命令...', 'cyan')
-  const result = runCommand('npm test -- --passWithNoTests', '单元测试', true)
+  log('🔧 テストコマンドを実行中...', 'cyan')
+  const result = runCommand('npm test -- --passWithNoTests', 'ユニットテスト', true)
   
   if (result.success) {
-    log('✅ 测试运行成功', 'green')
+    log('✅ テストの実行に成功しました', 'green')
     return { passed: 1, total: 1 }
   } else {
-    log('❌ 测试运行失败', 'red')
+    log('❌ テストの実行に失敗しました', 'red')
     if (result.error) {
       console.log(result.error)
     }
@@ -281,28 +281,28 @@ function runTests() {
 }
 
 /**
- * 检查安全性
+ * セキュリティの確認
  */
 function checkSecurity() {
-  log('\n🔒 检查安全性...', 'blue')
+  log('\n🔒 セキュリティを確認しています...', 'blue')
   
-  log('🔧 运行安全审计...', 'cyan')
-  const result = runCommand('npm audit --audit-level=moderate', '安全审计', true)
+  log('🔧 セキュリティ監査を実行中...', 'cyan')
+  const result = runCommand('npm audit --audit-level=moderate', 'セキュリティ監査', true)
   
   if (result.success) {
-    log('✅ 安全审计通过', 'green')
+    log('✅ セキュリティ監査に合格しました', 'green')
     return { passed: 1, total: 1 }
   } else {
-    log('⚠️  发现安全问题，请运行 npm audit fix', 'yellow')
+    log('⚠️  セキュリティの問題が見つかりました。npm audit fix を実行してください', 'yellow')
     return { passed: 0, total: 1 }
   }
 }
 
 /**
- * 生成健康报告
+ * ヘルスレポートの生成
  */
 function generateHealthReport(results) {
-  log('\n📊 生成健康报告...', 'blue')
+  log('\n📊 ヘルスレポートを生成しています...', 'blue')
   
   const totalPassed = results.reduce((sum, result) => sum + result.passed, 0)
   const totalChecks = results.reduce((sum, result) => sum + result.total, 0)
@@ -315,40 +315,40 @@ function generateHealthReport(results) {
     totalPassed,
     results: results.map((result, index) => ({
       category: [
-        '配置文件',
-        'VSCode配置',
-        '脚本文件',
-        '文档文件',
-        '测试文件',
-        '依赖安装',
-        '代码质量',
-        '项目构建',
-        '单元测试',
-        '安全检查'
+        '設定ファイル',
+        'VSCode設定',
+        'スクリプトファイル',
+        'ドキュメントファイル',
+        'テストファイル',
+        '依存関係インストール',
+        'コード品質',
+        'プロジェクトビルド',
+        'ユニットテスト',
+        'セキュリティチェック'
       ][index],
       ...result
     }))
   }
   
-  // 保存报告
+  // レポートの保存
   const reportPath = path.join(process.cwd(), 'health-report.json')
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2))
   
-  log(`📄 健康报告已保存: ${reportPath}`, 'cyan')
+  log(`📄 ヘルスレポートを保存しました: ${reportPath}`, 'cyan')
   
   return report
 }
 
 /**
- * 主函数
+ * メイン関数
  */
 async function main() {
-  log('🏥 NotionNext 项目健康检查', 'magenta')
+  log('🏥 NotionNext プロジェクトヘルスチェック', 'magenta')
   log('=' .repeat(50), 'cyan')
   
   const results = []
   
-  // 运行所有检查
+  // すべてのチェックを実行
   results.push(checkConfigFiles())
   results.push(checkVSCodeConfig())
   results.push(checkScripts())
@@ -360,36 +360,36 @@ async function main() {
   results.push(runTests())
   results.push(checkSecurity())
   
-  // 生成报告
+  // レポートの生成
   const report = generateHealthReport(results)
   
-  // 输出总结
-  log('\n📋 健康检查总结:', 'magenta')
+  // まとめを出力
+  log('\n📋 ヘルスチェックのまとめ:', 'magenta')
   log('=' .repeat(50), 'cyan')
-  log(`🎯 健康评分: ${report.healthScore}%`, report.healthScore >= 90 ? 'green' : report.healthScore >= 70 ? 'yellow' : 'red')
-  log(`✅ 通过检查: ${report.totalPassed}/${report.totalChecks}`, 'cyan')
+  log(`🎯 ヘルススコア: ${report.healthScore}%`, report.healthScore >= 90 ? 'green' : report.healthScore >= 70 ? 'yellow' : 'red')
+  log(`✅ 合格したチェック: ${report.totalPassed}/${report.totalChecks}`, 'cyan')
   
   if (report.healthScore >= 90) {
-    log('\n🎉 项目健康状况优秀！', 'green')
+    log('\n🎉 プロジェクトの健康状態は非常に良好です！', 'green')
   } else if (report.healthScore >= 70) {
-    log('\n⚠️  项目健康状况良好，但有改进空间', 'yellow')
+    log('\n⚠️  プロジェクトの健康状態は良好ですが、改善の余地があります', 'yellow')
   } else {
-    log('\n❌ 项目健康状况需要改进', 'red')
+    log('\n❌ プロジェクトの健康状態には改善が必要です', 'red')
   }
   
-  log('\n💡 建议:', 'cyan')
-  log('- 运行 npm run quality 进行完整质量检查', 'cyan')
-  log('- 运行 npm run dev-tools 查看开发工具', 'cyan')
-  log('- 查看 DEVELOPMENT.md 了解开发指南', 'cyan')
+  log('\n💡 提案:', 'cyan')
+  log('- npm run quality を実行して完全な品質チェックを行ってください', 'cyan')
+  log('- npm run dev-tools を実行して開発ツールを確認してください', 'cyan')
+  log('- DEVELOPMENT.md を確認して開発ガイドラインを理解してください', 'cyan')
   
-  // 退出码
+  // 終了コード
   process.exit(report.healthScore >= 70 ? 0 : 1)
 }
 
-// 运行主函数
+// メイン関数の実行
 if (require.main === module) {
   main().catch(error => {
-    log(`💥 健康检查过程中发生错误: ${error.message}`, 'red')
+    log(`💥 ヘルスチェック中にエラーが発生しました: ${error.message}`, 'red')
     process.exit(1)
   })
 }

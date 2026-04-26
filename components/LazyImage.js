@@ -131,7 +131,7 @@ export default function LazyImage({
     }
   }, [src, maxWidth, priority])
 
-  // 动态添加width、height和className属性，仅在它们为有效值时添加
+  // width、height、className 属性を、有効な値である場合にのみ動的に追加します
   const imgProps = {
     ref: imageRef,
     src: currentSrc,

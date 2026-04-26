@@ -23,7 +23,7 @@ export const Testimonials = () => {
         scrollAmount += scrollSpeed
         scrollContainer.scrollTop = scrollAmount
 
-        // 如果滚动到内容的一半，立即重置滚动位置
+        // コンテンツの半分までスクロールしたら、すぐにスクロール位置をリセットします
         if (scrollAmount >= scrollContainer.scrollHeight / 2) {
           scrollAmount = 0
         }

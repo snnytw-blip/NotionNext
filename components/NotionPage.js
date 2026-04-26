@@ -106,7 +106,7 @@ const NotionPage = ({ post, className }) => {
         '.notion-collection-page-properties'
       )
 
-      // 遍历这些元素并将其从 DOM 中移除
+      // これらの要素をループして、DOM から削除します
       elements?.forEach(element => {
         element?.remove()
       })

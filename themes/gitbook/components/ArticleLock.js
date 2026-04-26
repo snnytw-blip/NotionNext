@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react'
 /**
  * 加密文章校验组件
  * @param {password, validPassword} props
- * @param password 正确的密码
+ * @param password 正しいパスワード
  * @param validPassword(bool) 回调函数，校验正确回调入参为true
  * @returns
  */

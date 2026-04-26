@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
 /**
- * 最终项目验证脚本
- * 验证所有优化任务是否完成
+ * プロジェクト最終検証スクリプト
+ * すべての最適化タスクが完了しているか検証します
  */
 
 const fs = require('fs')
 const path = require('path')
 
-// 颜色输出
+// カラー出力
 const colors = {
   reset: '\x1b[0m',
   red: '\x1b[31m',
@@ -24,85 +24,85 @@ function log(message, color = 'reset') {
 }
 
 /**
- * 验证优化任务完成情况
+ * 最適化タスクの完了状況を検証
  */
 function validateOptimizationTasks() {
-  log('🎯 验证优化任务完成情况', 'magenta')
+  log('🎯 最適化タスクの完了状況を検証しています', 'magenta')
   log('=' .repeat(60), 'cyan')
   
   const tasks = [
     {
-      name: '项目分析与评估',
+      name: 'プロジェクトの分析と評価',
       checks: [
-        { file: 'OPTIMIZATION_SUMMARY.md', desc: '优化总结文档' },
-        { file: 'package.json', desc: '项目配置文件' }
+        { file: 'OPTIMIZATION_SUMMARY.md', desc: '最適化まとめドキュメント' },
+        { file: 'package.json', desc: 'プロジェクト設定ファイル' }
       ]
     },
     {
-      name: '依赖管理优化',
+      name: '依存関係管理の最適化',
       checks: [
-        { file: '.npmrc', desc: 'NPM 配置文件' },
-        { file: 'package.json', desc: '依赖包更新', validate: validateDependencies }
+        { file: '.npmrc', desc: 'NPM 設定ファイル' },
+        { file: 'package.json', desc: '依存パッケージの更新', validate: validateDependencies }
       ]
     },
     {
-      name: '性能优化',
+      name: 'パフォーマンスの最適化',
       checks: [
-        { file: 'next.config.js', desc: 'Next.js 性能配置', validate: validateNextConfig },
-        { file: 'conf/performance.config.js', desc: '性能配置文件' },
-        { file: 'components/PerformanceMonitor.js', desc: '性能监控组件' }
+        { file: 'next.config.js', desc: 'Next.js パフォーマンス設定', validate: validateNextConfig },
+        { file: 'conf/performance.config.js', desc: 'パフォーマンス設定ファイル' },
+        { file: 'components/PerformanceMonitor.js', desc: 'パフォーマンス監視コンポーネント' }
       ]
     },
     {
-      name: '代码质量提升',
+      name: 'コード品質の向上',
       checks: [
-        { file: 'tsconfig.json', desc: 'TypeScript 配置', validate: validateTSConfig },
-        { file: '.eslintrc.js', desc: 'ESLint 配置' },
-        { file: '.prettierrc.js', desc: 'Prettier 配置' },
-        { file: 'lib/utils/errorHandler.js', desc: '错误处理工具' },
-        { file: 'types/index.ts', desc: '类型定义文件' },
-        { file: 'scripts/quality-check.js', desc: '质量检查脚本' }
+        { file: 'tsconfig.json', desc: 'TypeScript 設定', validate: validateTSConfig },
+        { file: '.eslintrc.js', desc: 'ESLint 設定' },
+        { file: '.prettierrc.js', desc: 'Prettier 設定' },
+        { file: 'lib/utils/errorHandler.js', desc: 'エラー処理ユーティリティ' },
+        { file: 'types/index.ts', desc: '型定義ファイル' },
+        { file: 'scripts/quality-check.js', desc: '品質チェックスクリプト' }
       ]
     },
     {
-      name: 'SEO和可访问性优化',
+      name: 'SEO とアクセシビリティの最適化',
       checks: [
-        { file: 'components/SEO.js', desc: 'SEO 组件优化', validate: validateSEOComponent },
-        { file: 'components/Accessibility.js', desc: '可访问性组件' },
-        { file: 'lib/sitemap.js', desc: '站点地图生成器' }
+        { file: 'components/SEO.js', desc: 'SEO コンポーネント最適化', validate: validateSEOComponent },
+        { file: 'components/Accessibility.js', desc: 'アクセシビリティコンポーネント' },
+        { file: 'lib/sitemap.js', desc: 'サイトマップ生成ツール' }
       ]
     },
     {
-      name: '安全性加固',
+      name: 'セキュリティの強化',
       checks: [
-        { file: 'next.config.js', desc: '安全头部配置', validate: validateSecurityHeaders },
-        { file: 'lib/utils/validation.js', desc: '输入验证工具' },
-        { file: 'lib/middleware/security.js', desc: '安全中间件' },
-        { file: 'lib/config/env-validation.js', desc: '环境变量验证' }
+        { file: 'next.config.js', desc: 'セキュリティヘッダー設定', validate: validateSecurityHeaders },
+        { file: 'lib/utils/validation.js', desc: '入力バリデーションツール' },
+        { file: 'lib/middleware/security.js', desc: 'セキュリティミドルウェア' },
+        { file: 'lib/config/env-validation.js', desc: '環境変数バリデーション' }
       ]
     },
     {
-      name: '开发体验优化',
+      name: '開発体験の最適化',
       checks: [
-        { file: '.vscode/settings.json', desc: 'VSCode 设置' },
-        { file: '.vscode/extensions.json', desc: 'VSCode 扩展推荐' },
-        { file: '.vscode/launch.json', desc: 'VSCode 调试配置' },
-        { file: '.vscode/tasks.json', desc: 'VSCode 任务配置' },
-        { file: 'scripts/dev-tools.js', desc: '开发工具脚本' },
-        { file: 'scripts/setup-git-hooks.js', desc: 'Git Hooks 设置' },
-        { file: 'DEVELOPMENT.md', desc: '开发者指南' }
+        { file: '.vscode/settings.json', desc: 'VSCode 設定' },
+        { file: '.vscode/extensions.json', desc: 'VSCode 推奨拡張機能' },
+        { file: '.vscode/launch.json', desc: 'VSCode デバッグ設定' },
+        { file: '.vscode/tasks.json', desc: 'VSCode タスク設定' },
+        { file: 'scripts/dev-tools.js', desc: '開発ツールスクリプト' },
+        { file: 'scripts/setup-git-hooks.js', desc: 'Git Hooks 設定' },
+        { file: 'DEVELOPMENT.md', desc: '開発者ガイド' }
       ]
     },
     {
-      name: '文档和测试完善',
+      name: 'ドキュメントとテストの充実',
       checks: [
-        { file: 'jest.config.js', desc: 'Jest 配置' },
-        { file: 'jest.setup.js', desc: 'Jest 设置文件' },
-        { file: '__tests__/components/LazyImage.test.js', desc: '组件测试示例' },
-        { file: '__tests__/lib/utils/validation.test.js', desc: '工具函数测试' },
-        { file: 'DEPLOYMENT.md', desc: '部署指南' },
-        { file: '.github/workflows/ci.yml', desc: 'CI/CD 配置' },
-        { file: 'lighthouserc.js', desc: 'Lighthouse 配置' }
+        { file: 'jest.config.js', desc: 'Jest 設定' },
+        { file: 'jest.setup.js', desc: 'Jest セットアップファイル' },
+        { file: '__tests__/components/LazyImage.test.js', desc: 'コンポーネントテスト例' },
+        { file: '__tests__/lib/utils/validation.test.js', desc: 'ユーティリティ関数テスト' },
+        { file: 'DEPLOYMENT.md', desc: 'デプロイガイド' },
+        { file: '.github/workflows/ci.yml', desc: 'CI/CD 設定' },
+        { file: 'lighthouserc.js', desc: 'Lighthouse 設定' }
       ]
     }
   ]
@@ -120,7 +120,7 @@ function validateOptimizationTasks() {
       if (fs.existsSync(check.file)) {
         let isValid = true
         
-        // 运行自定义验证
+        // カスタム検証の実行
         if (check.validate) {
           try {
             isValid = check.validate(check.file)
@@ -134,28 +134,28 @@ function validateOptimizationTasks() {
           completedTasks++
           taskCompleted++
         } else {
-          log(`  ⚠️  ${check.desc} - 配置可能不完整`, 'yellow')
+          log(`  ⚠️  ${check.desc} - 設定が不完全な可能性があります`, 'yellow')
         }
       } else {
-        log(`  ❌ ${check.desc} - 文件不存在`, 'red')
+        log(`  ❌ ${check.desc} - ファイルが存在しません`, 'red')
       }
     })
     
     const taskProgress = Math.round((taskCompleted / task.checks.length) * 100)
-    log(`  📊 任务完成度: ${taskProgress}%`, taskProgress === 100 ? 'green' : taskProgress >= 80 ? 'yellow' : 'red')
+    log(`  📊 タスク完了度: ${taskProgress}%`, taskProgress === 100 ? 'green' : taskProgress >= 80 ? 'yellow' : 'red')
   })
   
   return { completed: completedTasks, total: totalTasks }
 }
 
 /**
- * 验证依赖包更新
+ * 依存パッケージ更新の検証
  */
 function validateDependencies(filePath) {
   try {
     const packageJson = JSON.parse(fs.readFileSync(filePath, 'utf8'))
     
-    // 检查关键依赖是否已更新
+    // 主要な依存関係が更新されているか確認
     const keyDeps = {
       'next': '^14.2.30',
       'react': '^18.3.1',
@@ -169,7 +169,7 @@ function validateDependencies(filePath) {
       }
     }
     
-    // 检查新增的脚本
+    // 新規追加されたスクリプトの確認
     const requiredScripts = ['quality', 'pre-commit', 'dev-tools', 'health-check', 'test']
     for (const script of requiredScripts) {
       if (!packageJson.scripts?.[script]) {
@@ -184,13 +184,13 @@ function validateDependencies(filePath) {
 }
 
 /**
- * 验证Next.js配置
+ * Next.js 設定の検証
  */
 function validateNextConfig(filePath) {
   try {
     const content = fs.readFileSync(filePath, 'utf8')
     
-    // 检查性能优化配置
+    // パフォーマンス最適化設定の確認
     const requiredConfigs = [
       'compress: true',
       'poweredByHeader: false',
@@ -207,13 +207,13 @@ function validateNextConfig(filePath) {
 }
 
 /**
- * 验证TypeScript配置
+ * TypeScript 設定の検証
  */
 function validateTSConfig(filePath) {
   try {
     const tsConfig = JSON.parse(fs.readFileSync(filePath, 'utf8'))
     
-    // 检查严格模式配置
+    // 厳格モード設定の確認
     const strictOptions = [
       'noImplicitAny',
       'noImplicitReturns',
@@ -230,13 +230,13 @@ function validateTSConfig(filePath) {
 }
 
 /**
- * 验证SEO组件
+ * SEO コンポーネントの検証
  */
 function validateSEOComponent(filePath) {
   try {
     const content = fs.readFileSync(filePath, 'utf8')
     
-    // 检查SEO优化功能
+    // SEO 最適化機能の確認
     const seoFeatures = [
       'generateStructuredData',
       'og:image:width',
@@ -252,13 +252,13 @@ function validateSEOComponent(filePath) {
 }
 
 /**
- * 验证安全头部配置
+ * セキュリティヘッダー設定の検証
  */
 function validateSecurityHeaders(filePath) {
   try {
     const content = fs.readFileSync(filePath, 'utf8')
     
-    // 检查安全头部
+    // セキュリティヘッダーの確認
     const securityHeaders = [
       'X-Frame-Options',
       'X-Content-Type-Options',
@@ -274,29 +274,29 @@ function validateSecurityHeaders(filePath) {
 }
 
 /**
- * 生成最终报告
+ * 最終報告の生成
  */
 function generateFinalReport(taskResults) {
-  log('\n📊 最终验证报告', 'magenta')
+  log('\n📊 最終検証報告書', 'magenta')
   log('=' .repeat(60), 'cyan')
   
   const completionRate = Math.round((taskResults.completed / taskResults.total) * 100)
   
-  log(`📈 总体完成度: ${completionRate}%`, completionRate >= 95 ? 'green' : completionRate >= 80 ? 'yellow' : 'red')
-  log(`✅ 已完成任务: ${taskResults.completed}/${taskResults.total}`, 'cyan')
+  log(`📈 全体完了度: ${completionRate}%`, completionRate >= 95 ? 'green' : completionRate >= 80 ? 'yellow' : 'red')
+  log(`✅ 完了済みタスク: ${taskResults.completed}/${taskResults.total}`, 'cyan')
   
   if (completionRate >= 95) {
-    log('\n🎉 恭喜！所有优化任务已基本完成！', 'green')
-    log('🚀 项目已达到生产级别的质量标准', 'green')
+    log('\n🎉 おめでとうございます！すべての最適化タスクがほぼ完了しました！', 'green')
+    log('🚀 プロジェクトはプロダクションレベルの品質基準に達しています', 'green')
   } else if (completionRate >= 80) {
-    log('\n👍 很好！大部分优化任务已完成', 'yellow')
-    log('🔧 建议完善剩余的配置项', 'yellow')
+    log('\n👍 素晴らしい！大部分の最適化タスクが完了しています', 'yellow')
+    log('🔧 残りの設定項目を完成させることをお勧めします', 'yellow')
   } else {
-    log('\n⚠️  还有较多任务需要完成', 'red')
-    log('📋 请参考 OPTIMIZATION_SUMMARY.md 了解详情', 'red')
+    log('\n⚠️  まだ完了すべきタスクが多く残っています', 'red')
+    log('📋 詳細は OPTIMIZATION_SUMMARY.md を参照してください', 'red')
   }
   
-  // 生成报告文件
+  // 報告ファイルの生成
   const report = {
     timestamp: new Date().toISOString(),
     completionRate,
@@ -306,32 +306,32 @@ function generateFinalReport(taskResults) {
   }
   
   fs.writeFileSync('validation-report.json', JSON.stringify(report, null, 2))
-  log('\n📄 详细报告已保存到 validation-report.json', 'cyan')
+  log('\n📄 詳細な報告書を validation-report.json に保存しました', 'cyan')
   
   return report
 }
 
 /**
- * 主函数
+ * メイン関数
  */
 function main() {
-  log('🔍 NotionNext 项目最终验证', 'magenta')
-  log('验证所有优化任务的完成情况', 'cyan')
+  log('🔍 NotionNext プロジェクト最終検証', 'magenta')
+  log('すべての最適化タスクの完了状況を検証しています', 'cyan')
   log('=' .repeat(60), 'cyan')
   
   const taskResults = validateOptimizationTasks()
   const report = generateFinalReport(taskResults)
   
-  log('\n💡 下一步建议:', 'cyan')
-  log('1. 运行 npm run health-check 进行健康检查', 'cyan')
-  log('2. 运行 npm run quality 进行质量检查', 'cyan')
-  log('3. 运行 npm run build 测试构建', 'cyan')
-  log('4. 查看 DEPLOYMENT.md 了解部署方式', 'cyan')
+  log('\n💡 次のステップの提案:', 'cyan')
+  log('1. npm run health-check を実行してヘルスチェックを行う', 'cyan')
+  log('2. npm run quality を実行して品質チェックを行う', 'cyan')
+  log('3. npm run build を実行してビルドをテストする', 'cyan')
+  log('4. DEPLOYMENT.md を確認してデプロイ方法を理解する', 'cyan')
   
   return report.status === 'excellent'
 }
 
-// 运行主函数
+// メイン関数の実行
 if (require.main === module) {
   const success = main()
   process.exit(success ? 0 : 1)

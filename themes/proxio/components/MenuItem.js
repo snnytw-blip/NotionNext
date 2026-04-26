@@ -11,7 +11,7 @@ export const MenuItem = ({ link }) => {
   const hasSubMenu = link?.subMenus?.length > 0
   const router = useRouter()
 
-  // 管理子菜单的展开状态
+  // サブメニューの展開状態を管理します
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false)
 
   const toggleSubMenu = () => {
@@ -37,7 +37,7 @@ export const MenuItem = ({ link }) => {
         </li>
       )}
 
-      {/* 有子菜单的 MenuItem */}
+      {/* サブメニューを持つ MenuItem */}
       {hasSubMenu && (
         <li className='submenu-item group relative whitespace-nowrap'>
           <button

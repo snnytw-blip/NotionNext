@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 /**
  * 此处样式只对当前主题生效
- * 此处不支持 tailwindCSS 的 @apply 语法
+ * ここでは tailwindCSS の @apply 構文はサポートされていません
  * @returns
  */
 const Style = () => {

@@ -1,9 +1,9 @@
 import Announcement from './Announcement'
 
 /**
- * CTA，用于创建一个呼吁用户行动的部分（Call To Action，简称 CTA）。
+ * CTA（Call To Action）：ユーザーに行動を促すセクションを作成するために使用されます。
  * 该组件通过以下方式激励用户进行特定操作
- * 用户的公告栏内容将在此显示
+ * ユーザーのお知らせ欄の内容がここに表示されます
  **/
 export default function CTA({ notice }) {
   return (

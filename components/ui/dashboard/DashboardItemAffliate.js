@@ -163,7 +163,7 @@ export default function DashboardItemAffliate() {
 
         <ul className='text-gray-600 list-disc pl-6'>
           <li>推广说明：</li>
-          <li className='font-bold'>这只是一个演示页面，不存在真实功能！</li>
+          <li className='font-bold'>これはデモページであり、実際の機能は存在しません！</li>
           <li>
             如需提现请联系网站管理员，发送您的账号信息和收款码进行人工提现
           </li>

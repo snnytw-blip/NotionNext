@@ -49,7 +49,7 @@ const BlogPostCard = ({ index, post, showSummary, siteInfo }) => {
                 )}
                 {post.title}
               </h2>
-              {/* 放在图片的阴影遮罩，便于突出文字 */}
+              {/* 画像に配置される影マスク。テキストを際立たせるために使用されます */}
               <div className='h-1/2 w-full absolute left-0 bottom-0 z-20 opacity-75 transition-all duration-200'>
                 <div className='h-full w-full absolute bg-gradient-to-b from-transparent to-black'></div>
               </div>

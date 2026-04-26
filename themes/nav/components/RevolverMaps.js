@@ -21,7 +21,7 @@ function initRevolverMaps () {
   }
 }
 
-// 封装异步加载资源的方法
+// リソースを非同期で読み込むメソッドをカプセル化します
 function loadExternalResource (url) {
   return new Promise((resolve, reject) => {
     const container = document.getElementById('revolvermaps')

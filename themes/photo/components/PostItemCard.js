@@ -6,7 +6,7 @@ import { formatDateFmt } from '@/lib/utils/formatDate'
 import SmartLink from '@/components/SmartLink'
 
 /**
- * 普通的博客卡牌
+ * 一般的なブログカード
  * 带封面图
  */
 const PostItemCard = ({ post, className }) => {

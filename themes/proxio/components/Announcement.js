@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 const NotionPage = dynamic(() => import('@/components/NotionPage'))
 
 /**
- * Magzine主题的公告
+ * Magzine テーマのお知らせ
  */
 const Announcement = ({ post, className }) => {
   //   const { locale } = useGlobal()

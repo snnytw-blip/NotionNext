@@ -2,11 +2,11 @@ import { isBrowser } from '@/lib/utils';
 import { useEffect } from 'react';
 
 /**
- * 样式调整的补丁
+ * スタイル調整用のパッチ
  */
 const useAdjustStyle = () => {
   /**
-   * 避免 callout 含有图片时溢出撑开父容器
+   * callout に画像が含まれる場合に、親コンテナからはみ出すのを防ぐ
    */
   const adjustCalloutImg = () => {
     const callOuts = document.querySelectorAll('.notion-callout-text');

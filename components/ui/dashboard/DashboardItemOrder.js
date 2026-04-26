@@ -105,7 +105,7 @@ export default function DashboardItemOrder() {
         />
         <ul className='text-gray-600 list-disc pl-6'>
           <li>订单说明：</li>
-          <li className='font-bold'>这只是一个演示页面，不存在真实功能！</li>
+          <li className='font-bold'>これはデモページであり、実際の機能は存在しません！</li>
         </ul>
       </div>
     </div>

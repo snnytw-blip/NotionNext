@@ -22,7 +22,7 @@ export default function Header(props) {
   const { customNav, customMenu } = props
   const [isOpen, setOpen] = useState(false)
   const collapseRef = useRef(null)
-  const lastScrollY = useRef(0) // 用于存储上一次的滚动位置
+  const lastScrollY = useRef(0) // 直前のスクロール位置を格納するために使用されます
   const { locale } = useGlobal()
   const router = useRouter()
   const { searchModal } = useMagzineGlobal()
@@ -84,7 +84,7 @@ export default function Header(props) {
       nav && nav.classList.replace('h-14', 'h-20')
     }
 
-    lastScrollY.current = scrollS // 更新上一次的滚动位置
+    lastScrollY.current = scrollS // 直前のスクロール位置を更新します
   }, throttleMs)
 
   const [showSearchInput, changeShowSearchInput] = useState(false)
@@ -107,7 +107,7 @@ export default function Header(props) {
     }
   }
 
-  // 如果 开启自定义菜单，则覆盖Page生成的菜单
+  // カスタムメニューが有効な場合、Page が生成したメニューを上書きします
   if (siteConfig('CUSTOM_MENU')) {
     links = customMenu
   }

@@ -112,7 +112,7 @@ const renderCollapseCode = (codeCollapse, codeCollapseExpandDefault) => {
   for (const codeBlock of codeBlocks) {
     // 判断当前元素是否被包裹
     if (codeBlock.closest('.collapse-wrapper')) {
-      continue // 如果被包裹了，跳过当前循环
+      continue // ラップされている場合は、現在のループをスキップします
     }
 
     const code = codeBlock.querySelector('code')

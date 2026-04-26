@@ -41,7 +41,7 @@ const Header = props => {
           scrollS < 5 ||
           (header && scrollS <= header.clientHeight * 2) // 非首页无大图时影藏顶部 滚动条置顶时隐藏// 非首页无大图时影藏顶部 滚动条置顶时隐藏
         // 是否将导航栏透明
-        const navTransparent = header && scrollS < 300 // 透明导航条的条件
+        const navTransparent = header && scrollS < 300 // ナビゲーションバーを透明にする条件
 
         if (navTransparent) {
           nav && nav.classList.replace('bg-indigo-700', 'bg-none')
