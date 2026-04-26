@@ -30,7 +30,7 @@ export const getThemeConfig = async themeQuery => {
             return null // テーマのロードに失敗した場合は null またはデフォルト値を返す
           })
 
-        // 如果主题配置加载成功，返回配置
+        // ロードに成功した場合は設定を返す
         if (THEME_CONFIG) {
           return THEME_CONFIG
         } else {
