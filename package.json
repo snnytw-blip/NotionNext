@@ -17,7 +17,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "cross-env BUILD_MODE=true next build",
+    "build": "cross-env BUILD_MODE=true next build && node scripts/generate-sitemap.js",
     "start": "next start",
     "post-build": "node scripts/generate-sitemap.js",
     "export": "cross-env BUILD_MODE=true EXPORT=true next build && node scripts/generate-sitemap.js",
