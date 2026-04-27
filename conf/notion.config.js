@@ -21,7 +21,7 @@ module.exports = {
     title: process.env.NEXT_PUBLIC_NOTION_PROPERTY_TITLE || 'title', // タイトル
     status: process.env.NEXT_PUBLIC_NOTION_PROPERTY_STATUS || 'status', // 公開ステータス
     status_publish:
-      process.env.NEXT_PUBLIC_NOTION_PROPERTY_STATUS_PUBLISH || 'Published', // 公開済み
+      process.env.NEXT_PUBLIC_NOTION_PROPERTY_STATUS_PUBLISH || 'published', // 公開済み
     status_invisible:
       process.env.NEXT_PUBLIC_NOTION_PROPERTY_STATUS_INVISIBLE || 'Invisible', // 非表示
     summary: process.env.NEXT_PUBLIC_NOTION_PROPERTY_SUMMARY || 'summary', // 概要
