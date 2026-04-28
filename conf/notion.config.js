@@ -3,6 +3,14 @@
  * Notionにカスタムフィールドを追加した場合は、このファイルを修正してください。
  * このファイルの内容は環境変数で上書き可能ですが、NOTION_CONFIGによる一括上書きはサポートされていません。
  */
+
+// ★ デバッグ: 環境変数のキー存在確認（ビルドログ出力用）
+console.log('[DEBUG ENV] NOTION_TOKEN_V2 key exists:', 'NOTION_TOKEN_V2' in process.env)
+console.log('[DEBUG ENV] NOTION_ACTIVE_USER key exists:', 'NOTION_ACTIVE_USER' in process.env)
+console.log('[DEBUG ENV] NOTION_TOKEN_V2 value preview:', (process.env.NOTION_TOKEN_V2 || '(undefined)').substring(0, 30) + '...')
+console.log('[DEBUG ENV] Available NOTION/TOKEN keys:', Object.keys(process.env).filter(k => k.includes('NOTION') || k.includes('TOKEN') || k.includes('ACCESS')))
+console.log('[DEBUG ENV] ALL env keys count:', Object.keys(process.env).length)
+
 module.exports = {
   // Notionデータベースのインデックス。どのビューをデータソースとして使用するか（0から開始）
   NOTION_INDEX: process.env.NEXT_PUBLIC_NOTION_INDEX || 0,
