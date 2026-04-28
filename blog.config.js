@@ -17,6 +17,8 @@ const BLOG = {
   AUTHOR: 'Mirai AI Lab', // 著者名
   BIO: 'つくばみらい市から、AIの今と未来を思考する。', // プロフィール
   LINK: 'https://mirai-ai-lab.pages.dev', // サイトURL
+  TITLE: 'つくばみらいAIラボ', // サイトタイトル（Notionのデータベース名より優先）
+  DESCRIPTION: 'つくばみらい市から発信する、技術と暮らしの思考ログ。', // サイト説明
   KEYWORDS: 'AI, 生成AI, つくばみらい市, 技術, デジタル', // 検索キーワード
   BLOG_FAVICON: '/favicon.ico', // ファビコン
 
