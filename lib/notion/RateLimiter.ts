@@ -87,7 +87,7 @@ export class RateLimiter {
         this.windowStart = Date.now()
       }
 
-      const minInterval = 300
+      const minInterval = 1000
       const waitTime = Math.max(0, minInterval - (now - this.lastRequestTime))
       if (waitTime > 0) await new Promise(res => setTimeout(res, waitTime))
 
