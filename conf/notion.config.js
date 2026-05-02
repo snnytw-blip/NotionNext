@@ -35,6 +35,12 @@ module.exports = {
     summary: process.env.NEXT_PUBLIC_NOTION_PROPERTY_SUMMARY || 'summary', // 概要
     slug: process.env.NEXT_PUBLIC_NOTION_PROPERTY_SLUG || 'slug', // URLスラッグ
     category: process.env.NEXT_PUBLIC_NOTION_PROPERTY_CATEGORY || 'category', // カテゴリ
+
+
+
+
+    // [task3_category_site_filter] site プロパティを追加
+    site: process.env.NEXT_PUBLIC_NOTION_PROPERTY_SITE || 'site', // サイト識別子
     date: process.env.NEXT_PUBLIC_NOTION_PROPERTY_DATE || 'date', // 日付
     tags: process.env.NEXT_PUBLIC_NOTION_PROPERTY_TAGS || 'tags', // タグ
     icon: process.env.NEXT_PUBLIC_NOTION_PROPERTY_ICON || 'icon', // アイコン
