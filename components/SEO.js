@@ -65,13 +65,11 @@ const SEO = props => {
     NOTION_CONFIG
   )
 
-  const SEO_GOOGLE_SITE_VERIFICATION = siteConfig(
+    const SEO_GOOGLE_SITE_VERIFICATION = siteConfig(
     'SEO_GOOGLE_SITE_VERIFICATION',
     null,
     NOTION_CONFIG
   )
-
-  const BLOG_FAVICON = siteConfig('BLOG_FAVICON', null, NOTION_CONFIG)
 
   const COMMENT_WEBMENTION_ENABLE = siteConfig(
     'COMMENT_WEBMENTION_ENABLE',
@@ -160,8 +158,6 @@ const SEO = props => {
       <meta name='twitter:image' content={image} />
       <meta name='twitter:image:alt' content={title} />
 
-      <link rel='icon' href={BLOG_FAVICON} />
-
       {COMMENT_WEBMENTION_ENABLE && (
         <>
           <link
@@ -208,7 +204,10 @@ const SEO = props => {
       <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
 
       {/* 预加载关键资源 */}
-      <link rel='preload' href='/fonts/inter-var.woff2' as='font' type='font/woff2' crossOrigin='anonymous' />
+            <link rel='preload' href='/fonts/inter-var.woff2' as='font' type='font/woff2' crossOrigin='anonymous' />
+
+      {/* canonical URL [canonicalタグ] */}
+      {url && <link rel='canonical' href={url} />}
 
       {children}
     </Head>
