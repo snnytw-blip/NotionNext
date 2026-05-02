@@ -27,7 +27,7 @@ module.exports = {
   POST_PREVIEW_LINES: process.env.NEXT_PUBLIC_POST_POST_PREVIEW_LINES || 12, // プレビューの行数
   POST_RECOMMEND_COUNT: process.env.NEXT_PUBLIC_POST_RECOMMEND_COUNT || 6, // おすすめ記事の表示数
   POSTS_PER_PAGE: process.env.NEXT_PUBLIC_POST_PER_PAGE || 12, // 1ページあたりの記事数
-  POSTS_SORT_BY: process.env.NEXT_PUBLIC_POST_SORT_BY || 'notion', // 並び替え： 'date'（日付順）, 'notion'（Notionでの順序）
+  POSTS_SORT_BY: process.env.NEXT_PUBLIC_POST_SORT_BY || 'date', // [publish_date対応] 並び替え： 'date'（日付順）, 'notion'（Notionでの順序）
 
   // 記事の有効期限通知（現在はHeoテーマのみ対応）
   ARTICLE_EXPIRATION_DAYS:
