@@ -109,3 +109,27 @@
 - ビルド時、`BUNDLE_ANALYZER` フラグが立つと空データを返す仕様（デバッグ用）
 - 環境変数 `NOTION_TOKEN_V2` 等のデバッグログが `conf/notion.config.js` に残っている
 - `convertToUTC` が独自のタイムゾーンマッピングを使用（dayjs 等の標準ライブラリ未使用）
+
+## Git push に関する注意（PowerShell 環境）
+- このプロジェクトは Windows 上の PowerShell で操作しています。
+- PowerShell では `&&` によるコマンド連結が使えません（構文エラーになります）。
+- 代わりに `;`（セミコロン）で連結してください。
+  - 正: `git add -A; git commit -m "メッセージ"; git push`
+- または、各コマンドを個別に実行してください。
+  - `git add -A`
+  - `git commit -m "メッセージ"`
+  - `git push`
+
+### 日本語文字化けエラーへの対策
+- PowerShell で日本語を含むコミットメッセージを扱うと、文字化けにより `git commit` が失敗することがあります。
+- **基本**: 英数字（ASCII）のみでメッセージを書く。
+- **どうしても日本語を使いたい場合は**、以下のいずれかの方法を推奨する:
+  1. コミットメッセージを UTF-8 (BOM無し) のファイルに書いて `-F` オプションで指定する。
+     ```powershell
+     git add -A; git commit -F commit_msg.txt; git push
+     ```
+  2. PowerShell のコンソールのコードページを UTF-8 に変更してから実行する（環境によっては他コマンドに影響するため注意）。
+     ```powershell
+     chcp 65001
+     git commit -m "日本語メッセージ"
+     ```
