@@ -1,5 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" rx="20" fill="#1a1a2e"/>
-  <text x="50" y="68" text-anchor="middle" font-size="44" font-weight="bold" font-family="system-ui, sans-serif" fill="#e94560">MAL</text>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<!-- Gradient -->
+<linearGradient id="gradMain" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#39F3FF"/>
+<stop offset="100%" stop-color="#0047FF"/>
+</linearGradient>
+<!-- Glow -->
+<filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+<feGaussianBlur stdDeviation="12" result="blur"/>
+<feMerge>
+<feMergeNode in="blur"/>
+<feMergeNode in="SourceGraphic"/>
+</feMerge>
+</filter>
+</defs>
+<!-- Background -->
+<rect width="512" height="512" fill="#000000"/>
+<!-- Hexagon -->
+<g filter="url(#glow)">
+<polygon
+points="256,72 416,164 416,348 256,440 96,348 96,164"
+stroke="url(#gradMain)"
+stroke-width="16"
+fill="rgba(0,0,0,0)"
+stroke-linejoin="round"
+/>
+</g>
+<!-- M -->
+<g filter="url(#glow)">
+<path
+d="
+M160 352
+V176
+L256 272
+L352 176
+V352
+"
+stroke="url(#gradMain)"
+stroke-width="28"
+stroke-linecap="round"
+stroke-linejoin="round"
+fill="none"
+/>
+</g>
 </svg>
 
