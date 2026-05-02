@@ -1,43 +1,26 @@
-import { BeiAnGongAn } from '@/components/BeiAnGongAn'
-import BeiAnSite from '@/components/BeiAnSite'
-import PoweredBy from '@/components/PoweredBy'
-import { siteConfig } from '@/lib/config'
+// [task6_footer] タスク6: 固定文言「© 2026 未来AIラボ」＋お問い合わせリンク
+import Link from 'next/link'
 
 const Footer = ({ title }) => {
-  const d = new Date()
-  const currentYear = d.getFullYear()
-  const since = siteConfig('SINCE')
-  const copyrightDate =
-    parseInt(since) < currentYear ? since + '-' + currentYear : currentYear
-
   return (
-    <footer className='relative z-10 dark:bg-black flex-shrink-0 bg-hexo-light-gray justify-center text-center m-auto w-full leading-6  text-gray-600 dark:text-gray-100 text-sm p-6'>
-      {/* <DarkModeButton/> */}
-      <i className='fas fa-copyright' /> {`${copyrightDate}`}
-      <span>
-        <i className='mx-1 animate-pulse fas fa-heart' />
-        <a
-          href={siteConfig('LINK')}
-          className='underline font-bold  dark:text-gray-300 '>
-          {siteConfig('AUTHOR')}
-        </a>
-        .<br />
-        <BeiAnSite />
-        <BeiAnGongAn />
-        <span className='hidden busuanzi_container_site_pv'>
-          <i className='fas fa-eye' />
-          <span className='px-1 busuanzi_value_site_pv'> </span>
+    <footer className='relative z-10 dark:bg-black flex-shrink-0 bg-hexo-light-gray justify-center text-center m-auto w-full leading-6 text-gray-600 dark:text-gray-100 text-sm p-6'>
+      <div className='flex flex-col items-center gap-2'>
+        <span>
+          © 2026{' '}
+          <Link
+            href='/contact'
+            className='underline font-bold hover:text-gray-900 dark:hover:text-gray-300 transition-colors'
+          >
+            未来AIラボ
+          </Link>
         </span>
-        <span className='pl-2 hidden busuanzi_container_site_uv'>
-          <i className='fas fa-users' />
-          <span className='px-1 busuanzi_value_site_uv'> </span>
-        </span>
-        <h1 className='text-xs pt-4 text-light-400 dark:text-gray-400'>
-          {title} {siteConfig('BIO') && <>|</>} {siteConfig('BIO')}
-        </h1>
-        <PoweredBy className='justify-center' />
-      </span>
-      <br />
+        <Link
+          href='/contact'
+          className='text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors'
+        >
+          お問い合わせ
+        </Link>
+      </div>
     </footer>
   )
 }

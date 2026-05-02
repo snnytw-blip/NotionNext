@@ -7,6 +7,7 @@ module.exports = {
   LAYOUT_MAPPINGS: {
     '-1': 'LayoutBase',
     '/': 'LayoutIndex',
+    '/contact': 'LayoutBase', // [task6_footer] お問い合わせページ
     '/archive': 'LayoutArchive',
     '/page/[page]': 'LayoutPostList',
     '/category/[category]': 'LayoutPostList',
@@ -28,3 +29,4 @@ module.exports = {
     '/dashboard/[[...index]]': 'LayoutDashboard'
   }
 }
+
