@@ -92,7 +92,7 @@ export const BlogPostCardInfo = ({
             passHref
             className='font-light menu-link cursor-pointer text-sm leading-4 mr-3'>
             <i className='far fa-calendar-alt mr-1' />
-            {post?.publishDay || post.lastEditedDay}
+            {formatDateFmt(post?.publishDate, 'yyyy/MM/dd') || post.lastEditedDay}
           </SmartLink>
 
           <div className='md:flex-nowrap flex-wrap md:justify-start inline-block'>
@@ -108,3 +108,4 @@ export const BlogPostCardInfo = ({
     </article>
   )
 }
+
