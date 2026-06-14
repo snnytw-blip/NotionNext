@@ -369,12 +369,20 @@ const getSEOMeta = (props, router, locale) => {
         slug: 'tag',
         type: 'website'
       }
-    case '/category':
+        case '/category':
       return {
         title: `${locale.COMMON.CATEGORY} | ${siteInfo?.title}`,
         description: `${siteInfo?.description}`,
         image: `${siteInfo?.pageCover}`,
         slug: 'category',
+        type: 'website'
+      }
+    case '/contact':
+      return {
+        title: `お問い合わせ | ${siteInfo?.title}`,
+        description: `ご質問・ご意見などがありましたら、お気軽にお問い合わせください。`,
+        image: `${siteInfo?.pageCover}`,
+        slug: 'contact',
         type: 'website'
       }
     default:

@@ -1,10 +1,11 @@
 import { siteConfig } from '@/lib/config'
+import { getGlobalData } from '@/lib/db/getSiteData'
 
 /**
  * お問い合わせページ
  * SSG（output:'export'）対応のため、mailto: リンクを使用した簡易フォーム
  */
-const Contact = () => {
+const Contact = ({ siteInfo, categoryOptions, tagOptions, latestPosts, currentCategory, currentTag, showCategory, showTag, notice, allNavPages }) => {
   // CONTACT_EMAIL は base64 エンコードされているのでデコード
   let email = ''
   try {
@@ -27,7 +28,7 @@ const Contact = () => {
 
       <form
         action={email ? `mailto:${email}` : '#'}
-        method='POST'
+        method='GET'
         encType='text/plain'
         className='bg-white dark:bg-hexo-black-gray rounded-xl shadow p-8 space-y-6'
       >
@@ -121,10 +122,23 @@ const Contact = () => {
   )
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }) {
+  const from = 'contact-props'
+  const props = await getGlobalData({ from, locale })
+
+  // 不要データを削除
+  delete props.allPages
+
+  // SideRight コンポーネント用のプロパティ名をマッピング
+  props.categories = props.categoryOptions
+  props.tags = props.tagOptions
+  props.showCategory = props.categoryOptions && props.categoryOptions.length > 0
+  props.showTag = props.tagOptions && props.tagOptions.length > 0
+
   return {
-    props: {}
+    props
   }
 }
 
 export default Contact
+
