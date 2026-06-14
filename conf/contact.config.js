@@ -2,6 +2,12 @@
  * ソーシャルボタン関連の設定
  */
 module.exports = {
+  // Formspree お問い合わせフォームのエンドポイント
+  // https://formspree.io でフォームを作成し、エンドポイントURLを設定
+  CONTACT_FORMSPREE_ENDPOINT:
+    process.env.NEXT_PUBLIC_CONTACT_FORMSPREE_ENDPOINT ||
+    '',
+
   // ソーシャルリンク。不要な場合は空欄（例：CONTACT_WEIBO:''）にしてください。
   CONTACT_EMAIL:
     (process.env.NEXT_PUBLIC_CONTACT_EMAIL &&
@@ -21,3 +27,4 @@ module.exports = {
   CONTACT_ZHISHIXINGQIU: process.env.NEXT_PUBLIC_CONTACT_ZHISHIXINGQIU || '', // 知識星球
   CONTACT_WEHCHAT_PUBLIC: process.env.NEXT_PUBLIC_CONTACT_WEHCHAT_PUBLIC || '' // WeChat公式アカウント（形式：https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=【xxxxxx】==#wechat_redirect）
 }
+

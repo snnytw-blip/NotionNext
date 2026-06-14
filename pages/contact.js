@@ -3,19 +3,10 @@ import { getGlobalData } from '@/lib/db/getSiteData'
 
 /**
  * お問い合わせページ
- * SSG（output:'export'）対応のため、mailto: リンクを使用した簡易フォーム
+ * Formspree を使用したフォーム送信
  */
 const Contact = ({ siteInfo, categoryOptions, tagOptions, latestPosts, currentCategory, currentTag, showCategory, showTag, notice, allNavPages }) => {
-  // CONTACT_EMAIL は base64 エンコードされているのでデコード
-  let email = ''
-  try {
-    const encoded = siteConfig('CONTACT_EMAIL', '')
-    if (encoded) {
-      email = decodeURIComponent(escape(atob(encoded)))
-    }
-  } catch (e) {
-    // デコードエラー時は空文字
-  }
+  const formEndpoint = siteConfig('CONTACT_FORMSPREE_ENDPOINT', '')
 
   return (
     <div className='max-w-2xl mx-auto px-4 py-12'>
@@ -27,9 +18,8 @@ const Contact = ({ siteInfo, categoryOptions, tagOptions, latestPosts, currentCa
       </p>
 
       <form
-        action={email ? `mailto:${email}` : '#'}
-        method='GET'
-        encType='text/plain'
+        action={formEndpoint || '#'}
+        method='POST'
         className='bg-white dark:bg-hexo-black-gray rounded-xl shadow p-8 space-y-6'
       >
         <div>
@@ -59,7 +49,7 @@ const Contact = ({ siteInfo, categoryOptions, tagOptions, latestPosts, currentCa
           <input
             type='email'
             id='email'
-            name='email'
+            name='_replyto'
             required
             className='w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100'
             placeholder='例: example@example.com'
@@ -108,13 +98,7 @@ const Contact = ({ siteInfo, categoryOptions, tagOptions, latestPosts, currentCa
             送信する
           </button>
           <p className='text-xs text-gray-400 dark:text-gray-500 mt-3'>
-            ※送信ボタンをクリックすると、お使いのメールソフトが起動します。
-            {email && (
-              <>
-                <br />
-                送信先: {email}
-              </>
-            )}
+            ※「送信する」をクリックすると、Formspree 経由でメールが送信されます。
           </p>
         </div>
       </form>
@@ -141,4 +125,3 @@ export async function getStaticProps({ locale }) {
 }
 
 export default Contact
-
