@@ -21,6 +21,7 @@ const BLOG = {
   DESCRIPTION: 'つくばみらい市から発信する、技術と暮らしの思考ログ。', // サイト説明
   KEYWORDS: 'AI, 生成AI, つくばみらい市, 技術, デジタル', // 検索キーワード
   BLOG_FAVICON: '/favicon.ico', // ファビコン
+  AVATAR: '/favicon.svg', // サイトアイコン（アバター）画像。空の場合はNotionDBのアイコンが使われます。
 
   ENABLE_RSS: process.env.NEXT_PUBLIC_ENABLE_RSS || false, // RSSフィードの有効化
 
@@ -62,3 +63,4 @@ const BLOG = {
 }
 
 module.exports = BLOG
+
