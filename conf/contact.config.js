@@ -2,11 +2,11 @@
  * ソーシャルボタン関連の設定
  */
 module.exports = {
-  // Formspree お問い合わせフォームのエンドポイント
+    // Formspree お問い合わせフォームのエンドポイント
   // https://formspree.io でフォームを作成し、エンドポイントURLを設定
   CONTACT_FORMSPREE_ENDPOINT:
     process.env.NEXT_PUBLIC_CONTACT_FORMSPREE_ENDPOINT ||
-    '',
+    'https://formspree.io/f/xykalojg',
 
   // ソーシャルリンク。不要な場合は空欄（例：CONTACT_WEIBO:''）にしてください。
   CONTACT_EMAIL:
